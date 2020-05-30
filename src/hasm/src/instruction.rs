@@ -1,3 +1,5 @@
+use std::collections::hash_map::HashMap;
+
 macro_rules! enum_str {
     ($q:ident enum $name:ident {
         $($variant:ident = $val:expr),*,
@@ -42,8 +44,8 @@ pub enum Jump {
     JEQ = 0b010,
     JGE = 0b011,
     JLT = 0b100,
-    JNE = 0b110,
-    JLE = 0b101,
+    JNE = 0b101,
+    JLE = 0b110,
     JMP = 0b111,
 }}
 
@@ -91,7 +93,7 @@ impl Comp {
             "D&M" => "1000000",
             "D|M" => "1010101",
 
-            _ => "0000000",
+            _ => "-------",
         }
     }
 }
@@ -101,8 +103,46 @@ pub fn make_comp(s: String) -> Comp {
 }
 
 #[derive(Debug)]
+pub enum AInstAddress {
+    Address(u16),
+    Label(String),
+}
+
+#[derive(Debug)]
 pub enum Instruction {
-    AInstruction { address: i32 },
+    AInstruction { address: AInstAddress },
     CInstruction { comp: Comp, dest: Dest, jump: Jump },
-    LInstruction { label_address: i32 },
+    LInstruction { label: String },
+}
+
+pub type SymbolTable = HashMap<String, u16>;
+
+pub fn default_symbols() -> SymbolTable {
+    let default: Vec<(&str, u16)> = vec![
+        ("SP", 0),
+        ("LCL", 1),
+        ("ARG", 2),
+        ("THIS", 3),
+        ("THAT", 4),
+        ("R0", 0),
+        ("R1", 1),
+        ("R2", 2),
+        ("R3", 3),
+        ("R4", 4),
+        ("R5", 5),
+        ("R5", 5),
+        ("R6", 6),
+        ("R7", 7),
+        ("R8", 8),
+        ("R9", 9),
+        ("R10", 10),
+        ("R11", 11),
+        ("R12", 12),
+        ("R13", 13),
+        ("R14", 14),
+        ("R15", 15),
+        ("SCREEN", 0),
+        ("KBD", 0),
+    ];
+    default.into_iter().map(|(l, a)| (l.into(), a)).collect()
 }

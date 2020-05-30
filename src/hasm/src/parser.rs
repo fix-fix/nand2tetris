@@ -9,7 +9,7 @@ pub struct Command {
 #[derive(Debug)]
 pub struct ParseResult {
     pub commands: Vec<Command>,
-    pub inst_counter: i32,
+    pub inst_counter: u16,
 }
 
 pub struct Parser<'a> {
@@ -21,30 +21,80 @@ impl<'a> Parser<'a> {
         Parser { input }
     }
 
-    pub fn parse(&mut self) -> ParseResult {
-        let mut inst_counter = 0;
-        let mut commands = Vec::<Command>::new();
-        for line in self.input.lines() {
-            if let Some(command) = Self::parse_line(line) {
-                inst_counter += 1;
-                commands.push(command);
-            }
-        }
-        ParseResult {
-            commands,
-            inst_counter,
-        }
+    pub fn parse(&self) -> ParseResult {
+        let (_, symbols_parsed) = self.parse_input(None);
+        println!("symbols: {:?}", symbols_parsed);
+        let symbols = self.build_symbols(symbols_parsed);
+        let (result, _) = self.parse_input(Some(&symbols));
+        result
     }
 
-    fn parse_line(line: &str) -> Option<Command> {
-        let stmt = line.split("//").nth(0).unwrap_or_default();
+    pub fn parse_input(&self, symbols: Option<&SymbolTable>) -> (ParseResult, SymbolTable) {
+        let mut inst_counter = 0u16;
+        let mut commands = Vec::<Command>::new();
+        let mut symbols_parsed = SymbolTable::new();
+        for line in self.input.lines() {
+            if let Some(command) = Self::parse_line(line, symbols) {
+                match &command.inst {
+                    Instruction::LInstruction { label } => {
+                        // dbg!("LInstruction", label, inst_counter);
+                        symbols_parsed.insert(label.into(), inst_counter);
+                    }
+                    _ => {
+                        inst_counter += 1;
+                        commands.push(command);
+                    }
+                };
+            } else {
+                println!("Unable to parse line: {}", line);
+            }
+        }
+        (
+            ParseResult {
+                commands,
+                inst_counter,
+            },
+            symbols_parsed,
+        )
+    }
+
+    fn parse_line(line: &str, symbols_maybe: Option<&SymbolTable>) -> Option<Command> {
+        let stmt = line.split("//").nth(0).unwrap_or_default().trim();
+        // println!("parse_line: {:?}, {:?}", &line, &stmt);
         match stmt {
             "" => None,
             x if x.starts_with("@") => {
-                let address = str::parse::<i32>(&x[1..]).ok()?;
+                let label: String = x.chars().skip(1).collect();
+                let address = str::parse::<u16>(&label).ok();
                 Some(Command {
                     raw: x.into(),
-                    inst: Instruction::AInstruction { address },
+                    inst: match address {
+                        Some(address) => Instruction::AInstruction {
+                            address: AInstAddress::Address(address),
+                        },
+                        _ => {
+                            // FIXME: support variables
+                            let addr = if let Some(symbols) = symbols_maybe {
+                                symbols.get(&label)
+                            } else {
+                                None
+                            };
+                            // dbg!(&label, addr);
+                            Instruction::AInstruction {
+                                address: match addr {
+                                    Some(addr) => AInstAddress::Address(*addr),
+                                    _ => AInstAddress::Label(label),
+                                },
+                            }
+                        }
+                    },
+                })
+            }
+            x if x.starts_with("(") => {
+                let label = x[1..x.len() - 1].into();
+                Some(Command {
+                    raw: x.into(),
+                    inst: Instruction::LInstruction { label },
                 })
             }
             x => {
@@ -94,9 +144,15 @@ impl<'a> Parser<'a> {
             _ => Jump::Null,
         }
     }
+
+    pub fn build_symbols(&self, symbols: SymbolTable) -> SymbolTable {
+        let default = default_symbols();
+        // Merge width default, overriding
+        symbols.into_iter().chain(default).collect()
+    }
 }
 
 pub fn parse(content: String) -> ParseResult {
-    let mut parser = Parser::new(&content);
+    let parser = Parser::new(&content);
     parser.parse()
 }
