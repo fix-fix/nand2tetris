@@ -14,31 +14,49 @@ pub struct ParseResult {
 
 pub struct Parser<'a> {
     input: &'a str,
+    var_addr_next: u16,
 }
 
 impl<'a> Parser<'a> {
     pub fn new(input: &'a str) -> Self {
-        Parser { input }
+        Parser {
+            input,
+            var_addr_next: 16,
+        }
     }
 
-    pub fn parse(&self) -> ParseResult {
-        let (_, symbols_parsed) = self.parse_input(None);
-        println!("symbols: {:?}", symbols_parsed);
-        let symbols = self.build_symbols(symbols_parsed);
-        let (result, _) = self.parse_input(Some(&symbols));
+    pub fn parse(mut self) -> ParseResult {
+        let mut symbols = self.build_symbols();
+        self.parse_input(&mut symbols, true); // Build symbols table
+        // println!("symbols: {:?}", symbols);
+        let result = self.parse_input(&mut symbols, false);
+        // println!("symbols final: {:?}", symbols);
         result
     }
 
-    pub fn parse_input(&self, symbols: Option<&SymbolTable>) -> (ParseResult, SymbolTable) {
+    pub fn parse_input(&mut self, symbols: &mut SymbolTable, first_pass: bool) -> ParseResult {
         let mut inst_counter = 0u16;
         let mut commands = Vec::<Command>::new();
-        let mut symbols_parsed = SymbolTable::new();
         for line in self.input.lines() {
             if let Some(command) = Self::parse_line(line, symbols) {
                 match &command.inst {
                     Instruction::LInstruction { label } => {
-                        // dbg!("LInstruction", label, inst_counter);
-                        symbols_parsed.insert(label.into(), inst_counter);
+                        // dbg!(symbols.get(label));
+                        symbols.insert(label.into(), inst_counter);
+                    }
+                    Instruction::AInstruction {
+                        address: AInstAddress::Label(label),
+                    } if !first_pass => {
+                        let addr = self.var_addr_next;
+                        symbols.insert(label.into(), addr);
+                        inst_counter += 1;
+                        commands.push(Command {
+                            inst: Instruction::AInstruction {
+                                address: AInstAddress::Address(addr),
+                            },
+                            ..command
+                        });
+                        self.var_addr_next += 1;
                     }
                     _ => {
                         inst_counter += 1;
@@ -46,19 +64,16 @@ impl<'a> Parser<'a> {
                     }
                 };
             } else {
-                println!("Unable to parse line: {}", line);
-            }
+                // println!("Unable to parse line: {}", line);
+            };
         }
-        (
-            ParseResult {
-                commands,
-                inst_counter,
-            },
-            symbols_parsed,
-        )
+        ParseResult {
+            commands,
+            inst_counter,
+        }
     }
 
-    fn parse_line(line: &str, symbols_maybe: Option<&SymbolTable>) -> Option<Command> {
+    fn parse_line(line: &str, symbols: &mut SymbolTable) -> Option<Command> {
         let stmt = line.split("//").nth(0).unwrap_or_default().trim();
         // println!("parse_line: {:?}, {:?}", &line, &stmt);
         match stmt {
@@ -73,13 +88,7 @@ impl<'a> Parser<'a> {
                             address: AInstAddress::Address(address),
                         },
                         _ => {
-                            // FIXME: support variables
-                            let addr = if let Some(symbols) = symbols_maybe {
-                                symbols.get(&label)
-                            } else {
-                                None
-                            };
-                            // dbg!(&label, addr);
+                            let addr = symbols.get(&label);
                             Instruction::AInstruction {
                                 address: match addr {
                                     Some(addr) => AInstAddress::Address(*addr),
@@ -145,10 +154,8 @@ impl<'a> Parser<'a> {
         }
     }
 
-    pub fn build_symbols(&self, symbols: SymbolTable) -> SymbolTable {
-        let default = default_symbols();
-        // Merge width default, overriding
-        symbols.into_iter().chain(default).collect()
+    pub fn build_symbols(&self) -> SymbolTable {
+        default_symbols()
     }
 }
 

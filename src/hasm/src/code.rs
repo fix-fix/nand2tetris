@@ -10,7 +10,7 @@ pub fn generate_code(parse_result: ParseResult) -> String {
 }
 
 fn generate(inst: Instruction) -> Option<String> {
-    println!("generate: {:?}", inst);
+    // println!("generate: {:?}", inst);
     Some(
         match inst {
             Instruction::AInstruction { address: AInstAddress::Address(address) } => format!("0{:015b}", address),
