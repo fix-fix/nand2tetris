@@ -1,4 +1,6 @@
 #[derive(Debug)]
 pub enum Instruction {
-    Push,
+    Push(String, u16),
+    Pop(String, u16),
+    Arithmetic(String),
 }
