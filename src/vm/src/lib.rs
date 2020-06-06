@@ -1,7 +1,7 @@
-pub mod code;
+mod code;
 pub mod config;
-pub mod instruction;
-pub mod parser;
+mod instruction;
+mod parser;
 
 use std::error::Error;
 use std::fs;
