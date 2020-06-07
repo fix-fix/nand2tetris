@@ -27,24 +27,21 @@ macro_rules! format_asm {
 fn generate(cmd: Command, cmd_index: usize) -> Option<String> {
     // println!("generate: {:?}", cmd.inst);
     let asm: Option<String> = match &cmd.inst {
-        Instruction::Push(seg, addr) => match seg.as_str() {
-            "constant" => Some(format_asm!(
-                "\
-@{addr}
-D=A
-@SP
-A=M
-M=D
-@SP
-M=M+1\
-",
-                addr = addr
-            )),
-            _ => None,
-        },
-        Instruction::Arithmetic(cmd_type) => match cmd_type.as_str() {
-            "add" => Some(format_asm!(
-                "\
+        Instruction::PushPop(x) => generate_inst_pushpop(x, cmd_index),
+        Instruction::Arithmetic(cmd_type) => generate_inst_arithmetic(cmd_type, cmd_index),
+    };
+    if let Some(code) = asm {
+        Some(format!("// {}\n{}\n", cmd.raw, code))
+    } else {
+        println!("Unknown instruction: {:?}", cmd);
+        None
+    }
+}
+
+fn generate_inst_arithmetic(inst: &str, cmd_index: usize) -> Option<String> {
+    match inst {
+        "add" => Some(format_asm!(
+            "\
 @SP
 M=M-1
 @SP
@@ -53,9 +50,9 @@ D=M
 A=A-1
 M=D+M\
 ",
-            )),
-            "sub" => Some(format_asm!(
-                "\
+        )),
+        "sub" => Some(format_asm!(
+            "\
 @SP
 M=M-1
 @SP
@@ -64,16 +61,16 @@ D=M
 A=A-1
 M=M-D\
 ",
-            )),
-            "neg" => Some(format_asm!(
-                "\
+        )),
+        "neg" => Some(format_asm!(
+            "\
 @SP
 A=M-1
 M=-M\
 ",
-            )),
-            "eq" => Some(format_asm!(
-                "\
+        )),
+        "eq" => Some(format_asm!(
+            "\
 @SP
 M=M-1
 @SP
@@ -94,10 +91,10 @@ A=M-1
 M={TRUE}
 ({label_prefix}_CONT)
 ",
-                label_prefix = format!("EQ_LABEL_{}", cmd_index)
-            )),
-            "gt" => Some(format_asm!(
-                "\
+            label_prefix = format!("EQ_LABEL_{}", cmd_index)
+        )),
+        "gt" => Some(format_asm!(
+            "\
 @SP
 M=M-1
 @SP
@@ -118,10 +115,10 @@ A=M-1
 M={TRUE}
 ({label_prefix}_CONT)
 ",
-                label_prefix = format!("JGT_LABEL_{}", cmd_index)
-            )),
-            "lt" => Some(format_asm!(
-                "\
+            label_prefix = format!("JGT_LABEL_{}", cmd_index)
+        )),
+        "lt" => Some(format_asm!(
+            "\
 @SP
 M=M-1
 @SP
@@ -142,17 +139,17 @@ A=M-1
 M={TRUE}
 ({label_prefix}_CONT)
 ",
-                label_prefix = format!("JLT_LABEL_{}", cmd_index)
-            )),
-            "not" => Some(format_asm!(
-                "\
+            label_prefix = format!("JLT_LABEL_{}", cmd_index)
+        )),
+        "not" => Some(format_asm!(
+            "\
 @SP
 A=M-1
 M=!M\
 ",
-            )),
-            "and" => Some(format_asm!(
-                "\
+        )),
+        "and" => Some(format_asm!(
+            "\
 @SP
 M=M-1
 @SP
@@ -161,9 +158,9 @@ D=M
 A=A-1
 M=D&M\
 ",
-            )),
-            "or" => Some(format_asm!(
-                "\
+        )),
+        "or" => Some(format_asm!(
+            "\
 @SP
 M=M-1
 @SP
@@ -172,16 +169,25 @@ D=M
 A=A-1
 M=D|M\
 ",
-            )),
-            _ => None,
-        },
-
+        )),
         _ => None,
-    };
-    if let Some(code) = asm {
-        Some(format!("// {}\n{}\n", cmd.raw, code))
-    } else {
-        println!("Unknown instruction: {:?}", cmd);
-        None
+    }
+}
+
+fn generate_inst_pushpop(inst: &PushPopInstruction, _cmd_index: usize) -> Option<String> {
+    match (&inst.inst_type, inst.segment.as_str()) {
+        (PushPop::Push, "constant") => Some(format_asm!(
+            "\
+@{addr}
+D=A
+@SP
+A=M
+M=D
+@SP
+M=M+1\
+",
+            addr = inst.addr
+        )),
+        _ => None,
     }
 }

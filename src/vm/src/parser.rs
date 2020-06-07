@@ -40,12 +40,16 @@ impl<'a> Parser<'a> {
             [arith] => Some(Instruction::Arithmetic(arith.into())),
             [cmd1, cmd2, cmd3] => match cmd1 {
                 "push" | "pop" => {
-                    let cmd_type = match cmd1 {
-                        "push" => Instruction::Push,
-                        "pop" => Instruction::Pop,
+                    let inst_type = match cmd1 {
+                        "push" => PushPop::Push,
+                        "pop" => PushPop::Pop,
                         _ => unreachable!(),
                     };
-                    Some(cmd_type(cmd2.into(), str::parse::<u16>(&cmd3).ok()?))
+                    Some(Instruction::PushPop(PushPopInstruction {
+                        segment: cmd2.into(),
+                        addr: str::parse::<u16>(&cmd3).ok()?,
+                        inst_type,
+                    }))
                 }
                 _ => None,
             },

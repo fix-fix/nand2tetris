@@ -1,6 +1,18 @@
 #[derive(Debug)]
+pub enum PushPop {
+    Push,
+    Pop,
+}
+
+#[derive(Debug)]
+pub struct PushPopInstruction {
+    pub segment: String,
+    pub addr: u16,
+    pub inst_type: PushPop,
+}
+
+#[derive(Debug)]
 pub enum Instruction {
-    Push(String, u16),
-    Pop(String, u16),
+    PushPop(PushPopInstruction),
     Arithmetic(String),
 }
