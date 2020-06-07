@@ -1,23 +1,25 @@
 use crate::instruction::*;
 
 #[derive(Debug)]
-pub struct Command {
+pub struct Command<'a> {
     pub inst: Instruction,
     pub raw: String,
+    pub module_name: &'a str,
 }
 
 #[derive(Debug)]
-pub struct ParseResult {
-    pub commands: Vec<Command>,
+pub struct ParseResult<'a> {
+    pub commands: Vec<Command<'a>>,
 }
 
 pub struct Parser<'a> {
     input: &'a str,
+    filename: &'a str,
 }
 
 impl<'a> Parser<'a> {
-    pub fn new(input: &'a str) -> Self {
-        Parser { input }
+    pub fn new(input: &'a str, filename: &'a str) -> Self {
+        Parser { input, filename }
     }
 
     pub fn parse(&self) -> ParseResult {
@@ -27,6 +29,7 @@ impl<'a> Parser<'a> {
                 commands.push(Command {
                     inst,
                     raw: line.into(),
+                    module_name: self.get_module_name(),
                 })
             }
         }
@@ -56,9 +59,13 @@ impl<'a> Parser<'a> {
             _ => None,
         }
     }
+
+    fn get_module_name(&self) -> &str {
+        self.filename
+    }
 }
 
-pub fn parse(content: String) -> ParseResult {
-    let parser = Parser::new(&content);
-    parser.parse()
+pub fn create<'a>(content: &'a str, filename: &'a str) -> Parser<'a> {
+    let parser = Parser::new(content, filename);
+    parser
 }
