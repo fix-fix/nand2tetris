@@ -1,4 +1,4 @@
-use crate::instruction::*;
+use crate::instruction::{PushPop::*, *};
 use crate::parser::{Command, ParseResult};
 
 pub fn generate_code(parse_result: ParseResult) -> String {
@@ -174,9 +174,20 @@ M=D|M\
     }
 }
 
+fn get_pointer_base(segment: &str) -> Option<(&'static str, bool)> {
+    match segment {
+        "argument" => Some(("ARG", true)),
+        "local" => Some(("LCL", true)),
+        "temp" => Some(("5", false)),
+        "this" => Some(("THIS", true)),
+        "that" => Some(("THAT", true)),
+        _ => None,
+    }
+}
+
 fn generate_inst_pushpop(inst: &PushPopInstruction, _cmd_index: usize) -> Option<String> {
     match (&inst.inst_type, inst.segment.as_str()) {
-        (PushPop::Push, "constant") => Some(format_asm!(
+        (Push { .. }, "constant") => Some(format_asm!(
             "\
 @{addr}
 D=A
@@ -188,6 +199,55 @@ M=M+1\
 ",
             addr = inst.addr
         )),
-        _ => None,
+        (Push { .. }, segment) => {
+            let (pointer_base, is_relative) = get_pointer_base(segment)?;
+            let asm_set_segment = if is_relative { "A=D+M" } else { "A=D+A" };
+            Some(format_asm!(
+                "\
+@{addr} // @{pointer_base} + offset
+D=A
+@{pointer_base}
+{asm_set_segment}
+D=M
+@SP
+A=M
+M=D
+@SP
+M=M+1\
+",
+                addr = inst.addr,
+                pointer_base = pointer_base,
+                asm_set_segment = asm_set_segment,
+            ))
+        }
+        (Pop { .. }, segment) => {
+            let (pointer_base, is_relative) = get_pointer_base(segment)?;
+            let asm_set_segment = if is_relative { "D=D+M" } else { "D=D+A" };
+            Some(format_asm!(
+                "\
+@SP
+M=M-1
+@SP
+A=M
+D=M
+@R13
+M=D
+@{addr} // @{pointer_base} + offset
+D=A
+@{pointer_base}
+{asm_set_segment}
+@R14
+M=D
+@R13
+D=M
+@R14
+A=M
+M=D\
+",
+                addr = inst.addr,
+                pointer_base = pointer_base,
+                asm_set_segment = asm_set_segment,
+            ))
+        }
     }
 }
