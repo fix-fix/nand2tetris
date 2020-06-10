@@ -15,4 +15,7 @@ pub struct PushPopInstruction {
 pub enum Instruction {
     PushPop(PushPopInstruction),
     Arithmetic(String),
+    Label(String),
+    Goto(String),
+    IfGoto(String),
 }

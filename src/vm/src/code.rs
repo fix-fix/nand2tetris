@@ -29,6 +29,9 @@ fn generate(cmd: Command, cmd_index: usize) -> Option<String> {
     let asm: Option<String> = match &cmd.inst {
         Instruction::PushPop(x) => generate_inst_pushpop(x, cmd_index, &cmd),
         Instruction::Arithmetic(cmd_type) => generate_inst_arithmetic(cmd_type, cmd_index),
+        Instruction::Label(label) => generate_inst_label(label, &cmd),
+        Instruction::Goto(label) => generate_inst_goto(label, &cmd),
+        Instruction::IfGoto(label) => generate_inst_ifgoto(label, &cmd),
     };
     if let Some(code) = asm {
         Some(format!("// {}\n{}\n", cmd.raw, code))
@@ -185,11 +188,14 @@ fn get_pointer_base(segment: &str) -> Option<(&'static str, bool)> {
     }
 }
 
-fn generate_inst_pushpop(inst: &PushPopInstruction, _cmd_index: usize, cmd: &Command) -> Option<String> {
+fn generate_inst_pushpop(
+    inst: &PushPopInstruction,
+    _cmd_index: usize,
+    cmd: &Command,
+) -> Option<String> {
     match (&inst.inst_type, inst.segment.as_str()) {
-        (Push { .. }, "static") => {
-            Some(format_asm!(
-                "\
+        (Push { .. }, "static") => Some(format_asm!(
+            "\
 @{label}.{addr}
 D=M
 @SP
@@ -198,13 +204,11 @@ M=D
 @SP
 M=M+1\
 ",
-                label = cmd.module_name,
-                addr = inst.addr,
-            ))
-        }
-        (Pop { .. }, "static") => {
-            Some(format_asm!(
-                "\
+            label = cmd.module_name,
+            addr = inst.addr,
+        )),
+        (Pop { .. }, "static") => Some(format_asm!(
+            "\
 @SP
 M=M-1
 @SP
@@ -213,10 +217,9 @@ D=M
 @{label}.{addr}
 M=D\
 ",
-                label = cmd.module_name,
-                addr = inst.addr,
-            ))
-        }
+            label = cmd.module_name,
+            addr = inst.addr,
+        )),
         (Push { .. }, "pointer") => {
             let label = if inst.addr == 0 { "THIS" } else { "THAT" };
             Some(format_asm!(
@@ -310,4 +313,33 @@ M=D\
             ))
         }
     }
+}
+
+fn generate_inst_label(label: &str, _cmd: &Command) -> Option<String> {
+    Some(format_asm!("({label})", label = label,))
+}
+
+fn generate_inst_goto(label: &str, _cmd: &Command) -> Option<String> {
+    Some(format_asm!(
+        "\
+@{label}
+0;JMP\
+",
+        label = label,
+    ))
+}
+
+fn generate_inst_ifgoto(label: &str, _cmd: &Command) -> Option<String> {
+    Some(format_asm!(
+        "\
+@SP
+M=M-1
+@SP
+A=M
+D=M
+@{label}
+D;JNE\
+",
+        label = label,
+    ))
 }
