@@ -18,4 +18,6 @@ pub enum Instruction {
     Label(String),
     Goto(String),
     IfGoto(String),
+    Function(String, usize),
+    Return(),
 }
