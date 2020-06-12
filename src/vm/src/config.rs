@@ -1,5 +1,5 @@
 pub struct Config {
-    pub filename: String,
+    pub source_path: String,
 }
 
 impl Config {
@@ -8,7 +8,7 @@ impl Config {
             return Err("not enough arguments");
         }
 
-        let filename = args[1].clone();
-        Ok(Config { filename })
+        let source_path = args[1].clone();
+        Ok(Config { source_path })
     }
 }

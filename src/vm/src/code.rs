@@ -2,12 +2,14 @@ use crate::instruction::{PushPop::*, *};
 use crate::parser::{Command, ParseResult};
 
 pub fn generate_code(parse_result: ParseResult) -> String {
-    parse_result
+    let header = format!("///@module '{}'", parse_result.filename);
+    let body: String = parse_result
         .commands
         .into_iter()
         .enumerate()
         .filter_map(|(cmd_index, cmd)| generate(&cmd, cmd_index))
-        .collect()
+        .collect();
+    format!("{}\n{}", header, body)
 }
 
 // Wrap format! to provide some builtins

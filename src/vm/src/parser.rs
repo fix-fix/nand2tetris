@@ -10,6 +10,7 @@ pub struct Command<'a> {
 #[derive(Debug)]
 pub struct ParseResult<'a> {
     pub commands: Vec<Command<'a>>,
+    pub filename: String,
 }
 
 pub struct Parser<'a> {
@@ -33,7 +34,7 @@ impl<'a> Parser<'a> {
                 })
             }
         }
-        ParseResult { commands: commands }
+        ParseResult { commands: commands, filename: self.filename.into() }
     }
 
     fn parse_line(line: &str) -> Option<Instruction> {
