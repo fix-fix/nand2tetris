@@ -20,4 +20,5 @@ pub enum Instruction {
     IfGoto(String),
     Function(String, usize),
     Return(),
+    Call(String, usize),
 }

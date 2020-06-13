@@ -10,7 +10,7 @@ pub struct Command<'a> {
 #[derive(Debug)]
 pub struct ParseResult<'a> {
     pub commands: Vec<Command<'a>>,
-    pub filename: String,
+    pub module: String,
 }
 
 pub struct Parser<'a> {
@@ -34,13 +34,14 @@ impl<'a> Parser<'a> {
                 })
             }
         }
-        ParseResult { commands: commands, filename: self.filename.into() }
+        ParseResult { commands: commands, module: self.filename.into() }
     }
 
     fn parse_line(line: &str) -> Option<Instruction> {
         let cleaned = line.split("//").nth(0).unwrap_or_default().trim();
         let cmds: Vec<&str> = cleaned.split_whitespace().collect();
         let result = match cmds[..] {
+            ["call", label, n_args] => Some(Instruction::Call(label.into(), str::parse::<usize>(n_args).ok()?)),
             ["function", label, n_args] => Some(Instruction::Function(label.into(), str::parse::<usize>(n_args).ok()?)),
             ["return"] => Some(Instruction::Return()),
             ["label", label] => Some(Instruction::Label(label.into())),

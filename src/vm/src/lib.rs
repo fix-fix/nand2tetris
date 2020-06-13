@@ -21,11 +21,12 @@ fn process_files(config: &config::Config) -> Result<(path::PathBuf, String), Box
             let generated = code::generate_code(parser::create(&contents, filename_stem).parse());
             let mut target = source_path.clone();
             target.set_extension("asm");
-            Ok((target, generated))
+            let bootstrap = code::generate_bootstrap(filename_stem.into());
+            Ok((target, format!("{}\n{}", bootstrap, generated)))
         }
         m if m.is_dir() => {
             let targets = fs::read_dir(&source_path)?;
-            let contents = targets
+            let generated = targets
                 .filter_map(Result::ok)
                 .filter(|f| f.file_name().into_string().unwrap().ends_with(".vm"))
                 .map(|f| -> Result<_, Box<dyn Error>> {
@@ -44,12 +45,13 @@ fn process_files(config: &config::Config) -> Result<(path::PathBuf, String), Box
                 .join("\n");
             let mut target = source_path.clone();
             let filename = source_path
-                .file_name()
+                .file_stem()
                 .and_then(|f| f.to_str())
                 .ok_or("Invalid filename")?;
             target.push(path::Path::new(filename));
             target.set_extension("asm");
-            Ok((target, contents))
+            let bootstrap = code::generate_bootstrap(filename.into());
+            Ok((target, format!("{}\n{}", bootstrap, generated)))
         }
         _ => Err(format!("Invalid source: {}", source_path.to_string_lossy())),
     }?;
