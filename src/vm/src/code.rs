@@ -44,9 +44,15 @@ fn generate(cmd: &Command, cmd_index: usize) -> Option<String> {
         Instruction::Return() => Some(generate_inst_return(cmd)),
         Instruction::PushPop(x) => generate_inst_pushpop(x, cmd),
         Instruction::Arithmetic(cmd_type) => generate_inst_arithmetic(cmd_type, cmd_index),
-        Instruction::Label(label) => Some(generate_inst_label(label, cmd)),
-        Instruction::Goto(label) => Some(generate_inst_goto(label, cmd)),
-        Instruction::IfGoto(label) => Some(generate_inst_ifgoto(label, cmd)),
+        Instruction::Label(label, func_name) => {
+            Some(generate_inst_label(label, cmd, func_name.clone()))
+        }
+        Instruction::Goto(label, func_name) => {
+            Some(generate_inst_goto(label, cmd, func_name.clone()))
+        }
+        Instruction::IfGoto(label, func_name) => {
+            Some(generate_inst_ifgoto(label, cmd, func_name.clone()))
+        }
         #[allow(unreachable_patterns)]
         _ => None,
     };
@@ -343,21 +349,33 @@ M=D\
     }
 }
 
-fn generate_inst_label(label: &str, _cmd: &Command) -> String {
-    format_asm!("({label})", label = label,)
+fn _label_func_prefix(func_name: Option<String>) -> String {
+    match func_name {
+        Some(name) => format!("{}$", name),
+        None => "".into(),
+    }
 }
 
-fn generate_inst_goto(label: &str, _cmd: &Command) -> String {
+fn generate_inst_label(label: &str, _cmd: &Command, func_name: Option<String>) -> String {
     format_asm!(
-        "\
-@{label}
-0;JMP\
-",
+        "({func_prefix}{label})",
         label = label,
+        func_prefix = _label_func_prefix(func_name),
     )
 }
 
-fn generate_inst_ifgoto(label: &str, _cmd: &Command) -> String {
+fn generate_inst_goto(label: &str, _cmd: &Command, func_name: Option<String>) -> String {
+    format_asm!(
+        "\
+@{func_prefix}{label}
+0;JMP\
+",
+        label = label,
+        func_prefix = _label_func_prefix(func_name),
+    )
+}
+
+fn generate_inst_ifgoto(label: &str, _cmd: &Command, func_name: Option<String>) -> String {
     format_asm!(
         "\
 @SP
@@ -365,10 +383,11 @@ M=M-1
 @SP
 A=M
 D=M
-@{label}
+@{func_prefix}{label}
 D;JNE\
 ",
         label = label,
+        func_prefix = _label_func_prefix(func_name),
     )
 }
 

@@ -1,6 +1,8 @@
+use std::default::Default;
+
 use crate::instruction::*;
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct Command<'a> {
     pub inst: Instruction,
     pub raw: String,
@@ -13,40 +15,63 @@ pub struct ParseResult<'a> {
     pub module: String,
 }
 
+#[derive(Debug, Default, Clone)]
+pub struct ParserContext {
+    pub function_name: Option<String>,
+}
+
+#[derive(Debug)]
 pub struct Parser<'a> {
     input: &'a str,
     filename: &'a str,
+    context: ParserContext,
 }
 
 impl<'a> Parser<'a> {
     pub fn new(input: &'a str, filename: &'a str) -> Self {
-        Parser { input, filename }
+        Parser {
+            input,
+            filename,
+            context: Default::default(),
+        }
     }
 
-    pub fn parse(&self) -> ParseResult {
+    pub fn parse(&mut self) -> ParseResult {
         let mut commands = Vec::<Command>::new();
         for line in self.input.lines() {
-            if let Some(inst) = Self::parse_line(line) {
+            if let Some(inst) = self.parse_line(line) {
                 commands.push(Command {
-                    inst,
+                    inst: inst,
                     raw: line.into(),
-                    module_name: self.get_module_name(),
+                    module_name: self.filename,
                 })
             }
         }
-        ParseResult { commands: commands, module: self.filename.into() }
+        ParseResult {
+            commands: commands,
+            module: self.filename.into(),
+        }
     }
 
-    fn parse_line(line: &str) -> Option<Instruction> {
+    fn parse_line(&mut self, line: &str) -> Option<Instruction> {
         let cleaned = line.split("//").nth(0).unwrap_or_default().trim();
         let cmds: Vec<&str> = cleaned.split_whitespace().collect();
         let result = match cmds[..] {
-            ["call", label, n_args] => Some(Instruction::Call(label.into(), str::parse::<usize>(n_args).ok()?)),
-            ["function", label, n_args] => Some(Instruction::Function(label.into(), str::parse::<usize>(n_args).ok()?)),
+            ["call", label, n_args] => Some(Instruction::Call(
+                label.into(),
+                str::parse::<usize>(n_args).ok()?,
+            )),
+            ["function", label, n_args] => {
+                self.context.function_name = Some(label.into());
+                Some(Instruction::Function(
+                    label.into(),
+                    str::parse::<usize>(n_args).ok()?,
+                ))
+            }
             ["return"] => Some(Instruction::Return()),
-            ["label", label] => Some(Instruction::Label(label.into())),
-            ["goto", label] => Some(Instruction::Goto(label.into())),
-            ["if-goto", label] => Some(Instruction::IfGoto(label.into())),
+            ["label", label] => Some(Instruction::Label(label.into(), self.context.function_name.clone())),
+            ["goto", label] => Some(Instruction::Goto(label.into(), self.context.function_name.clone())),
+            ["if-goto", label] => Some(Instruction::IfGoto(label.into(), self.context.function_name.clone())),
             [arith] => Some(Instruction::Arithmetic(arith.into())),
             [cmd1, cmd2, cmd3] => match cmd1 {
                 "push" | "pop" => {
@@ -69,10 +94,6 @@ impl<'a> Parser<'a> {
             eprintln!("Unable to parse line: {}", line);
         }
         result
-    }
-
-    fn get_module_name(&self) -> &str {
-        self.filename
     }
 }
 
