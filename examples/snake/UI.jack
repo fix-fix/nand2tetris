@@ -1,0 +1,40 @@
+class UI {
+  static int block_size;
+  static int border;
+
+  field int _dummy;
+
+  constructor UI new() {
+    let block_size = 8;
+    let border = 4;
+    return this;
+  }
+
+  method void init() {
+    var int border_size;
+    let border_size = border * block_size;
+    do Screen.setColor(true);
+    do Screen.drawRectangle(
+      border_size - 1,
+      border_size - 1,
+      512 - (border_size - 1),
+      256 - (border_size - 1)
+    );
+    do Screen.setColor(false);
+    do Screen.drawRectangle(
+      border_size,
+      border_size,
+      512 - border_size,
+      256 - border_size
+    );
+    return;
+  }
+
+  method void dispose() {
+    do Memory.deAlloc(this);
+    return;
+  }
+}
+
+
+

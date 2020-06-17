@@ -1,0 +1,10 @@
+class Utils {
+	function int modulo(int x, int y) {
+		var int mod;
+		let mod = (x-((x/y)*y));
+		if (mod < 0) {
+			let mod = mod + y;
+		}
+		return mod;
+	}
+}

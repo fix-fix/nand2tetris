@@ -1,0 +1,59 @@
+class Game {
+  static int FPS;
+
+  field Snake snake;
+  field UI ui;
+
+  constructor Game new() {
+    do Screen.clearScreen();
+    let FPS = 30;
+    let ui = UI.new();
+    do ui.init();
+
+    let snake = Snake.new(30, 20);
+    return this;
+  }
+
+  /** Disposes this game. */
+  method void dispose() {
+    do snake.dispose();
+    do Memory.deAlloc(this);
+    return;
+  }
+
+  method void run() {
+    var char key;  // the key currently pressed by the user
+    var boolean exit;
+    var boolean is_over;
+    var int direction;
+    let exit = false;
+    let is_over = false;
+
+    do snake.drawFull();
+
+    while (~exit) {
+      let key = Keyboard.keyPressed();
+
+      if (key = 81)  { let exit = true; }     // q key
+      if (key = 131) { let direction = 1; }   // up arrow
+      if (key = 133) { let direction = 2; }   // down arrow
+      if (key = 130) { let direction = 3; }   // left arrow
+      if (key = 132) { let direction = 4; }   // right arrow
+
+      if (~(direction = 0)) {
+        do snake.setDirection(direction);
+      }
+
+      let is_over = tickGame();
+      let exit = exit | is_over;
+    } // while
+    return;
+  }
+
+  method boolean tickGame() {
+    do snake.advance();
+		do Sys.wait(1000 / FPS);
+    return false;
+  }
+}
+
