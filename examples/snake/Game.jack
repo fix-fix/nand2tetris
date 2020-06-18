@@ -2,17 +2,18 @@ class Game {
   static int FPS, FRAMES_PER_TICK;
   static String msg_game_over;
 
-  field int tick;
+  field int tick, game_counter, GAME_STATE, apple_coords;
   field Snake snake;
   field UI ui;
-  field int GAME_STATE;
 
   constructor Game new() {
     let FPS = 30;
-    let FRAMES_PER_TICK = FPS / 15;
+    let FRAMES_PER_TICK = FPS / 30;
     let msg_game_over = "=== Game Over! ===";
     let GAME_STATE = 0;
     let ui = UI.new();
+    let apple_coords = 42;
+    let game_counter = 0;
     return this;
   }
 
@@ -27,6 +28,7 @@ class Game {
       do ui.init();
       let tick = 0;
       let snake = Snake.new(30, 20);
+      let apple_coords = placeApple(snake);
       do run();
     }
     return;
@@ -76,7 +78,10 @@ class Game {
     var boolean is_over;
     let tick = tick + 1;
     if ((Utils.modulo(tick, FRAMES_PER_TICK) = 0)) {
-      let is_over = snake.advance();
+      let game_counter = game_counter + 1;
+      let is_over = snake.advance(apple_coords);
+      let apple_coords = placeApple(snake);
+      do drawApple();
     }
 		do Sys.wait(1000 / FPS);
     return is_over;
@@ -86,11 +91,30 @@ class Game {
     var char key;
     let GAME_STATE = 2;
     do UI.drawPanel(200, 100, msg_game_over);
+    do snake.dispose();
     while (GAME_STATE = 2) {
       let key = Keyboard.keyPressed();
       if (key = 82)  { let GAME_STATE = 1; }     // R key
       do Sys.wait(1000 / FPS);
     }
+    return;
+  }
+
+  method int placeApple(Snake snake) {
+    var int oldPlace;
+    if (~(snake.getHead() = apple_coords)) {
+      return apple_coords;
+    }
+    let oldPlace = apple_coords;
+    let oldPlace = Utils.modulo(oldPlace + 2341, UI.getBoardIndexSize() - 1);
+    while (snake.isCollided(oldPlace)) {
+      let oldPlace = Utils.modulo(oldPlace + 2341, UI.getBoardIndexSize() - 1);
+    }
+    return oldPlace;
+  }
+
+  method void drawApple() {
+    do UI.drawBlockIndex(true, apple_coords);
     return;
   }
 }

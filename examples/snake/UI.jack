@@ -68,6 +68,7 @@ class UI {
 
   function int getFieldWidth() { return field_width; }
   function int getFieldHeight() { return field_height; }
+  function int getBoardIndexSize() { return field_width * field_height; }
 
   function void drawBlock(boolean color, int x, int y) {
     do Screen.setColor(color);

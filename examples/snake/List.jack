@@ -68,6 +68,16 @@ class List {
     return lastData;
   }
 
+  method void extendLast(int data) {
+    var List tailNode, last;
+    let last = this;
+    while (~(last.getNext() = null)) {
+      let last = last.getNext();
+    }
+    do last.setNext(List.new(data, null));
+    return;
+  }
+
   method List cycleLastToHead() {
     var int newHead;
     var List tail;

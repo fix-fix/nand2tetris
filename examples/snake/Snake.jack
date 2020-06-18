@@ -2,6 +2,7 @@ class Snake {
   static int block_size;
 	field List parts;
 	field int direction; // current direction: 1=up, 2=down, 3=left, 4=right
+	field int prevLast;
 
 	constructor Snake new(int startX, int startY) {
 		let direction = 4;
@@ -13,7 +14,7 @@ class Snake {
   function List initSnakeParts(int startX, int startY) {
     var List l;
     var int initial_length, offset;
-    let initial_length = 30;
+    let initial_length = 4;
     let offset = initial_length;
 
     let l = List.new(UI.fromGameCoordstoIndex(startX - offset, startY), null);
@@ -29,6 +30,10 @@ class Snake {
 		return direction;
 	}
 
+	method int getHead() {
+		return parts.getData();
+	}
+
 	method void setDirection(int dir) {
     var int old_dir_plane, new_dir_plane;
     // Disallow direction change in the same plane
@@ -40,9 +45,9 @@ class Snake {
 		return;
 	}
 
-	method boolean advance() {
-    var int head, newHead, prevLast, xDelta, yDelta;
-    var boolean is_collided;
+	method boolean advance(int apple_coords) {
+    var int head, newHead, xDelta, yDelta;
+    var boolean is_collided, is_eaten;
     var Array prevHeadCoords;
     let prevHeadCoords = UI.fromIndexToGameCoords(parts.getData());
     let parts = parts.cycleLastToHead();
@@ -58,6 +63,10 @@ class Snake {
     let is_collided = isCollided(newHead);
     if (is_collided) {
       return true;
+    }
+    let is_eaten = apple_coords = newHead;
+    if (is_eaten) {
+      do grow();
     }
     do parts.setData(newHead);
     do clearPart(prevLast);
@@ -105,11 +114,17 @@ class Snake {
     var List current;
     let current = parts;
     while (~(current = null)) {
-        if (current.getData() = newHead) {
-          return true;
-        }
-        let current = current.getNext();
+      if (current.getData() = newHead) {
+        return true;
+      }
+      let current = current.getNext();
     }
     return false;
+  }
+
+  // TODO: Implement proper grow
+  method void grow() {
+    do parts.extendLast(prevLast);
+    return;
   }
 }
