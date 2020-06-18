@@ -7,6 +7,7 @@
 - [x] Prohibit invalid direction changes
 - [ ] Add end condition
 - [ ] Add apples
+- [ ] Add changing speed
 
 ---
 
@@ -19,6 +20,7 @@
     - [ ] Cross the wall
     - [ ] Cross itself
 - [ ] Init
-  - [ ] Drawing initial UI
+  - [x] Drawing initial UI: border
   - [ ] Init random seed
   - [ ] Place snake and objects
+  - [ ] Track high score

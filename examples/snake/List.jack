@@ -64,6 +64,7 @@ class List {
     }
     let lastData = tmp.getData();
     do secondLast.setNext(null);
+    do tmp.dispose();
     return lastData;
   }
 

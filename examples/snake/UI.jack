@@ -30,6 +30,33 @@ class UI {
     return;
   }
 
+  function void drawPanel(int width, int height, String msg) {
+    var int panel_size, shadow_size, panel_x, panel_y;
+    let shadow_size = 5;
+    let panel_x = (512 - width) / 2;
+    let panel_y = (256 - height) / 2;
+    while (~(shadow_size < 0)) {
+      do Screen.setColor(true);
+      do Screen.drawRectangle(
+        panel_x + shadow_size,
+        panel_y + shadow_size,
+        (512 - panel_x + shadow_size),
+        (256 - panel_y + shadow_size)
+      );
+      let shadow_size = shadow_size - 1;
+    }
+    do Screen.setColor(false);
+    do Screen.drawRectangle(
+      panel_x + 1,
+      panel_y + 1,
+      (512 - panel_x) - 1,
+      (256 - panel_y) - 1
+    );
+    do Output.moveCursor(11, (65 - msg.length()) / 2);
+    do Output.printString(msg);
+    return;
+  }
+
   method void dispose() {
     do Memory.deAlloc(this);
     return;
