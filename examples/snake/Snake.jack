@@ -1,18 +1,11 @@
 class Snake {
   static int block_size;
-  static int border;
-  static int field_width;
-  static int field_height;
-
 	field List parts;
 	field int direction; // current direction: 1=up, 2=down, 3=left, 4=right
 
 	constructor Snake new(int startX, int startY) {
 		let direction = 4;
     let block_size = 8;
-    let border = 4;
-    let field_width = (512 / block_size) - (2 * border);
-    let field_height = (256 / block_size) - (2 * border);
 		let parts = Snake.initSnakeParts(startX, startY);
 		return this;
 	}
@@ -23,36 +16,14 @@ class Snake {
     let initial_length = 30;
     let offset = initial_length;
 
-    let l = List.new(Snake.fromGameCoordstoIndex(startX - offset, startY), null);
+    let l = List.new(UI.fromGameCoordstoIndex(startX - offset, startY), null);
     let offset = offset - 1;
     while (offset > 0) {
-      let l = l.append(Snake.fromGameCoordstoIndex(startX - offset, startY));
+      let l = l.append(UI.fromGameCoordstoIndex(startX - offset, startY));
       let offset = offset - 1;
     }
     return l;
   }
-
-	function int fromGameCoordstoIndex(int x, int y) {
-		return (y * field_width) + x;
-	}
-
-	function Array fromIndexToGameCoords(int coordIndex) {
-    var Array coords;
-    let coords = Array.new(2);
-    let coords[0] = Utils.modulo(coordIndex, field_width);
-    let coords[1] = coordIndex / field_width;
-		return coords;
-	}
-
-	function Array fromGameToScreen(int coordIndex) {
-    var Array gameCoords, screenCoords;
-    let gameCoords = Snake.fromIndexToGameCoords(coordIndex);
-    let screenCoords = Array.new(2);
-    let screenCoords[0] = (block_size) * (border + gameCoords[0]);
-    let screenCoords[1] = (block_size) * (border + gameCoords[1]);
-    do gameCoords.dispose();
-		return screenCoords;
-	}
 
 	method int getDirection() {
 		return direction;
@@ -73,16 +44,16 @@ class Snake {
     var int head, newHead, prevLast, xDelta, yDelta;
     var boolean is_collided;
     var Array prevHeadCoords;
-    let prevHeadCoords = Snake.fromIndexToGameCoords(parts.getData());
+    let prevHeadCoords = UI.fromIndexToGameCoords(parts.getData());
     let parts = parts.cycleLastToHead();
     let prevLast = parts.getData();
     if (direction = 1) { let yDelta = -1; }   // up arrow
     if (direction = 2) { let yDelta = 1; }   // down arrow
     if (direction = 3) { let xDelta = -1; }   // left arrow
     if (direction = 4) { let xDelta = 1; }   // right arrow
-    let newHead = Snake.fromGameCoordstoIndex(
-      Utils.modulo(prevHeadCoords[0] + xDelta, field_width), // wrap around
-      Utils.modulo(prevHeadCoords[1] + yDelta, field_height) // wrap around
+    let newHead = UI.fromGameCoordstoIndex(
+      Utils.modulo(prevHeadCoords[0] + xDelta, UI.getFieldWidth()), // wrap around
+      Utils.modulo(prevHeadCoords[1] + yDelta, UI.getFieldHeight()) // wrap around
     );
     let is_collided = isCollided(newHead);
     if (is_collided) {
@@ -121,26 +92,12 @@ class Snake {
 	}
 
   method void drawPart(int index) {
-      var int x, y;
-      var Array head;
-      let head = Snake.fromGameToScreen(index);
-      let x = head[0];
-      let y = head[1];
-      do Screen.setColor(true);
-      do Screen.drawRectangle(x, y, x + block_size, y + block_size);
-      do head.dispose();
+      do UI.drawBlockIndex(true, index);
       return;
   }
 
   method void clearPart(int index) {
-      var int x, y;
-      var Array head;
-      let head = Snake.fromGameToScreen(index);
-      let x = head[0];
-      let y = head[1];
-      do Screen.setColor(false);
-      do Screen.drawRectangle(x, y, x + block_size, y + block_size);
-      do head.dispose();
+      do UI.drawBlockIndex(false, index);
       return;
   }
 

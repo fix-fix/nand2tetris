@@ -1,12 +1,16 @@
 class UI {
   static int block_size;
   static int border;
+  static int field_width;
+  static int field_height;
 
   field int _dummy;
 
   constructor UI new() {
     let block_size = 8;
     let border = 4;
+    let field_width = (512 / block_size) - (2 * border);
+    let field_height = (256 / block_size) - (2 * border);
     return this;
   }
 
@@ -61,6 +65,45 @@ class UI {
     do Memory.deAlloc(this);
     return;
   }
+
+  function int getFieldWidth() { return field_width; }
+  function int getFieldHeight() { return field_height; }
+
+  function void drawBlock(boolean color, int x, int y) {
+    do Screen.setColor(color);
+    do Screen.drawRectangle(x, y, x + block_size, y + block_size);
+    return;
+  }
+
+  function void drawBlockIndex(boolean color, int index) {
+    var Array coords;
+    let coords = UI.fromGameToScreen(index);
+    do UI.drawBlock(color, coords[0], coords[1]);
+    do coords.dispose();
+    return;
+  }
+
+	function int fromGameCoordstoIndex(int x, int y) {
+		return (y * field_width) + x;
+	}
+
+	function Array fromIndexToGameCoords(int coordIndex) {
+    var Array coords;
+    let coords = Array.new(2);
+    let coords[0] = Utils.modulo(coordIndex, field_width);
+    let coords[1] = coordIndex / field_width;
+		return coords;
+	}
+
+	function Array fromGameToScreen(int coordIndex) {
+    var Array gameCoords, screenCoords;
+    let gameCoords = UI.fromIndexToGameCoords(coordIndex);
+    let screenCoords = Array.new(2);
+    let screenCoords[0] = (block_size) * (border + gameCoords[0]);
+    let screenCoords[1] = (block_size) * (border + gameCoords[1]);
+    do gameCoords.dispose();
+		return screenCoords;
+	}
 }
 
 
