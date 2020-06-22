@@ -30,7 +30,7 @@ fn test_tokenizer_output() {
             let gold = fs::read_to_string(gold_filename).unwrap();
             assert_snapshot!(gold);
         } else {
-            assert_snapshot!(tokens_to_xml(tokenize(input)));
+            assert_snapshot!(tokens_to_xml(tokenize(input.as_str()).unwrap()));
         }
     });
 }
