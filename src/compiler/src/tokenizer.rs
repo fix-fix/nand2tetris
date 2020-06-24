@@ -61,13 +61,7 @@ impl<'a> Tokenizer<'a> {
                     tokens.push(Self::parse_identifier_or_keyword(&mut chars)?);
                 }
                 _ => {
-                    chars.next();
-                    dbg!(&tokens.iter().rev().take(30).rev().collect::<Vec<_>>());
-                    return Err(format!(
-                        "Can't tokenize at {1}:{2}: '{0}'",
-                        ch, chars.line, chars.line_index
-                    )
-                    .into());
+                    return self.tokenization_error(&mut chars, ch);
                 }
             }
         }
@@ -115,19 +109,19 @@ impl<'a> Tokenizer<'a> {
     where
         P: Fn(char) -> bool,
     {
-        let mut s = String::new();
-        while let Some(ch) = chars.peek() {
-            if !predicate(ch) {
-                break;
+        std::iter::from_fn(|| {
+            let ch = chars.peek()?;
+            if predicate(ch) {
+                chars.next();
+                Some(ch)
+            } else {
+                None
             }
-            s.push(ch);
-            chars.next();
-        }
-        s
+        })
+        .collect()
     }
 
     fn consume_before(chars: &mut LineChars, end: &str) {
-        // dbg!(&chars.as_str()[0..10], end);
         while !chars.as_str().starts_with(end) {
             chars.next();
         }
@@ -140,6 +134,25 @@ impl<'a> Tokenizer<'a> {
     fn consume_until(chars: &mut LineChars, end: &str) {
         Self::consume_before(chars, end);
         Self::consume_n_chars(chars, end.len());
+    }
+
+    fn tokenization_error(
+        &self,
+        chars: &mut LineChars,
+        ch: char,
+    ) -> Result<Vec<Token>, Box<dyn std::error::Error>> {
+        chars.next();
+        // dbg!(&tokens.iter().rev().take(30).rev().collect::<Vec<_>>());
+        Err(format!(
+            "Can't tokenize at {1}:{2}: '{0}'\n\
+            At line:\n\
+            {line}\n",
+            ch,
+            chars.line,
+            chars.line_index,
+            line = self.source.lines().nth(chars.line - 1).unwrap_or_default()
+        )
+        .into())
     }
 }
 

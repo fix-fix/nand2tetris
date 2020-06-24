@@ -1,4 +1,3 @@
-pub mod analyzer;
 pub mod config;
 pub mod input;
 pub mod line_chars;
