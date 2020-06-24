@@ -2,7 +2,7 @@ use std::path;
 
 pub fn get_files(path: String) -> Vec<path::PathBuf> {
     let arg_path = path::PathBuf::from(path);
-    let files = if arg_path.is_dir() {
+    if arg_path.is_dir() {
         arg_path
             .read_dir()
             .expect("Read dir failed")
@@ -17,6 +17,5 @@ pub fn get_files(path: String) -> Vec<path::PathBuf> {
             .collect::<Vec<_>>()
     } else {
         vec![arg_path]
-    };
-    files
+    }
 }

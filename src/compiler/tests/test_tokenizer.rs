@@ -21,7 +21,7 @@ macro_rules! glob_ {
 fn test_tokenizer_output() {
     glob_!("inputs/**/*.jack", |path| {
         let input = fs::read_to_string(path).unwrap();
-        let is_gold = !false;
+        let is_gold = false;
         if is_gold {
             let gold_filename = path.to_owned().with_file_name(format!(
                 "{}T.xml",

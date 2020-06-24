@@ -16,21 +16,28 @@ impl<'a> Tokenizer<'a> {
         let mut tokens: Vec<Token> = vec![];
         let mut chars = LineChars::new(self.source.char_indices());
 
-        while let Some((_index, ch)) = chars.next() {
-            let next_char = chars.clone().next();
-            // dbg!((ch, _index, next_char, chars.line, chars.line_index));
+        while let Some(ch) = chars.peek() {
+            // dbg!((ch, chars.line, chars.line_index));
 
             match ch {
-                _ if ch.is_whitespace() => {}
-                '\n' => {}
+                _ if ch.is_whitespace() => {
+                    chars.next();
+                }
+                '\n' => {
+                    chars.next();
+                }
                 '/' => {
+                    chars.next();
+                    let next_char = chars.peek();
                     match next_char {
                         None => {}
-                        Some((_, '/')) => {
-                            self.consume_until(&mut chars, "\n");
+                        Some('/') => {
+                            chars.next();
+                            Self::consume_until(&mut chars, "\n");
                         }
-                        Some((_, '*')) => {
-                            self.consume_until(&mut chars, "*/");
+                        Some('*') => {
+                            chars.next();
+                            Self::consume_until(&mut chars, "*/");
                         }
                         Some(..) => {
                             tokens.push(Token::Symbol(ch.to_string()));
@@ -39,22 +46,28 @@ impl<'a> Tokenizer<'a> {
                 }
                 // '/' is handled separately
                 '{' | '}' | '(' | ')' | '[' | ']' | '.' | ',' | ';' | '+' | '-' | '*' | '&'
-                | '|' | '<' | '>' | '=' | '~' => tokens.push(Token::Symbol(ch.to_string())),
-                '"' => {
-                    // let buffer = String::new();
+                | '|' | '<' | '>' | '=' | '~' => {
+                    tokens.push(Token::Symbol(ch.to_string()));
+                    chars.next();
                 }
-                // _ if ch.is_numeric() => {
-                //     // self.parse_numeric();
-                // }
-                // _ if ch.is_alphabetic() => {
-                //     // self.parse_identifier();
-                // }
+                '"' => {
+                    chars.next();
+                    tokens.push(Self::parse_string(&mut chars));
+                }
+                _ if ch.is_numeric() => {
+                    tokens.push(Self::parse_numeric(&mut chars)?);
+                }
+                _ if Self::is_identifier_start_char(ch) => {
+                    tokens.push(Self::parse_identifier_or_keyword(&mut chars)?);
+                }
                 _ => {
+                    chars.next();
+                    dbg!(&tokens.iter().rev().take(30).rev().collect::<Vec<_>>());
                     return Err(format!(
                         "Can't tokenize at {1}:{2}: '{0}'",
                         ch, chars.line, chars.line_index
                     )
-                    .into())
+                    .into());
                 }
             }
         }
@@ -62,19 +75,71 @@ impl<'a> Tokenizer<'a> {
         Ok(tokens)
     }
 
-    fn consume_before(&self, chars: &mut LineChars, end: &str) {
+    fn parse_identifier_or_keyword(
+        chars: &mut LineChars,
+    ) -> Result<Token, Box<dyn std::error::Error>> {
+        let s = Self::consume_while(chars, Self::is_identifier_char);
+        Ok(
+            if let Some(token_keyword) = keyword_from_string(s.as_str()) {
+                Token::Keyword(token_keyword)
+            } else {
+                Token::Identifier(s)
+            },
+        )
+    }
+
+    fn parse_string(chars: &mut LineChars) -> Token {
+        let s = chars
+            .map(|x| x.1)
+            .take_while(|ch| *ch != '"')
+            .collect::<String>();
+        Token::StringConst(s)
+    }
+
+    fn parse_numeric(chars: &mut LineChars) -> Result<Token, Box<dyn std::error::Error>> {
+        let num = Self::consume_while(chars, |ch| ch.is_numeric());
+        str::parse::<u16>(num.as_str())
+            .or_else(|_| Err(format!("Can't parse num: {}", num).into()))
+            .map(Token::IntegerConst)
+    }
+
+    fn is_identifier_char(c: char) -> bool {
+        c.is_ascii_alphanumeric() || c == '_'
+    }
+
+    fn is_identifier_start_char(c: char) -> bool {
+        c.is_ascii_alphabetic() || c == '_'
+    }
+
+    fn consume_while<P>(chars: &mut LineChars, predicate: P) -> String
+    where
+        P: Fn(char) -> bool,
+    {
+        let mut s = String::new();
+        while let Some(ch) = chars.peek() {
+            if !predicate(ch) {
+                break;
+            }
+            s.push(ch);
+            chars.next();
+        }
+        s
+    }
+
+    fn consume_before(chars: &mut LineChars, end: &str) {
+        // dbg!(&chars.as_str()[0..10], end);
         while !chars.as_str().starts_with(end) {
             chars.next();
         }
     }
 
-    fn consume_n_chars(&self, chars: &mut LineChars, n: usize) {
-        std::iter::repeat(()).take(n).zip(chars).last();
+    fn consume_n_chars(chars: &mut LineChars, n: usize) {
+        chars.nth(n - 1);
     }
 
-    fn consume_until(&self, chars: &mut LineChars, end: &str) {
-        self.consume_before(chars, end);
-        self.consume_n_chars(chars, end.len());
+    fn consume_until(chars: &mut LineChars, end: &str) {
+        Self::consume_before(chars, end);
+        Self::consume_n_chars(chars, end.len());
     }
 }
 
@@ -85,11 +150,12 @@ pub fn tokenize(input: &str) -> Result<Vec<Token>, Box<dyn std::error::Error>> {
 
 pub fn tokens_to_xml(tokens: Vec<Token>) -> String {
     xml_wrap_section(
-        "tokens".into(),
+        "tokens",
         tokens
             .iter()
             .map(Token::as_xml_decl)
             .collect::<Vec<_>>()
-            .join("\n"),
+            .join("\n")
+            .as_str(),
     )
 }
