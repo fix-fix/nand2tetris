@@ -1,7 +1,10 @@
 use insta::*;
 use std::fs;
 
-use compiler::tokenizer::{tokenize, tokens_to_xml};
+use compiler::{
+    parser,
+    tokenizer::{tokenize, tokens_to_xml},
+};
 
 // Workaround for https://github.com/mitsuhiko/insta/issues/119
 macro_rules! glob_ {
@@ -55,15 +58,15 @@ fn test_parser_output() -> Result<(), Box<dyn std::error::Error>> {
             let gold = fs::read_to_string(gold_filename).unwrap();
             assert_snapshot!(gold);
         } else {
-            // let input = fs::read_to_string(path).unwrap();
-            // let tokens = tokenize(input.as_str());
-            // assert!(
-            //     tokens.is_ok(),
-            //     "Tokenizing error:\n{err}",
-            //     err = tokens.unwrap_err()
-            // );
-            // let tokens_xml = tokens_to_xml(tokens.unwrap());
-            // assert_snapshot!(tokens_xml);
+            let input = fs::read_to_string(path).unwrap();
+            let result = parser::parse(input.as_str());
+            assert!(
+                result.is_ok(),
+                "Parsing error:\n{err}",
+                err = result.unwrap_err()
+            );
+            let result_xml = parser::result_to_xml(result.unwrap());
+            assert_snapshot!(result_xml);
         }
     });
     Ok(())

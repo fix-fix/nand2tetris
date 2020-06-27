@@ -4,11 +4,15 @@ version = "0.1.0"
 authors = ["fix-fix <fix-fix@users.noreply.github.com>"]
 edition = "2018"
 workspace = "../.."
+default-run = "parser"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [[bin]]
 name = "analyzer"
+
+[[bin]]
+name = "parser"
 
 [dev-dependencies]
 insta = {version = "0.16.0", features = ["glob"]}

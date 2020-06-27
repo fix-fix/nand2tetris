@@ -1,7 +1,7 @@
 use crate::xml::*;
 
 // #[derive(Debug)]
-// pub enum TokenType {
+// pub enum TokenKind {
 //     Keyword,
 //     Symbol,
 //     Identifier,
@@ -9,7 +9,7 @@ use crate::xml::*;
 //     StringConst,
 // }
 
-#[derive(Debug)]
+#[derive(Debug, PartialOrd, PartialEq, Clone)]
 pub enum Token {
     Keyword(Keyword),
     Symbol(String),
@@ -24,12 +24,8 @@ impl Token {
             Self::Keyword(keyword) => xml_wrap_declaration("keyword", keyword_to_string(keyword)),
             Self::Symbol(symbol) => xml_wrap_declaration("symbol", symbol),
             Self::Identifier(identifier) => xml_wrap_declaration("identifier", identifier),
-            Self::IntegerConst(num) => {
-                xml_wrap_declaration("integerConstant", &num.to_string())
-            }
-            Self::StringConst(s) => {
-                xml_wrap_declaration("stringConstant", s)
-            }
+            Self::IntegerConst(num) => xml_wrap_declaration("integerConstant", &num.to_string()),
+            Self::StringConst(s) => xml_wrap_declaration("stringConstant", s),
         }
     }
 }
@@ -58,7 +54,7 @@ pub const KEYWORDS: &[&str] = &[
     "return",
 ];
 
-#[derive(Debug, PartialOrd, PartialEq, Eq)]
+#[derive(Debug, PartialOrd, PartialEq, Eq, Clone)]
 pub enum Keyword {
     Class,
     Constructor,
