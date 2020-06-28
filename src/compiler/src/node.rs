@@ -66,28 +66,93 @@ pub struct GrammarParamDec {
 }
 
 #[derive(Debug, Clone)]
-pub enum GrammarItem {
-    Program,
-    Class(Identifier),
-    ClassVarDec(GrammarClassVarType, GrammarItemType, Vec<Identifier>),
-    VarDec(GrammarItemType, Vec<Identifier>),
-    SubroutineDec(GrammarSubroutineVariant, GrammarSubroutineReturnType, Identifier, Vec<GrammarParamDec>),
-    Type(GrammarItemType),
+pub struct Type(pub GrammarItemType);
+
+#[derive(Debug, Clone)]
+pub struct Class(pub Identifier, pub Vec<ClassVarDec>, pub Vec<SubroutineDec>);
+
+#[derive(Debug, Clone)]
+pub struct ClassVarDec(
+    pub GrammarClassVarType,
+    pub GrammarItemType,
+    pub Vec<Identifier>,
+);
+
+#[derive(Debug, Clone)]
+pub struct VarDec(pub GrammarItemType, pub Vec<Identifier>);
+
+#[derive(Debug, Clone)]
+pub struct SubroutineDec(
+    pub GrammarSubroutineVariant,
+    pub GrammarSubroutineReturnType,
+    pub Identifier,
+    pub Vec<GrammarParamDec>,
+    pub Subroutine,
+);
+
+#[derive(Debug, Clone)]
+pub struct Subroutine(pub Vec<VarDec>, pub Vec<Statement>);
+
+#[derive(Debug, Clone)]
+pub enum Statement {
+    LetStatement(LetStatement),
+    IfStatement(IfStatement),
+    WhileStatement(WhileStatement),
+    DoStatement(DoStatement),
+    ReturnStatement(ReturnStatement),
 }
 
 #[derive(Debug, Clone)]
-pub struct ParseNode {
-    pub children: Vec<ParseNode>,
-    pub entry: GrammarItem,
+pub struct LetStatement {
+    pub name: Identifier,
+    pub index_expr: Option<Expr>,
+    pub value_expr: Expr,
 }
 
-impl ParseNode {
-    pub fn new(item: GrammarItem) -> Self {
-        Self {
-            children: vec![],
-            entry: item,
-        }
-    }
+#[derive(Debug, Clone)]
+pub struct IfStatement {
+    pub if_expr: Expr,
+    pub if_statements: Vec<Statement>,
+    pub else_statements: Option<Vec<Statement>>,
+}
+
+#[derive(Debug, Clone)]
+pub struct WhileStatement {
+    pub cond_expr: Expr,
+    pub statements: Vec<Statement>,
+}
+
+#[derive(Debug, Clone)]
+pub struct DoStatement {
+    pub call: SubroutineCall,
+}
+
+#[derive(Debug, Clone)]
+pub struct ReturnStatement {
+    pub result: Option<Expr>,
+}
+
+#[derive(Debug, Clone)]
+pub struct Expr(pub Term, pub Vec<(Op, Term)>);
+
+pub type ExprList = Vec<Expr>;
+
+#[derive(Debug, Clone)]
+pub enum Term {
+    VarName(Identifier),
+    KeywordConstant(Keyword),
+}
+
+#[derive(Debug, Clone)]
+pub struct Op(pub String);
+
+#[derive(Debug, Clone)]
+pub enum SubroutineCall {
+    SimpleCall(Identifier, ExprList),
+    MethodCall(Identifier, Identifier, ExprList),
+}
+
+impl Class {
     pub fn to_xml(&self) -> String {
         format!("{:#?}", &self)
     }

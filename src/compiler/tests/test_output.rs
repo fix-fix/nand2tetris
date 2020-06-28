@@ -49,7 +49,7 @@ fn test_tokenizer_output() -> Result<(), Box<dyn std::error::Error>> {
 #[test]
 fn test_parser_output() -> Result<(), Box<dyn std::error::Error>> {
     glob_!("inputs/**/*.jack", |path| {
-        let is_gold = true;
+        let is_gold = false;
         if is_gold {
             let gold_filename = path.to_owned().with_file_name(format!(
                 "{}.xml",

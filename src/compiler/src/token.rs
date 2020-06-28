@@ -28,6 +28,18 @@ impl Token {
             Self::StringConst(s) => xml_wrap_declaration("stringConstant", s),
         }
     }
+    pub fn get_op(&self) -> Option<String> {
+        match self {
+            Self::Symbol(symbol) => {
+                if ["+", "-", "*", "/", "&", "|", "<", ">", "="].contains(&symbol.as_str()) {
+                    Some(symbol.into())
+                } else {
+                    None
+                }
+            }
+            _ => None,
+        }
+    }
 }
 
 pub const KEYWORDS: &[&str] = &[

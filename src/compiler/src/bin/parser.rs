@@ -17,9 +17,10 @@ fn run(config: &Config) -> Result<(), Box<dyn Error>> {
     Ok(())
 }
 
-fn main() -> Result<(), Box<dyn std::error::Error>> {
+fn main() -> Result<(), Box<dyn Error>> {
     let args: Vec<String> = env::args().collect();
     let config = Config::new(&args).map_err(|err| format!("Problem parsing arguments: {}", err))?;
 
-    run(&config).map_err(|err| format!("Application error: {}", err).into())
+    run(&config).map_err(|err| format!("Application error: {}", err))?;
+    Ok(())
 }
