@@ -254,24 +254,7 @@ where
 
     fn parse_statement_do(&mut self) -> Res<Statement> {
         self.expect(t::kw(Keyword::Do))?;
-        let name = self.parse_identifier()?;
-        let call = match expect::something(self.peek())? {
-            Token::Symbol(x) if x == "." => {
-                self.next();
-                let method_name = self.parse_identifier()?;
-                self.expect(t::symbol("("))?;
-                let expr_list = self.parse_expression_list()?;
-                self.expect(t::symbol(")"))?;
-                Ok(SubroutineCall::MethodCall(name, method_name, expr_list))
-            }
-            Token::Symbol(x) if x == "(" => {
-                self.next();
-                let expr_list = self.parse_expression_list()?;
-                self.expect(t::symbol(")"))?;
-                Ok(SubroutineCall::SimpleCall(name, expr_list))
-            }
-            _ => Err("Can't parse subroutine call").into(),
-        }?;
+        let call = self.parse_subroutine_call(None)?;
         self.expect(t::symbol(";"))?;
         Ok(Statement::DoStatement(DoStatement { call }))
     }
@@ -287,7 +270,6 @@ where
     }
 
     fn parse_expression(&mut self) -> Res<Expr> {
-        // TODO: Add expr parsing
         let term = self.parse_term()?;
         let mut terms: Vec<(Op, Term)> = vec![];
         if let Some(op) = expect::something(self.peek())?.get_op() {
@@ -298,19 +280,54 @@ where
     }
 
     fn parse_term(&mut self) -> Res<Term> {
-        // TODO: Add expr parsing
         Ok(match expect::something(self.peek())? {
-            Token::Identifier(..) => Term::VarName(self.parse_identifier()?),
-            Token::Keyword(kw) => {
+            Token::IntegerConst(i) => {
+                self.next();
+                Term::IntegerConstant(i)
+            }
+            Token::StringConst(s) => {
+                self.next();
+                Term::StringConst(s)
+            }
+            Token::Keyword(kw)
+                if [Keyword::True, Keyword::False, Keyword::This, Keyword::Null].contains(&kw) =>
+            {
                 self.next();
                 Term::KeywordConstant(kw)
+            }
+            Token::Symbol(s) if s == "(" => {
+                self.next();
+                let expr = self.parse_expression()?;
+                self.expect(t::symbol(")"))?;
+                Term::Expr(Box::new(expr))
+            }
+            Token::Symbol(op) => {
+                if !Token::is_unary_op(op.as_str()) {
+                    return Err("Invalid unary op")?;
+                }
+                self.next();
+                Term::UnaryOp(op, Box::new(self.parse_term()?))
+            }
+            Token::Identifier(ident) => {
+                self.next();
+                match expect::something(self.peek())? {
+                    Token::Symbol(s) if s == "[" => {
+                        self.next();
+                        let expr = self.parse_expression()?;
+                        self.expect(t::symbol("]"))?;
+                        Term::IndexExpr(ident, Box::new(expr))
+                    }
+                    Token::Symbol(s) if s == "." || s == "(" => {
+                        Term::SubroutineCall(self.parse_subroutine_call(Some(ident))?)
+                    }
+                    _ => Term::VarName(ident),
+                }
             }
             _token => todo!("Unsupported term: {:?}", _token),
         })
     }
 
     fn parse_expression_list(&mut self) -> Res<ExprList> {
-        // TODO: Add expr parsing
         let mut list = vec![];
         while let Ok(param_token) = expect::something(self.peek()) {
             if param_token == t::symbol(")") {
@@ -326,6 +343,30 @@ where
         Ok(list)
     }
 
+    fn parse_subroutine_call(&mut self, maybe_name: Option<String>) -> Res<SubroutineCall> {
+        let name: String = match maybe_name {
+            Some(s) => s,
+            None => self.parse_identifier()?,
+        };
+        match expect::something(self.peek())? {
+            Token::Symbol(x) if x == "." => {
+                self.next();
+                let method_name = self.parse_identifier()?;
+                self.expect(t::symbol("("))?;
+                let expr_list = self.parse_expression_list()?;
+                self.expect(t::symbol(")"))?;
+                Ok(SubroutineCall::MethodCall(name, method_name, expr_list))
+            }
+            Token::Symbol(x) if x == "(" => {
+                self.next();
+                let expr_list = self.parse_expression_list()?;
+                self.expect(t::symbol(")"))?;
+                Ok(SubroutineCall::SimpleCall(name, expr_list))
+            }
+            _ => Err("Can't parse subroutine call")?,
+        }
+    }
+
     fn parse_identifier(&mut self) -> Res<String> {
         // dbg!(self.tokens.peek());
         Ok(expect::identifier(self.next())?)
@@ -333,11 +374,11 @@ where
 
     fn next(&mut self) -> Option<Token> {
         self.pos += 1;
-        self.tokens.next().map(|x| x.1)
+        self.tokens.next().map(|x| x.1) //.map(|x| dbg!(x))
     }
 
     fn peek(&mut self) -> Option<Token> {
-        self.tokens.peek().cloned().map(|x| x.1)
+        self.tokens.peek().cloned().map(|x| x.1) //.map(|x| dbg!(x))
     }
 
     fn expect(&mut self, token: Token) -> Res<Token> {

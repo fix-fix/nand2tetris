@@ -141,6 +141,12 @@ pub type ExprList = Vec<Expr>;
 pub enum Term {
     VarName(Identifier),
     KeywordConstant(Keyword),
+    IntegerConstant(u16),
+    StringConst(String),
+    UnaryOp(String, Box<Term>),
+    Expr(Box<Expr>),
+    IndexExpr(Identifier, Box<Expr>),
+    SubroutineCall(SubroutineCall),
 }
 
 #[derive(Debug, Clone)]

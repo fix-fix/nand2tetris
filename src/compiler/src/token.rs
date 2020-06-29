@@ -28,6 +28,7 @@ impl Token {
             Self::StringConst(s) => xml_wrap_declaration("stringConstant", s),
         }
     }
+
     pub fn get_op(&self) -> Option<String> {
         match self {
             Self::Symbol(symbol) => {
@@ -39,6 +40,10 @@ impl Token {
             }
             _ => None,
         }
+    }
+
+    pub fn is_unary_op(s: &str) -> bool {
+        ["-", "~"].contains(&s)
     }
 }
 
