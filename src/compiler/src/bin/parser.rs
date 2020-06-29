@@ -1,6 +1,4 @@
-use std::env;
-use std::error::Error;
-use std::fs;
+use std::{env, error::Error, fs};
 
 use compiler::{config::Config, input, parser};
 
@@ -21,6 +19,10 @@ fn main() -> Result<(), Box<dyn Error>> {
     let args: Vec<String> = env::args().collect();
     let config = Config::new(&args).map_err(|err| format!("Problem parsing arguments: {}", err))?;
 
-    run(&config).map_err(|err| format!("Application error: {}", err))?;
+    run(&config).map_err(|err| {
+        // Print error manually because `main` func error reporter preseves escapes
+        println!("Application error:\n{}", err);
+        "Error"
+    })?;
     Ok(())
 }
