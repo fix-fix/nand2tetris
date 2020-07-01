@@ -1,6 +1,6 @@
 use std::fmt::Write;
 
-use crate::{node::*, xml::xml_wrap_declaration as xwd};
+use crate::{node::*, token::keyword_to_string, xml::xml_wrap_declaration as xwd};
 
 #[derive(Debug, Clone)]
 pub enum Node {
@@ -13,8 +13,10 @@ pub enum Node {
     Statements(Vec<Statement>),
     Statement(Statement),
     Expr(Expr),
+    ParenExpr(Expr),
     Term(Term),
     ExprList(Vec<Expr>),
+    SubroutineCall(SubroutineCall),
 }
 
 const XML_LEVEL_INDENT: usize = 2;
@@ -25,15 +27,6 @@ where
 {
     write!(out, "{:indent$}{}\n", "", s, indent = indent).unwrap();
 }
-
-// fn write_open_node<S, F>(out: &mut dyn Write, s: S, indent_: usize) -> F
-// where
-//     S: std::fmt::Display,
-//     F: FnOnce() -> ()
-// {
-//     write_indent(out, s, indent_);
-//     || write_indent(out, s, indent_)
-// }
 
 pub fn print_to_xml(out: &mut dyn Write, node: Node, indent_: Option<usize>) {
     let indent = indent_.unwrap_or(0);
@@ -49,7 +42,10 @@ pub fn print_to_xml(out: &mut dyn Write, node: Node, indent_: Option<usize>) {
     );
     macro_rules! print_child(
         ($s:expr) => (
-            print_to_xml (out, $s, Some(body_indent))
+            print_to_xml(out, $s, Some(body_indent))
+        );
+        ($s:expr, $i:expr) => (
+            print_to_xml(out, $s, Some($i))
         );
     );
 
@@ -200,6 +196,7 @@ pub fn print_to_xml(out: &mut dyn Write, node: Node, indent_: Option<usize>) {
             print_child!(Node::Statements(if_statements));
             w!(xwd("symbol", "}"));
             if let Some(statements) = else_statements {
+                w!(xwd("keyword", "else"));
                 w!(xwd("symbol", "{"));
                 print_child!(Node::Statements(statements));
                 w!(xwd("symbol", "}"));
@@ -223,6 +220,11 @@ pub fn print_to_xml(out: &mut dyn Write, node: Node, indent_: Option<usize>) {
         Node::Statement(Statement::DoStatement(DoStatement { call })) => {
             w!("<doStatement>", indent);
             w!(xwd("keyword", "do"));
+            print_child!(Node::SubroutineCall(call), indent);
+            w!(xwd("symbol", ";"));
+            w!("</doStatement>", indent);
+        }
+        Node::SubroutineCall(call) => {
             let (this_ident, method, args) = match call {
                 SubroutineCall::SimpleCall(method, args) => (None, method, args),
                 SubroutineCall::MethodCall(this_ident, method, args) => {
@@ -237,22 +239,46 @@ pub fn print_to_xml(out: &mut dyn Write, node: Node, indent_: Option<usize>) {
             w!(xwd("symbol", "("));
             print_child!(Node::ExprList(args));
             w!(xwd("symbol", ")"));
-            w!(xwd("symbol", ";"));
-            w!("</doStatement>", indent);
         }
         Node::Expr(Expr(term, terms)) => {
             w!("<expression>", indent);
             print_child!(Node::Term(term));
-            for (_op, term) in terms {
-                w!("TODO OP");
-                print_child!(Node::Term(term))
+            for (Op(op), term) in terms {
+                w!(xwd("symbol", op.as_str()));
+                print_child!(Node::Term(term));
             }
             w!("</expression>", indent);
         }
-        Node::Term(_term) => {
+        Node::Term(term) => {
             w!("<term>", indent);
-            w!("TODO");
+            match term {
+                Term::VarName(ident) => w!(xwd("identifier", ident.as_str())),
+                Term::KeywordConstant(kw) => w!(xwd("keyword", keyword_to_string(&kw))),
+                Term::IntegerConstant(i) => w!(xwd("integerConstant", i.to_string().as_str())),
+                Term::StringConst(s) => w!(xwd("stringConstant", s.as_str())),
+                Term::UnaryOp(op, term) => {
+                    w!(xwd("symbol", op.as_str()));
+                    print_child!(Node::Term(*term));
+                }
+                Term::ParenExpr(expr) => {
+                    print_child!(Node::ParenExpr(*expr), indent);
+                }
+                Term::IndexExpr(ident, expr) => {
+                    w!(xwd("identifier", ident.as_str()));
+                    w!(xwd("symbol", "["));
+                    print_child!(Node::Expr(*expr));
+                    w!(xwd("symbol", "]"));
+                }
+                Term::SubroutineCall(call) => {
+                    print_child!(Node::SubroutineCall(call), indent);
+                }
+            };
             w!("</term>", indent);
+        }
+        Node::ParenExpr(expr) => {
+            w!(xwd("symbol", "("));
+            print_child!(Node::Expr(expr));
+            w!(xwd("symbol", ")"));
         }
         Node::ExprList(exprs_) => {
             w!("<expressionList>", indent);
@@ -265,10 +291,7 @@ pub fn print_to_xml(out: &mut dyn Write, node: Node, indent_: Option<usize>) {
                 }
             }
             w!("</expressionList>", indent);
-        } /* _node => {
-              eprintln!("Unsupported node: {:?}", _node);
-              w!("TODO", indent);
-          } */
+        }
     }
 }
 

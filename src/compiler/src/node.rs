@@ -1,6 +1,4 @@
-use crate::{
-    token::{Keyword, Token},
-};
+use crate::token::{Keyword, Token};
 
 pub type Identifier = String;
 
@@ -146,7 +144,7 @@ pub enum Term {
     IntegerConstant(u16),
     StringConst(String),
     UnaryOp(String, Box<Term>),
-    Expr(Box<Expr>),
+    ParenExpr(Box<Expr>),
     IndexExpr(Identifier, Box<Expr>),
     SubroutineCall(SubroutineCall),
 }

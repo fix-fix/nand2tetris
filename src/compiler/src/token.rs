@@ -123,7 +123,7 @@ pub fn keyword_from_string(s: &str) -> Option<Keyword> {
     })
 }
 
-fn keyword_to_string(keyword: &Keyword) -> &'static str {
+pub fn keyword_to_string(keyword: &Keyword) -> &'static str {
     match keyword {
         Keyword::Class => "class",
         Keyword::Constructor => "constructor",

@@ -299,7 +299,7 @@ where
                 self.next();
                 let expr = self.parse_expression()?;
                 self.expect(t::symbol(")"))?;
-                Term::Expr(Box::new(expr))
+                Term::ParenExpr(Box::new(expr))
             }
             Token::Symbol(op) => {
                 if !Token::is_unary_op(op.as_str()) {
