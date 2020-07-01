@@ -487,17 +487,10 @@ mod t {
 
 #[derive(Debug)]
 pub struct ParseResult {
-    root: Class,
+    pub root: Class,
 }
 
 pub fn parse(input: &str) -> Result<ParseResult, Box<dyn std::error::Error>> {
     let parser = Parser::new(tokenize(input)?);
     parser.parse()
-}
-
-pub fn result_to_xml(result: ParseResult) -> String {
-    use crate::node_printer::*;
-    let mut out = String::new();
-    print_to_xml(&mut out, Node::Class(result.root), None);
-    out
 }

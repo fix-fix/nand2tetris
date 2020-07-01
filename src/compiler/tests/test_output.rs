@@ -2,27 +2,13 @@ use insta::*;
 use std::fs;
 
 use compiler::{
-    parser,
+    node_printer, parser,
     tokenizer::{tokenize, tokens_to_xml},
 };
 
-// Workaround for https://github.com/mitsuhiko/insta/issues/119
-macro_rules! glob_ {
-    ($glob:expr, $closure:expr) => {{
-        let base = std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
-            .join("../../")
-            .join(file!())
-            .parent()
-            .unwrap()
-            .canonicalize()
-            .unwrap();
-        $crate::_macro_support::glob_exec(&base, $glob, $closure);
-    }};
-}
-
 #[test]
 fn test_tokenizer_output() -> Result<(), Box<dyn std::error::Error>> {
-    glob_!("inputs/**/*.jack", |path| {
+    glob!("inputs/**/*.jack", |path| {
         let input = fs::read_to_string(path).unwrap();
         let is_gold = false;
         if is_gold {
@@ -48,7 +34,7 @@ fn test_tokenizer_output() -> Result<(), Box<dyn std::error::Error>> {
 
 #[test]
 fn test_parser_output() -> Result<(), Box<dyn std::error::Error>> {
-    glob_!("inputs/**/*.jack", |path| {
+    glob!("inputs/**/*.jack", |path| {
         let is_gold = false;
         if is_gold {
             let gold_filename = path.to_owned().with_file_name(format!(
@@ -65,7 +51,7 @@ fn test_parser_output() -> Result<(), Box<dyn std::error::Error>> {
                 "Parsing error:\n{err}",
                 err = result.unwrap_err()
             );
-            let result_xml = parser::result_to_xml(result.unwrap());
+            let result_xml = node_printer::result_to_xml(result.unwrap());
             assert_snapshot!(result_xml);
         }
     });

@@ -1,6 +1,8 @@
 use std::fmt::Write;
 
-use crate::{node::*, token::keyword_to_string, xml::xml_wrap_declaration as xwd};
+use crate::{
+    node::*, parser::ParseResult, token::keyword_to_string, xml::xml_wrap_declaration as xwd,
+};
 
 #[derive(Debug, Clone)]
 pub enum Node {
@@ -302,4 +304,11 @@ fn print_type_to_xml(type_: GrammarItemType) -> String {
         GrammarItemType::Boolean => xwd("keyword", "boolean"),
         GrammarItemType::Class(ident) => xwd("identifier", ident.as_str()),
     }
+}
+
+pub fn result_to_xml(result: ParseResult) -> String {
+    use crate::node_printer::*;
+    let mut out = String::new();
+    print_to_xml(&mut out, Node::Class(result.root), None);
+    out
 }

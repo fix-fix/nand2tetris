@@ -1,12 +1,13 @@
 use std::{env, error::Error, fs};
 
-use compiler::{config::Config, input, parser};
+use compiler::{config::Config, input, node_printer, parser};
 
 fn run(config: &Config) -> Result<(), Box<dyn Error>> {
     let files = input::get_files(config.source_path.clone());
     for file in files {
-        let tokens_result =
-            parser::result_to_xml(parser::parse(fs::read_to_string(file.as_path())?.as_str())?);
+        let tokens_result = node_printer::result_to_xml(parser::parse(
+            fs::read_to_string(file.as_path())?.as_str(),
+        )?);
         let mut target_path = file.clone();
         target_path.set_extension("parser-out.xml");
         fs::write(target_path.as_path(), tokens_result)?;
