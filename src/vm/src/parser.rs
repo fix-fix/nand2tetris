@@ -69,9 +69,18 @@ impl<'a> Parser<'a> {
                 ))
             }
             ["return"] => Some(Instruction::Return()),
-            ["label", label] => Some(Instruction::Label(label.into(), self.context.function_name.clone())),
-            ["goto", label] => Some(Instruction::Goto(label.into(), self.context.function_name.clone())),
-            ["if-goto", label] => Some(Instruction::IfGoto(label.into(), self.context.function_name.clone())),
+            ["label", label] => Some(Instruction::Label(
+                label.into(),
+                self.context.function_name.clone(),
+            )),
+            ["goto", label] => Some(Instruction::Goto(
+                label.into(),
+                self.context.function_name.clone(),
+            )),
+            ["if-goto", label] => Some(Instruction::IfGoto(
+                label.into(),
+                self.context.function_name.clone(),
+            )),
             [arith] => Some(Instruction::Arithmetic(arith.into())),
             [cmd1, cmd2, cmd3] => match cmd1 {
                 "push" | "pop" => {

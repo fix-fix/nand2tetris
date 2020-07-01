@@ -13,7 +13,9 @@ fn generate(inst: Instruction) -> Option<String> {
     // println!("generate: {:?}", inst);
     Some(
         match inst {
-            Instruction::AInstruction { address: AInstAddress::Address(address) } => format!("0{:015b}", address),
+            Instruction::AInstruction {
+                address: AInstAddress::Address(address),
+            } => format!("0{:015b}", address),
             Instruction::CInstruction { comp, dest, jump } => format!(
                 "111{comp}{dest:03b}{jump:03b}",
                 comp = comp.fmt_binary(),

@@ -28,7 +28,7 @@ impl<'a> Parser<'a> {
     pub fn parse(mut self) -> ParseResult {
         let mut symbols = self.build_symbols();
         self.parse_input(&mut symbols, true); // Build symbols table
-        // println!("symbols: {:?}", symbols);
+                                              // println!("symbols: {:?}", symbols);
         let result = self.parse_input(&mut symbols, false);
         // println!("symbols final: {:?}", symbols);
         result
