@@ -2,6 +2,14 @@ pub fn xml_wrap_section(name: &str, s: &str) -> String {
     format!("<{name}>\n{s}\n</{name}>", name = name, s = s)
 }
 
+pub fn xml_wrap_section_lines(name: &str, s: &str) -> Vec<String> {
+    vec![
+        format!("<{name}>", name = name),
+        s.to_string(),
+        format!("</{name}>", name = name),
+    ]
+}
+
 pub fn xml_wrap_declaration(name: &str, s: &str) -> String {
     format!(
         "<{name}> {s} </{name}>",

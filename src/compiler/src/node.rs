@@ -1,4 +1,6 @@
-use crate::token::{Keyword, Token};
+use crate::{
+    token::{Keyword, Token},
+};
 
 pub type Identifier = String;
 
@@ -156,10 +158,4 @@ pub struct Op(pub String);
 pub enum SubroutineCall {
     SimpleCall(Identifier, ExprList),
     MethodCall(Identifier, Identifier, ExprList),
-}
-
-impl Class {
-    pub fn to_xml(&self) -> String {
-        format!("{:#?}", &self)
-    }
 }

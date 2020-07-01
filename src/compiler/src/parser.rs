@@ -496,5 +496,8 @@ pub fn parse(input: &str) -> Result<ParseResult, Box<dyn std::error::Error>> {
 }
 
 pub fn result_to_xml(result: ParseResult) -> String {
-    result.root.to_xml()
+    use crate::node_printer::*;
+    let mut out = String::new();
+    print_to_xml(&mut out, Node::Class(result.root), None);
+    out
 }
