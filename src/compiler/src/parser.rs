@@ -101,7 +101,7 @@ where
             self.next();
             let return_type = match expect::something(self.next())? {
                 Token::Keyword(Keyword::Void) => GrammarSubroutineReturnType::Void,
-                token @ Token::Identifier(..) => {
+                token @ Token::Identifier(..) | token @ Token::Keyword(..) => {
                     GrammarSubroutineReturnType::Type(item_type_from_token(token).unwrap())
                 }
                 token => unreachable!("Unexpected subroutine type: {:?}", token),
@@ -464,7 +464,7 @@ mod expect {
             Ok(token)
         } else {
             Err(format!(
-                "Unexpected token.\nActual: {:?}\nExpected: {:?}\n",
+                "Unexpected token variant.\nActual: {:?}\nExpected: {:?}\n",
                 token,
                 whitelist.to_owned()
             )

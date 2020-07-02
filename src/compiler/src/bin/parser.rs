@@ -5,9 +5,11 @@ use compiler::{config::Config, input, node_printer, parser};
 fn run(config: &Config) -> Result<(), Box<dyn Error>> {
     let files = input::get_files(config.source_path.clone());
     for file in files {
-        let tokens_result = node_printer::result_to_xml(parser::parse(
-            fs::read_to_string(file.as_path())?.as_str(),
-        )?);
+        eprintln!("Parsing file: {:?}", file.as_path());
+        let tokens_result = node_printer::result_to_xml(
+            parser::parse(fs::read_to_string(file.as_path())?.as_str())
+                .map_err(|e| format!("Error parsing file {:?}:\n{}", file.as_path(), e))?,
+        );
         let mut target_path = file.clone();
         target_path.set_extension("parser-out.xml");
         fs::write(target_path.as_path(), tokens_result)?;
