@@ -272,7 +272,7 @@ where
     fn parse_expression(&mut self) -> Res<Expr> {
         let term = self.parse_term()?;
         let mut terms: Vec<(Op, Term)> = vec![];
-        if let Some(op) = expect::something(self.peek())?.get_op() {
+        while let Some(op) = expect::something(self.peek())?.get_op() {
             self.next();
             terms.push((Op(op), self.parse_term()?));
         };
