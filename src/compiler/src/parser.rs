@@ -1,4 +1,5 @@
 use std::iter::{Enumerate, Peekable};
+use std::slice::Iter;
 
 use crate::{
     node::*,
@@ -10,24 +11,17 @@ type ParseError = Box<dyn std::error::Error>;
 type Res<T = ()> = Result<T, ParseError>;
 
 #[derive(Debug)]
-pub struct Parser<I>
-where
-    I: Iterator<Item = Token> + DoubleEndedIterator<Item = Token> + ExactSizeIterator<Item = Token>,
-{
-    tokens: Peekable<Enumerate<I>>,
+pub struct Parser<'a> {
+    tokens: Peekable<Enumerate<Iter<'a, Token>>>,
+    tokens_seq: &'a [Token],
     pos: usize,
 }
 
-impl<I> Parser<I>
-where
-    I: Iterator<Item = Token> + DoubleEndedIterator<Item = Token> + ExactSizeIterator<Item = Token>,
-{
-    pub fn new<A>(tokens: A) -> Self
-    where
-        A: IntoIterator<IntoIter = I, Item = <I as Iterator>::Item>,
-    {
+impl<'a> Parser<'a> {
+    pub fn new(tokens: &'a Vec<Token>) -> Self {
         Self {
-            tokens: tokens.into_iter().enumerate().peekable(),
+            tokens: tokens.iter().enumerate().peekable(),
+            tokens_seq: &tokens[..],
             pos: 0,
         }
     }
@@ -275,7 +269,7 @@ where
         while let Some(op) = expect::something(self.peek())?.get_op() {
             self.next();
             terms.push((Op(op), self.parse_term()?));
-        };
+        }
         Ok(Expr(term, terms))
     }
 
@@ -374,11 +368,11 @@ where
 
     fn next(&mut self) -> Option<Token> {
         self.pos += 1;
-        self.tokens.next().map(|x| x.1) //.map(|x| dbg!(x))
+        self.tokens.next().map(|x| x.1).cloned() //.map(|x| dbg!(x))
     }
 
     fn peek(&mut self) -> Option<Token> {
-        self.tokens.peek().cloned().map(|x| x.1) //.map(|x| dbg!(x))
+        self.tokens.peek().map(|x| x.1).cloned() //.map(|x| dbg!(x))
     }
 
     fn expect(&mut self, token: Token) -> Res<Token> {
@@ -389,19 +383,15 @@ where
         expect::specific(self.peek(), token)
     }
 
-    fn parsing_error(mut self, err: ParseError) -> ParseError {
-        let _tok = self.next();
-        // let last_n_size = 10;
-        // let pos = self.pos;
-        let last_tokens: Vec<Token> = vec![];
-        // let last_tokens: Vec<_> = self
-        //     .tokens
-        //     .rev()
-        //     // .skip(pos)
-        //     // .rev()
-        //     // .take(last_n_size)
-        //     // .map(|x| x.1)
-        //     .collect();
+    fn parsing_error(&self, err: ParseError) -> ParseError {
+        let last_n_size = 5;
+        let pos = self.pos;
+        let last_tokens: Vec<_> = self
+            .tokens_seq
+            .iter()
+            .skip(pos - last_n_size)
+            .take(last_n_size)
+            .collect();
         format!(
             "{}\n\
             Last tokens:\n{}",
@@ -409,7 +399,7 @@ where
             last_tokens
                 .into_iter()
                 .enumerate()
-                .map(|(i, t)| format!("{}: {:?}", i, t))
+                .map(|(i, t)| format!("{}: {:?}", i + pos - last_n_size, t))
                 .collect::<Vec<_>>()
                 .join("\n")
         )
@@ -491,6 +481,7 @@ pub struct ParseResult {
 }
 
 pub fn parse(input: &str) -> Result<ParseResult, Box<dyn std::error::Error>> {
-    let parser = Parser::new(tokenize(input)?);
+    let tokens = tokenize(input)?;
+    let parser = Parser::new(&tokens);
     parser.parse()
 }
