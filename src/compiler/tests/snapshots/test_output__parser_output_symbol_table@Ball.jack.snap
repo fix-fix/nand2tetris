@@ -1,0 +1,2815 @@
+---
+source: src/compiler/tests/test_output.rs
+expression: result_xml
+input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
+---
+<class>
+  <keyword> class </keyword>
+  <identifier> Ball </identifier>
+  <symbol> { </symbol>
+  <classVarDec>
+    <keyword> field </keyword>
+    <keyword> int </keyword>
+    <identifier>
+      <identifierName> x </identifierName>
+      <identifierCategory> field </identifierCategory>
+      <identifierIndex> 0 </identifierIndex>
+      <identifierIsUsed> false </identifierIsUsed>
+    </identifier>
+    <symbol> , </symbol>
+    <identifier>
+      <identifierName> y </identifierName>
+      <identifierCategory> field </identifierCategory>
+      <identifierIndex> 1 </identifierIndex>
+      <identifierIsUsed> false </identifierIsUsed>
+    </identifier>
+    <symbol> ; </symbol>
+  </classVarDec>
+  <classVarDec>
+    <keyword> field </keyword>
+    <keyword> int </keyword>
+    <identifier>
+      <identifierName> lengthx </identifierName>
+      <identifierCategory> field </identifierCategory>
+      <identifierIndex> 2 </identifierIndex>
+      <identifierIsUsed> false </identifierIsUsed>
+    </identifier>
+    <symbol> , </symbol>
+    <identifier>
+      <identifierName> lengthy </identifierName>
+      <identifierCategory> field </identifierCategory>
+      <identifierIndex> 3 </identifierIndex>
+      <identifierIsUsed> false </identifierIsUsed>
+    </identifier>
+    <symbol> ; </symbol>
+  </classVarDec>
+  <classVarDec>
+    <keyword> field </keyword>
+    <keyword> int </keyword>
+    <identifier>
+      <identifierName> d </identifierName>
+      <identifierCategory> field </identifierCategory>
+      <identifierIndex> 4 </identifierIndex>
+      <identifierIsUsed> false </identifierIsUsed>
+    </identifier>
+    <symbol> , </symbol>
+    <identifier>
+      <identifierName> straightD </identifierName>
+      <identifierCategory> field </identifierCategory>
+      <identifierIndex> 5 </identifierIndex>
+      <identifierIsUsed> false </identifierIsUsed>
+    </identifier>
+    <symbol> , </symbol>
+    <identifier>
+      <identifierName> diagonalD </identifierName>
+      <identifierCategory> field </identifierCategory>
+      <identifierIndex> 6 </identifierIndex>
+      <identifierIsUsed> false </identifierIsUsed>
+    </identifier>
+    <symbol> ; </symbol>
+  </classVarDec>
+  <classVarDec>
+    <keyword> field </keyword>
+    <keyword> boolean </keyword>
+    <identifier>
+      <identifierName> invert </identifierName>
+      <identifierCategory> field </identifierCategory>
+      <identifierIndex> 7 </identifierIndex>
+      <identifierIsUsed> false </identifierIsUsed>
+    </identifier>
+    <symbol> , </symbol>
+    <identifier>
+      <identifierName> positivex </identifierName>
+      <identifierCategory> field </identifierCategory>
+      <identifierIndex> 8 </identifierIndex>
+      <identifierIsUsed> false </identifierIsUsed>
+    </identifier>
+    <symbol> , </symbol>
+    <identifier>
+      <identifierName> positivey </identifierName>
+      <identifierCategory> field </identifierCategory>
+      <identifierIndex> 9 </identifierIndex>
+      <identifierIsUsed> false </identifierIsUsed>
+    </identifier>
+    <symbol> ; </symbol>
+  </classVarDec>
+  <classVarDec>
+    <keyword> field </keyword>
+    <keyword> int </keyword>
+    <identifier>
+      <identifierName> leftWall </identifierName>
+      <identifierCategory> field </identifierCategory>
+      <identifierIndex> 10 </identifierIndex>
+      <identifierIsUsed> false </identifierIsUsed>
+    </identifier>
+    <symbol> , </symbol>
+    <identifier>
+      <identifierName> rightWall </identifierName>
+      <identifierCategory> field </identifierCategory>
+      <identifierIndex> 11 </identifierIndex>
+      <identifierIsUsed> false </identifierIsUsed>
+    </identifier>
+    <symbol> , </symbol>
+    <identifier>
+      <identifierName> topWall </identifierName>
+      <identifierCategory> field </identifierCategory>
+      <identifierIndex> 12 </identifierIndex>
+      <identifierIsUsed> false </identifierIsUsed>
+    </identifier>
+    <symbol> , </symbol>
+    <identifier>
+      <identifierName> bottomWall </identifierName>
+      <identifierCategory> field </identifierCategory>
+      <identifierIndex> 13 </identifierIndex>
+      <identifierIsUsed> false </identifierIsUsed>
+    </identifier>
+    <symbol> ; </symbol>
+  </classVarDec>
+  <classVarDec>
+    <keyword> field </keyword>
+    <keyword> int </keyword>
+    <identifier>
+      <identifierName> wall </identifierName>
+      <identifierCategory> field </identifierCategory>
+      <identifierIndex> 14 </identifierIndex>
+      <identifierIsUsed> false </identifierIsUsed>
+    </identifier>
+    <symbol> ; </symbol>
+  </classVarDec>
+  <subroutineDec>
+    <keyword> constructor </keyword>
+    <identifier> Ball </identifier>
+    <identifier> new </identifier>
+    <symbol> ( </symbol>
+    <parameterList>
+      <keyword> int </keyword>
+      <identifier>
+        <identifierName> Ax </identifierName>
+        <identifierCategory> argument </identifierCategory>
+        <identifierIndex> 0 </identifierIndex>
+        <identifierIsUsed> false </identifierIsUsed>
+      </identifier>
+      <symbol> , </symbol>
+      <keyword> int </keyword>
+      <identifier>
+        <identifierName> Ay </identifierName>
+        <identifierCategory> argument </identifierCategory>
+        <identifierIndex> 1 </identifierIndex>
+        <identifierIsUsed> false </identifierIsUsed>
+      </identifier>
+      <symbol> , </symbol>
+      <keyword> int </keyword>
+      <identifier>
+        <identifierName> AleftWall </identifierName>
+        <identifierCategory> argument </identifierCategory>
+        <identifierIndex> 2 </identifierIndex>
+        <identifierIsUsed> false </identifierIsUsed>
+      </identifier>
+      <symbol> , </symbol>
+      <keyword> int </keyword>
+      <identifier>
+        <identifierName> ArightWall </identifierName>
+        <identifierCategory> argument </identifierCategory>
+        <identifierIndex> 3 </identifierIndex>
+        <identifierIsUsed> false </identifierIsUsed>
+      </identifier>
+      <symbol> , </symbol>
+      <keyword> int </keyword>
+      <identifier>
+        <identifierName> AtopWall </identifierName>
+        <identifierCategory> argument </identifierCategory>
+        <identifierIndex> 4 </identifierIndex>
+        <identifierIsUsed> false </identifierIsUsed>
+      </identifier>
+      <symbol> , </symbol>
+      <keyword> int </keyword>
+      <identifier>
+        <identifierName> AbottomWall </identifierName>
+        <identifierCategory> argument </identifierCategory>
+        <identifierIndex> 5 </identifierIndex>
+        <identifierIsUsed> false </identifierIsUsed>
+      </identifier>
+    </parameterList>
+    <symbol> ) </symbol>
+    <subroutineBody>
+      <symbol> { </symbol>
+      <statements>
+        <letStatement>
+          <keyword> let </keyword>
+          <identifier>
+            <identifierName> x </identifierName>
+            <identifierCategory> field </identifierCategory>
+            <identifierIndex> 0 </identifierIndex>
+            <identifierIsUsed> true </identifierIsUsed>
+          </identifier>
+          <symbol> = </symbol>
+          <expression>
+            <term>
+              <identifier>
+                <identifierName> Ax </identifierName>
+                <identifierCategory> argument </identifierCategory>
+                <identifierIndex> 0 </identifierIndex>
+                <identifierIsUsed> true </identifierIsUsed>
+              </identifier>
+            </term>
+          </expression>
+          <symbol> ; </symbol>
+        </letStatement>
+        <letStatement>
+          <keyword> let </keyword>
+          <identifier>
+            <identifierName> y </identifierName>
+            <identifierCategory> field </identifierCategory>
+            <identifierIndex> 1 </identifierIndex>
+            <identifierIsUsed> true </identifierIsUsed>
+          </identifier>
+          <symbol> = </symbol>
+          <expression>
+            <term>
+              <identifier>
+                <identifierName> Ay </identifierName>
+                <identifierCategory> argument </identifierCategory>
+                <identifierIndex> 1 </identifierIndex>
+                <identifierIsUsed> true </identifierIsUsed>
+              </identifier>
+            </term>
+          </expression>
+          <symbol> ; </symbol>
+        </letStatement>
+        <letStatement>
+          <keyword> let </keyword>
+          <identifier>
+            <identifierName> leftWall </identifierName>
+            <identifierCategory> field </identifierCategory>
+            <identifierIndex> 10 </identifierIndex>
+            <identifierIsUsed> true </identifierIsUsed>
+          </identifier>
+          <symbol> = </symbol>
+          <expression>
+            <term>
+              <identifier>
+                <identifierName> AleftWall </identifierName>
+                <identifierCategory> argument </identifierCategory>
+                <identifierIndex> 2 </identifierIndex>
+                <identifierIsUsed> true </identifierIsUsed>
+              </identifier>
+            </term>
+          </expression>
+          <symbol> ; </symbol>
+        </letStatement>
+        <letStatement>
+          <keyword> let </keyword>
+          <identifier>
+            <identifierName> rightWall </identifierName>
+            <identifierCategory> field </identifierCategory>
+            <identifierIndex> 11 </identifierIndex>
+            <identifierIsUsed> true </identifierIsUsed>
+          </identifier>
+          <symbol> = </symbol>
+          <expression>
+            <term>
+              <identifier>
+                <identifierName> ArightWall </identifierName>
+                <identifierCategory> argument </identifierCategory>
+                <identifierIndex> 3 </identifierIndex>
+                <identifierIsUsed> true </identifierIsUsed>
+              </identifier>
+            </term>
+            <symbol> - </symbol>
+            <term>
+              <integerConstant> 6 </integerConstant>
+            </term>
+          </expression>
+          <symbol> ; </symbol>
+        </letStatement>
+        <letStatement>
+          <keyword> let </keyword>
+          <identifier>
+            <identifierName> topWall </identifierName>
+            <identifierCategory> field </identifierCategory>
+            <identifierIndex> 12 </identifierIndex>
+            <identifierIsUsed> true </identifierIsUsed>
+          </identifier>
+          <symbol> = </symbol>
+          <expression>
+            <term>
+              <identifier>
+                <identifierName> AtopWall </identifierName>
+                <identifierCategory> argument </identifierCategory>
+                <identifierIndex> 4 </identifierIndex>
+                <identifierIsUsed> true </identifierIsUsed>
+              </identifier>
+            </term>
+          </expression>
+          <symbol> ; </symbol>
+        </letStatement>
+        <letStatement>
+          <keyword> let </keyword>
+          <identifier>
+            <identifierName> bottomWall </identifierName>
+            <identifierCategory> field </identifierCategory>
+            <identifierIndex> 13 </identifierIndex>
+            <identifierIsUsed> true </identifierIsUsed>
+          </identifier>
+          <symbol> = </symbol>
+          <expression>
+            <term>
+              <identifier>
+                <identifierName> AbottomWall </identifierName>
+                <identifierCategory> argument </identifierCategory>
+                <identifierIndex> 5 </identifierIndex>
+                <identifierIsUsed> true </identifierIsUsed>
+              </identifier>
+            </term>
+            <symbol> - </symbol>
+            <term>
+              <integerConstant> 6 </integerConstant>
+            </term>
+          </expression>
+          <symbol> ; </symbol>
+        </letStatement>
+        <letStatement>
+          <keyword> let </keyword>
+          <identifier>
+            <identifierName> wall </identifierName>
+            <identifierCategory> field </identifierCategory>
+            <identifierIndex> 14 </identifierIndex>
+            <identifierIsUsed> true </identifierIsUsed>
+          </identifier>
+          <symbol> = </symbol>
+          <expression>
+            <term>
+              <integerConstant> 0 </integerConstant>
+            </term>
+          </expression>
+          <symbol> ; </symbol>
+        </letStatement>
+        <doStatement>
+          <keyword> do </keyword>
+          <identifier> show </identifier>
+          <symbol> ( </symbol>
+          <expressionList>
+          </expressionList>
+          <symbol> ) </symbol>
+          <symbol> ; </symbol>
+        </doStatement>
+        <returnStatement>
+          <keyword> return </keyword>
+          <expression>
+            <term>
+              <keyword> this </keyword>
+            </term>
+          </expression>
+          <symbol> ; </symbol>
+        </returnStatement>
+      </statements>
+      <symbol> } </symbol>
+    </subroutineBody>
+  </subroutineDec>
+  <subroutineDec>
+    <keyword> method </keyword>
+    <keyword> void </keyword>
+    <identifier> dispose </identifier>
+    <symbol> ( </symbol>
+    <parameterList>
+    </parameterList>
+    <symbol> ) </symbol>
+    <subroutineBody>
+      <symbol> { </symbol>
+      <statements>
+        <doStatement>
+          <keyword> do </keyword>
+          <identifier> Memory </identifier>
+          <symbol> . </symbol>
+          <identifier> deAlloc </identifier>
+          <symbol> ( </symbol>
+          <expressionList>
+            <expression>
+              <term>
+                <keyword> this </keyword>
+              </term>
+            </expression>
+          </expressionList>
+          <symbol> ) </symbol>
+          <symbol> ; </symbol>
+        </doStatement>
+        <returnStatement>
+          <keyword> return </keyword>
+          <symbol> ; </symbol>
+        </returnStatement>
+      </statements>
+      <symbol> } </symbol>
+    </subroutineBody>
+  </subroutineDec>
+  <subroutineDec>
+    <keyword> method </keyword>
+    <keyword> void </keyword>
+    <identifier> show </identifier>
+    <symbol> ( </symbol>
+    <parameterList>
+    </parameterList>
+    <symbol> ) </symbol>
+    <subroutineBody>
+      <symbol> { </symbol>
+      <statements>
+        <doStatement>
+          <keyword> do </keyword>
+          <identifier> Screen </identifier>
+          <symbol> . </symbol>
+          <identifier> setColor </identifier>
+          <symbol> ( </symbol>
+          <expressionList>
+            <expression>
+              <term>
+                <keyword> true </keyword>
+              </term>
+            </expression>
+          </expressionList>
+          <symbol> ) </symbol>
+          <symbol> ; </symbol>
+        </doStatement>
+        <doStatement>
+          <keyword> do </keyword>
+          <identifier> draw </identifier>
+          <symbol> ( </symbol>
+          <expressionList>
+          </expressionList>
+          <symbol> ) </symbol>
+          <symbol> ; </symbol>
+        </doStatement>
+        <returnStatement>
+          <keyword> return </keyword>
+          <symbol> ; </symbol>
+        </returnStatement>
+      </statements>
+      <symbol> } </symbol>
+    </subroutineBody>
+  </subroutineDec>
+  <subroutineDec>
+    <keyword> method </keyword>
+    <keyword> void </keyword>
+    <identifier> hide </identifier>
+    <symbol> ( </symbol>
+    <parameterList>
+    </parameterList>
+    <symbol> ) </symbol>
+    <subroutineBody>
+      <symbol> { </symbol>
+      <statements>
+        <doStatement>
+          <keyword> do </keyword>
+          <identifier> Screen </identifier>
+          <symbol> . </symbol>
+          <identifier> setColor </identifier>
+          <symbol> ( </symbol>
+          <expressionList>
+            <expression>
+              <term>
+                <keyword> false </keyword>
+              </term>
+            </expression>
+          </expressionList>
+          <symbol> ) </symbol>
+          <symbol> ; </symbol>
+        </doStatement>
+        <doStatement>
+          <keyword> do </keyword>
+          <identifier> draw </identifier>
+          <symbol> ( </symbol>
+          <expressionList>
+          </expressionList>
+          <symbol> ) </symbol>
+          <symbol> ; </symbol>
+        </doStatement>
+        <returnStatement>
+          <keyword> return </keyword>
+          <symbol> ; </symbol>
+        </returnStatement>
+      </statements>
+      <symbol> } </symbol>
+    </subroutineBody>
+  </subroutineDec>
+  <subroutineDec>
+    <keyword> method </keyword>
+    <keyword> void </keyword>
+    <identifier> draw </identifier>
+    <symbol> ( </symbol>
+    <parameterList>
+    </parameterList>
+    <symbol> ) </symbol>
+    <subroutineBody>
+      <symbol> { </symbol>
+      <statements>
+        <doStatement>
+          <keyword> do </keyword>
+          <identifier> Screen </identifier>
+          <symbol> . </symbol>
+          <identifier> drawRectangle </identifier>
+          <symbol> ( </symbol>
+          <expressionList>
+            <expression>
+              <term>
+                <identifier>
+                  <identifierName> x </identifierName>
+                  <identifierCategory> field </identifierCategory>
+                  <identifierIndex> 0 </identifierIndex>
+                  <identifierIsUsed> true </identifierIsUsed>
+                </identifier>
+              </term>
+            </expression>
+            <symbol> , </symbol>
+            <expression>
+              <term>
+                <identifier>
+                  <identifierName> y </identifierName>
+                  <identifierCategory> field </identifierCategory>
+                  <identifierIndex> 1 </identifierIndex>
+                  <identifierIsUsed> true </identifierIsUsed>
+                </identifier>
+              </term>
+            </expression>
+            <symbol> , </symbol>
+            <expression>
+              <term>
+                <identifier>
+                  <identifierName> x </identifierName>
+                  <identifierCategory> field </identifierCategory>
+                  <identifierIndex> 0 </identifierIndex>
+                  <identifierIsUsed> true </identifierIsUsed>
+                </identifier>
+              </term>
+              <symbol> + </symbol>
+              <term>
+                <integerConstant> 5 </integerConstant>
+              </term>
+            </expression>
+            <symbol> , </symbol>
+            <expression>
+              <term>
+                <identifier>
+                  <identifierName> y </identifierName>
+                  <identifierCategory> field </identifierCategory>
+                  <identifierIndex> 1 </identifierIndex>
+                  <identifierIsUsed> true </identifierIsUsed>
+                </identifier>
+              </term>
+              <symbol> + </symbol>
+              <term>
+                <integerConstant> 5 </integerConstant>
+              </term>
+            </expression>
+          </expressionList>
+          <symbol> ) </symbol>
+          <symbol> ; </symbol>
+        </doStatement>
+        <returnStatement>
+          <keyword> return </keyword>
+          <symbol> ; </symbol>
+        </returnStatement>
+      </statements>
+      <symbol> } </symbol>
+    </subroutineBody>
+  </subroutineDec>
+  <subroutineDec>
+    <keyword> method </keyword>
+    <keyword> int </keyword>
+    <identifier> getLeft </identifier>
+    <symbol> ( </symbol>
+    <parameterList>
+    </parameterList>
+    <symbol> ) </symbol>
+    <subroutineBody>
+      <symbol> { </symbol>
+      <statements>
+        <returnStatement>
+          <keyword> return </keyword>
+          <expression>
+            <term>
+              <identifier>
+                <identifierName> x </identifierName>
+                <identifierCategory> field </identifierCategory>
+                <identifierIndex> 0 </identifierIndex>
+                <identifierIsUsed> true </identifierIsUsed>
+              </identifier>
+            </term>
+          </expression>
+          <symbol> ; </symbol>
+        </returnStatement>
+      </statements>
+      <symbol> } </symbol>
+    </subroutineBody>
+  </subroutineDec>
+  <subroutineDec>
+    <keyword> method </keyword>
+    <keyword> int </keyword>
+    <identifier> getRight </identifier>
+    <symbol> ( </symbol>
+    <parameterList>
+    </parameterList>
+    <symbol> ) </symbol>
+    <subroutineBody>
+      <symbol> { </symbol>
+      <statements>
+        <returnStatement>
+          <keyword> return </keyword>
+          <expression>
+            <term>
+              <identifier>
+                <identifierName> x </identifierName>
+                <identifierCategory> field </identifierCategory>
+                <identifierIndex> 0 </identifierIndex>
+                <identifierIsUsed> true </identifierIsUsed>
+              </identifier>
+            </term>
+            <symbol> + </symbol>
+            <term>
+              <integerConstant> 5 </integerConstant>
+            </term>
+          </expression>
+          <symbol> ; </symbol>
+        </returnStatement>
+      </statements>
+      <symbol> } </symbol>
+    </subroutineBody>
+  </subroutineDec>
+  <subroutineDec>
+    <keyword> method </keyword>
+    <keyword> void </keyword>
+    <identifier> setDestination </identifier>
+    <symbol> ( </symbol>
+    <parameterList>
+      <keyword> int </keyword>
+      <identifier>
+        <identifierName> destx </identifierName>
+        <identifierCategory> argument </identifierCategory>
+        <identifierIndex> 0 </identifierIndex>
+        <identifierIsUsed> false </identifierIsUsed>
+      </identifier>
+      <symbol> , </symbol>
+      <keyword> int </keyword>
+      <identifier>
+        <identifierName> desty </identifierName>
+        <identifierCategory> argument </identifierCategory>
+        <identifierIndex> 1 </identifierIndex>
+        <identifierIsUsed> false </identifierIsUsed>
+      </identifier>
+    </parameterList>
+    <symbol> ) </symbol>
+    <subroutineBody>
+      <symbol> { </symbol>
+      <varDec>
+        <keyword> var </keyword>
+        <keyword> int </keyword>
+        <identifier>
+          <identifierName> dx </identifierName>
+          <identifierCategory> var </identifierCategory>
+          <identifierIndex> 2 </identifierIndex>
+          <identifierIsUsed> false </identifierIsUsed>
+        </identifier>
+        <symbol> , </symbol>
+        <identifier>
+          <identifierName> dy </identifierName>
+          <identifierCategory> var </identifierCategory>
+          <identifierIndex> 3 </identifierIndex>
+          <identifierIsUsed> false </identifierIsUsed>
+        </identifier>
+        <symbol> , </symbol>
+        <identifier>
+          <identifierName> temp </identifierName>
+          <identifierCategory> var </identifierCategory>
+          <identifierIndex> 4 </identifierIndex>
+          <identifierIsUsed> false </identifierIsUsed>
+        </identifier>
+        <symbol> ; </symbol>
+      </varDec>
+      <statements>
+        <letStatement>
+          <keyword> let </keyword>
+          <identifier>
+            <identifierName> lengthx </identifierName>
+            <identifierCategory> field </identifierCategory>
+            <identifierIndex> 2 </identifierIndex>
+            <identifierIsUsed> true </identifierIsUsed>
+          </identifier>
+          <symbol> = </symbol>
+          <expression>
+            <term>
+              <identifier>
+                <identifierName> destx </identifierName>
+                <identifierCategory> argument </identifierCategory>
+                <identifierIndex> 0 </identifierIndex>
+                <identifierIsUsed> true </identifierIsUsed>
+              </identifier>
+            </term>
+            <symbol> - </symbol>
+            <term>
+              <identifier>
+                <identifierName> x </identifierName>
+                <identifierCategory> field </identifierCategory>
+                <identifierIndex> 0 </identifierIndex>
+                <identifierIsUsed> true </identifierIsUsed>
+              </identifier>
+            </term>
+          </expression>
+          <symbol> ; </symbol>
+        </letStatement>
+        <letStatement>
+          <keyword> let </keyword>
+          <identifier>
+            <identifierName> lengthy </identifierName>
+            <identifierCategory> field </identifierCategory>
+            <identifierIndex> 3 </identifierIndex>
+            <identifierIsUsed> true </identifierIsUsed>
+          </identifier>
+          <symbol> = </symbol>
+          <expression>
+            <term>
+              <identifier>
+                <identifierName> desty </identifierName>
+                <identifierCategory> argument </identifierCategory>
+                <identifierIndex> 1 </identifierIndex>
+                <identifierIsUsed> true </identifierIsUsed>
+              </identifier>
+            </term>
+            <symbol> - </symbol>
+            <term>
+              <identifier>
+                <identifierName> y </identifierName>
+                <identifierCategory> field </identifierCategory>
+                <identifierIndex> 1 </identifierIndex>
+                <identifierIsUsed> true </identifierIsUsed>
+              </identifier>
+            </term>
+          </expression>
+          <symbol> ; </symbol>
+        </letStatement>
+        <letStatement>
+          <keyword> let </keyword>
+          <identifier>
+            <identifierName> dx </identifierName>
+            <identifierCategory> var </identifierCategory>
+            <identifierIndex> 2 </identifierIndex>
+            <identifierIsUsed> true </identifierIsUsed>
+          </identifier>
+          <symbol> = </symbol>
+          <expression>
+            <term>
+              <identifier> Math </identifier>
+              <symbol> . </symbol>
+              <identifier> abs </identifier>
+              <symbol> ( </symbol>
+              <expressionList>
+                <expression>
+                  <term>
+                    <identifier>
+                      <identifierName> lengthx </identifierName>
+                      <identifierCategory> field </identifierCategory>
+                      <identifierIndex> 2 </identifierIndex>
+                      <identifierIsUsed> true </identifierIsUsed>
+                    </identifier>
+                  </term>
+                </expression>
+              </expressionList>
+              <symbol> ) </symbol>
+            </term>
+          </expression>
+          <symbol> ; </symbol>
+        </letStatement>
+        <letStatement>
+          <keyword> let </keyword>
+          <identifier>
+            <identifierName> dy </identifierName>
+            <identifierCategory> var </identifierCategory>
+            <identifierIndex> 3 </identifierIndex>
+            <identifierIsUsed> true </identifierIsUsed>
+          </identifier>
+          <symbol> = </symbol>
+          <expression>
+            <term>
+              <identifier> Math </identifier>
+              <symbol> . </symbol>
+              <identifier> abs </identifier>
+              <symbol> ( </symbol>
+              <expressionList>
+                <expression>
+                  <term>
+                    <identifier>
+                      <identifierName> lengthy </identifierName>
+                      <identifierCategory> field </identifierCategory>
+                      <identifierIndex> 3 </identifierIndex>
+                      <identifierIsUsed> true </identifierIsUsed>
+                    </identifier>
+                  </term>
+                </expression>
+              </expressionList>
+              <symbol> ) </symbol>
+            </term>
+          </expression>
+          <symbol> ; </symbol>
+        </letStatement>
+        <letStatement>
+          <keyword> let </keyword>
+          <identifier>
+            <identifierName> invert </identifierName>
+            <identifierCategory> field </identifierCategory>
+            <identifierIndex> 7 </identifierIndex>
+            <identifierIsUsed> true </identifierIsUsed>
+          </identifier>
+          <symbol> = </symbol>
+          <expression>
+            <term>
+              <symbol> ( </symbol>
+              <expression>
+                <term>
+                  <identifier>
+                    <identifierName> dx </identifierName>
+                    <identifierCategory> var </identifierCategory>
+                    <identifierIndex> 2 </identifierIndex>
+                    <identifierIsUsed> true </identifierIsUsed>
+                  </identifier>
+                </term>
+                <symbol> &lt; </symbol>
+                <term>
+                  <identifier>
+                    <identifierName> dy </identifierName>
+                    <identifierCategory> var </identifierCategory>
+                    <identifierIndex> 3 </identifierIndex>
+                    <identifierIsUsed> true </identifierIsUsed>
+                  </identifier>
+                </term>
+              </expression>
+              <symbol> ) </symbol>
+            </term>
+          </expression>
+          <symbol> ; </symbol>
+        </letStatement>
+        <ifStatement>
+          <keyword> if </keyword>
+          <symbol> ( </symbol>
+          <expression>
+            <term>
+              <identifier>
+                <identifierName> invert </identifierName>
+                <identifierCategory> field </identifierCategory>
+                <identifierIndex> 7 </identifierIndex>
+                <identifierIsUsed> true </identifierIsUsed>
+              </identifier>
+            </term>
+          </expression>
+          <symbol> ) </symbol>
+          <symbol> { </symbol>
+          <statements>
+            <letStatement>
+              <keyword> let </keyword>
+              <identifier>
+                <identifierName> temp </identifierName>
+                <identifierCategory> var </identifierCategory>
+                <identifierIndex> 4 </identifierIndex>
+                <identifierIsUsed> true </identifierIsUsed>
+              </identifier>
+              <symbol> = </symbol>
+              <expression>
+                <term>
+                  <identifier>
+                    <identifierName> dx </identifierName>
+                    <identifierCategory> var </identifierCategory>
+                    <identifierIndex> 2 </identifierIndex>
+                    <identifierIsUsed> true </identifierIsUsed>
+                  </identifier>
+                </term>
+              </expression>
+              <symbol> ; </symbol>
+            </letStatement>
+            <letStatement>
+              <keyword> let </keyword>
+              <identifier>
+                <identifierName> dx </identifierName>
+                <identifierCategory> var </identifierCategory>
+                <identifierIndex> 2 </identifierIndex>
+                <identifierIsUsed> true </identifierIsUsed>
+              </identifier>
+              <symbol> = </symbol>
+              <expression>
+                <term>
+                  <identifier>
+                    <identifierName> dy </identifierName>
+                    <identifierCategory> var </identifierCategory>
+                    <identifierIndex> 3 </identifierIndex>
+                    <identifierIsUsed> true </identifierIsUsed>
+                  </identifier>
+                </term>
+              </expression>
+              <symbol> ; </symbol>
+            </letStatement>
+            <letStatement>
+              <keyword> let </keyword>
+              <identifier>
+                <identifierName> dy </identifierName>
+                <identifierCategory> var </identifierCategory>
+                <identifierIndex> 3 </identifierIndex>
+                <identifierIsUsed> true </identifierIsUsed>
+              </identifier>
+              <symbol> = </symbol>
+              <expression>
+                <term>
+                  <identifier>
+                    <identifierName> temp </identifierName>
+                    <identifierCategory> var </identifierCategory>
+                    <identifierIndex> 4 </identifierIndex>
+                    <identifierIsUsed> true </identifierIsUsed>
+                  </identifier>
+                </term>
+              </expression>
+              <symbol> ; </symbol>
+            </letStatement>
+            <letStatement>
+              <keyword> let </keyword>
+              <identifier>
+                <identifierName> positivex </identifierName>
+                <identifierCategory> field </identifierCategory>
+                <identifierIndex> 8 </identifierIndex>
+                <identifierIsUsed> true </identifierIsUsed>
+              </identifier>
+              <symbol> = </symbol>
+              <expression>
+                <term>
+                  <symbol> ( </symbol>
+                  <expression>
+                    <term>
+                      <identifier>
+                        <identifierName> y </identifierName>
+                        <identifierCategory> field </identifierCategory>
+                        <identifierIndex> 1 </identifierIndex>
+                        <identifierIsUsed> true </identifierIsUsed>
+                      </identifier>
+                    </term>
+                    <symbol> &lt; </symbol>
+                    <term>
+                      <identifier>
+                        <identifierName> desty </identifierName>
+                        <identifierCategory> argument </identifierCategory>
+                        <identifierIndex> 1 </identifierIndex>
+                        <identifierIsUsed> true </identifierIsUsed>
+                      </identifier>
+                    </term>
+                  </expression>
+                  <symbol> ) </symbol>
+                </term>
+              </expression>
+              <symbol> ; </symbol>
+            </letStatement>
+            <letStatement>
+              <keyword> let </keyword>
+              <identifier>
+                <identifierName> positivey </identifierName>
+                <identifierCategory> field </identifierCategory>
+                <identifierIndex> 9 </identifierIndex>
+                <identifierIsUsed> true </identifierIsUsed>
+              </identifier>
+              <symbol> = </symbol>
+              <expression>
+                <term>
+                  <symbol> ( </symbol>
+                  <expression>
+                    <term>
+                      <identifier>
+                        <identifierName> x </identifierName>
+                        <identifierCategory> field </identifierCategory>
+                        <identifierIndex> 0 </identifierIndex>
+                        <identifierIsUsed> true </identifierIsUsed>
+                      </identifier>
+                    </term>
+                    <symbol> &lt; </symbol>
+                    <term>
+                      <identifier>
+                        <identifierName> destx </identifierName>
+                        <identifierCategory> argument </identifierCategory>
+                        <identifierIndex> 0 </identifierIndex>
+                        <identifierIsUsed> true </identifierIsUsed>
+                      </identifier>
+                    </term>
+                  </expression>
+                  <symbol> ) </symbol>
+                </term>
+              </expression>
+              <symbol> ; </symbol>
+            </letStatement>
+          </statements>
+          <symbol> } </symbol>
+          <keyword> else </keyword>
+          <symbol> { </symbol>
+          <statements>
+            <letStatement>
+              <keyword> let </keyword>
+              <identifier>
+                <identifierName> positivex </identifierName>
+                <identifierCategory> field </identifierCategory>
+                <identifierIndex> 8 </identifierIndex>
+                <identifierIsUsed> true </identifierIsUsed>
+              </identifier>
+              <symbol> = </symbol>
+              <expression>
+                <term>
+                  <symbol> ( </symbol>
+                  <expression>
+                    <term>
+                      <identifier>
+                        <identifierName> x </identifierName>
+                        <identifierCategory> field </identifierCategory>
+                        <identifierIndex> 0 </identifierIndex>
+                        <identifierIsUsed> true </identifierIsUsed>
+                      </identifier>
+                    </term>
+                    <symbol> &lt; </symbol>
+                    <term>
+                      <identifier>
+                        <identifierName> destx </identifierName>
+                        <identifierCategory> argument </identifierCategory>
+                        <identifierIndex> 0 </identifierIndex>
+                        <identifierIsUsed> true </identifierIsUsed>
+                      </identifier>
+                    </term>
+                  </expression>
+                  <symbol> ) </symbol>
+                </term>
+              </expression>
+              <symbol> ; </symbol>
+            </letStatement>
+            <letStatement>
+              <keyword> let </keyword>
+              <identifier>
+                <identifierName> positivey </identifierName>
+                <identifierCategory> field </identifierCategory>
+                <identifierIndex> 9 </identifierIndex>
+                <identifierIsUsed> true </identifierIsUsed>
+              </identifier>
+              <symbol> = </symbol>
+              <expression>
+                <term>
+                  <symbol> ( </symbol>
+                  <expression>
+                    <term>
+                      <identifier>
+                        <identifierName> y </identifierName>
+                        <identifierCategory> field </identifierCategory>
+                        <identifierIndex> 1 </identifierIndex>
+                        <identifierIsUsed> true </identifierIsUsed>
+                      </identifier>
+                    </term>
+                    <symbol> &lt; </symbol>
+                    <term>
+                      <identifier>
+                        <identifierName> desty </identifierName>
+                        <identifierCategory> argument </identifierCategory>
+                        <identifierIndex> 1 </identifierIndex>
+                        <identifierIsUsed> true </identifierIsUsed>
+                      </identifier>
+                    </term>
+                  </expression>
+                  <symbol> ) </symbol>
+                </term>
+              </expression>
+              <symbol> ; </symbol>
+            </letStatement>
+          </statements>
+          <symbol> } </symbol>
+        </ifStatement>
+        <letStatement>
+          <keyword> let </keyword>
+          <identifier>
+            <identifierName> d </identifierName>
+            <identifierCategory> field </identifierCategory>
+            <identifierIndex> 4 </identifierIndex>
+            <identifierIsUsed> true </identifierIsUsed>
+          </identifier>
+          <symbol> = </symbol>
+          <expression>
+            <term>
+              <symbol> ( </symbol>
+              <expression>
+                <term>
+                  <integerConstant> 2 </integerConstant>
+                </term>
+                <symbol> * </symbol>
+                <term>
+                  <identifier>
+                    <identifierName> dy </identifierName>
+                    <identifierCategory> var </identifierCategory>
+                    <identifierIndex> 3 </identifierIndex>
+                    <identifierIsUsed> true </identifierIsUsed>
+                  </identifier>
+                </term>
+              </expression>
+              <symbol> ) </symbol>
+            </term>
+            <symbol> - </symbol>
+            <term>
+              <identifier>
+                <identifierName> dx </identifierName>
+                <identifierCategory> var </identifierCategory>
+                <identifierIndex> 2 </identifierIndex>
+                <identifierIsUsed> true </identifierIsUsed>
+              </identifier>
+            </term>
+          </expression>
+          <symbol> ; </symbol>
+        </letStatement>
+        <letStatement>
+          <keyword> let </keyword>
+          <identifier>
+            <identifierName> straightD </identifierName>
+            <identifierCategory> field </identifierCategory>
+            <identifierIndex> 5 </identifierIndex>
+            <identifierIsUsed> true </identifierIsUsed>
+          </identifier>
+          <symbol> = </symbol>
+          <expression>
+            <term>
+              <integerConstant> 2 </integerConstant>
+            </term>
+            <symbol> * </symbol>
+            <term>
+              <identifier>
+                <identifierName> dy </identifierName>
+                <identifierCategory> var </identifierCategory>
+                <identifierIndex> 3 </identifierIndex>
+                <identifierIsUsed> true </identifierIsUsed>
+              </identifier>
+            </term>
+          </expression>
+          <symbol> ; </symbol>
+        </letStatement>
+        <letStatement>
+          <keyword> let </keyword>
+          <identifier>
+            <identifierName> diagonalD </identifierName>
+            <identifierCategory> field </identifierCategory>
+            <identifierIndex> 6 </identifierIndex>
+            <identifierIsUsed> true </identifierIsUsed>
+          </identifier>
+          <symbol> = </symbol>
+          <expression>
+            <term>
+              <integerConstant> 2 </integerConstant>
+            </term>
+            <symbol> * </symbol>
+            <term>
+              <symbol> ( </symbol>
+              <expression>
+                <term>
+                  <identifier>
+                    <identifierName> dy </identifierName>
+                    <identifierCategory> var </identifierCategory>
+                    <identifierIndex> 3 </identifierIndex>
+                    <identifierIsUsed> true </identifierIsUsed>
+                  </identifier>
+                </term>
+                <symbol> - </symbol>
+                <term>
+                  <identifier>
+                    <identifierName> dx </identifierName>
+                    <identifierCategory> var </identifierCategory>
+                    <identifierIndex> 2 </identifierIndex>
+                    <identifierIsUsed> true </identifierIsUsed>
+                  </identifier>
+                </term>
+              </expression>
+              <symbol> ) </symbol>
+            </term>
+          </expression>
+          <symbol> ; </symbol>
+        </letStatement>
+        <returnStatement>
+          <keyword> return </keyword>
+          <symbol> ; </symbol>
+        </returnStatement>
+      </statements>
+      <symbol> } </symbol>
+    </subroutineBody>
+  </subroutineDec>
+  <subroutineDec>
+    <keyword> method </keyword>
+    <keyword> int </keyword>
+    <identifier> move </identifier>
+    <symbol> ( </symbol>
+    <parameterList>
+    </parameterList>
+    <symbol> ) </symbol>
+    <subroutineBody>
+      <symbol> { </symbol>
+      <statements>
+        <doStatement>
+          <keyword> do </keyword>
+          <identifier> hide </identifier>
+          <symbol> ( </symbol>
+          <expressionList>
+          </expressionList>
+          <symbol> ) </symbol>
+          <symbol> ; </symbol>
+        </doStatement>
+        <ifStatement>
+          <keyword> if </keyword>
+          <symbol> ( </symbol>
+          <expression>
+            <term>
+              <identifier>
+                <identifierName> d </identifierName>
+                <identifierCategory> field </identifierCategory>
+                <identifierIndex> 4 </identifierIndex>
+                <identifierIsUsed> true </identifierIsUsed>
+              </identifier>
+            </term>
+            <symbol> &lt; </symbol>
+            <term>
+              <integerConstant> 0 </integerConstant>
+            </term>
+          </expression>
+          <symbol> ) </symbol>
+          <symbol> { </symbol>
+          <statements>
+            <letStatement>
+              <keyword> let </keyword>
+              <identifier>
+                <identifierName> d </identifierName>
+                <identifierCategory> field </identifierCategory>
+                <identifierIndex> 4 </identifierIndex>
+                <identifierIsUsed> true </identifierIsUsed>
+              </identifier>
+              <symbol> = </symbol>
+              <expression>
+                <term>
+                  <identifier>
+                    <identifierName> d </identifierName>
+                    <identifierCategory> field </identifierCategory>
+                    <identifierIndex> 4 </identifierIndex>
+                    <identifierIsUsed> true </identifierIsUsed>
+                  </identifier>
+                </term>
+                <symbol> + </symbol>
+                <term>
+                  <identifier>
+                    <identifierName> straightD </identifierName>
+                    <identifierCategory> field </identifierCategory>
+                    <identifierIndex> 5 </identifierIndex>
+                    <identifierIsUsed> true </identifierIsUsed>
+                  </identifier>
+                </term>
+              </expression>
+              <symbol> ; </symbol>
+            </letStatement>
+          </statements>
+          <symbol> } </symbol>
+          <keyword> else </keyword>
+          <symbol> { </symbol>
+          <statements>
+            <letStatement>
+              <keyword> let </keyword>
+              <identifier>
+                <identifierName> d </identifierName>
+                <identifierCategory> field </identifierCategory>
+                <identifierIndex> 4 </identifierIndex>
+                <identifierIsUsed> true </identifierIsUsed>
+              </identifier>
+              <symbol> = </symbol>
+              <expression>
+                <term>
+                  <identifier>
+                    <identifierName> d </identifierName>
+                    <identifierCategory> field </identifierCategory>
+                    <identifierIndex> 4 </identifierIndex>
+                    <identifierIsUsed> true </identifierIsUsed>
+                  </identifier>
+                </term>
+                <symbol> + </symbol>
+                <term>
+                  <identifier>
+                    <identifierName> diagonalD </identifierName>
+                    <identifierCategory> field </identifierCategory>
+                    <identifierIndex> 6 </identifierIndex>
+                    <identifierIsUsed> true </identifierIsUsed>
+                  </identifier>
+                </term>
+              </expression>
+              <symbol> ; </symbol>
+            </letStatement>
+            <ifStatement>
+              <keyword> if </keyword>
+              <symbol> ( </symbol>
+              <expression>
+                <term>
+                  <identifier>
+                    <identifierName> positivey </identifierName>
+                    <identifierCategory> field </identifierCategory>
+                    <identifierIndex> 9 </identifierIndex>
+                    <identifierIsUsed> true </identifierIsUsed>
+                  </identifier>
+                </term>
+              </expression>
+              <symbol> ) </symbol>
+              <symbol> { </symbol>
+              <statements>
+                <ifStatement>
+                  <keyword> if </keyword>
+                  <symbol> ( </symbol>
+                  <expression>
+                    <term>
+                      <identifier>
+                        <identifierName> invert </identifierName>
+                        <identifierCategory> field </identifierCategory>
+                        <identifierIndex> 7 </identifierIndex>
+                        <identifierIsUsed> true </identifierIsUsed>
+                      </identifier>
+                    </term>
+                  </expression>
+                  <symbol> ) </symbol>
+                  <symbol> { </symbol>
+                  <statements>
+                    <letStatement>
+                      <keyword> let </keyword>
+                      <identifier>
+                        <identifierName> x </identifierName>
+                        <identifierCategory> field </identifierCategory>
+                        <identifierIndex> 0 </identifierIndex>
+                        <identifierIsUsed> true </identifierIsUsed>
+                      </identifier>
+                      <symbol> = </symbol>
+                      <expression>
+                        <term>
+                          <identifier>
+                            <identifierName> x </identifierName>
+                            <identifierCategory> field </identifierCategory>
+                            <identifierIndex> 0 </identifierIndex>
+                            <identifierIsUsed> true </identifierIsUsed>
+                          </identifier>
+                        </term>
+                        <symbol> + </symbol>
+                        <term>
+                          <integerConstant> 4 </integerConstant>
+                        </term>
+                      </expression>
+                      <symbol> ; </symbol>
+                    </letStatement>
+                  </statements>
+                  <symbol> } </symbol>
+                  <keyword> else </keyword>
+                  <symbol> { </symbol>
+                  <statements>
+                    <letStatement>
+                      <keyword> let </keyword>
+                      <identifier>
+                        <identifierName> y </identifierName>
+                        <identifierCategory> field </identifierCategory>
+                        <identifierIndex> 1 </identifierIndex>
+                        <identifierIsUsed> true </identifierIsUsed>
+                      </identifier>
+                      <symbol> = </symbol>
+                      <expression>
+                        <term>
+                          <identifier>
+                            <identifierName> y </identifierName>
+                            <identifierCategory> field </identifierCategory>
+                            <identifierIndex> 1 </identifierIndex>
+                            <identifierIsUsed> true </identifierIsUsed>
+                          </identifier>
+                        </term>
+                        <symbol> + </symbol>
+                        <term>
+                          <integerConstant> 4 </integerConstant>
+                        </term>
+                      </expression>
+                      <symbol> ; </symbol>
+                    </letStatement>
+                  </statements>
+                  <symbol> } </symbol>
+                </ifStatement>
+              </statements>
+              <symbol> } </symbol>
+              <keyword> else </keyword>
+              <symbol> { </symbol>
+              <statements>
+                <ifStatement>
+                  <keyword> if </keyword>
+                  <symbol> ( </symbol>
+                  <expression>
+                    <term>
+                      <identifier>
+                        <identifierName> invert </identifierName>
+                        <identifierCategory> field </identifierCategory>
+                        <identifierIndex> 7 </identifierIndex>
+                        <identifierIsUsed> true </identifierIsUsed>
+                      </identifier>
+                    </term>
+                  </expression>
+                  <symbol> ) </symbol>
+                  <symbol> { </symbol>
+                  <statements>
+                    <letStatement>
+                      <keyword> let </keyword>
+                      <identifier>
+                        <identifierName> x </identifierName>
+                        <identifierCategory> field </identifierCategory>
+                        <identifierIndex> 0 </identifierIndex>
+                        <identifierIsUsed> true </identifierIsUsed>
+                      </identifier>
+                      <symbol> = </symbol>
+                      <expression>
+                        <term>
+                          <identifier>
+                            <identifierName> x </identifierName>
+                            <identifierCategory> field </identifierCategory>
+                            <identifierIndex> 0 </identifierIndex>
+                            <identifierIsUsed> true </identifierIsUsed>
+                          </identifier>
+                        </term>
+                        <symbol> - </symbol>
+                        <term>
+                          <integerConstant> 4 </integerConstant>
+                        </term>
+                      </expression>
+                      <symbol> ; </symbol>
+                    </letStatement>
+                  </statements>
+                  <symbol> } </symbol>
+                  <keyword> else </keyword>
+                  <symbol> { </symbol>
+                  <statements>
+                    <letStatement>
+                      <keyword> let </keyword>
+                      <identifier>
+                        <identifierName> y </identifierName>
+                        <identifierCategory> field </identifierCategory>
+                        <identifierIndex> 1 </identifierIndex>
+                        <identifierIsUsed> true </identifierIsUsed>
+                      </identifier>
+                      <symbol> = </symbol>
+                      <expression>
+                        <term>
+                          <identifier>
+                            <identifierName> y </identifierName>
+                            <identifierCategory> field </identifierCategory>
+                            <identifierIndex> 1 </identifierIndex>
+                            <identifierIsUsed> true </identifierIsUsed>
+                          </identifier>
+                        </term>
+                        <symbol> - </symbol>
+                        <term>
+                          <integerConstant> 4 </integerConstant>
+                        </term>
+                      </expression>
+                      <symbol> ; </symbol>
+                    </letStatement>
+                  </statements>
+                  <symbol> } </symbol>
+                </ifStatement>
+              </statements>
+              <symbol> } </symbol>
+            </ifStatement>
+          </statements>
+          <symbol> } </symbol>
+        </ifStatement>
+        <ifStatement>
+          <keyword> if </keyword>
+          <symbol> ( </symbol>
+          <expression>
+            <term>
+              <identifier>
+                <identifierName> positivex </identifierName>
+                <identifierCategory> field </identifierCategory>
+                <identifierIndex> 8 </identifierIndex>
+                <identifierIsUsed> true </identifierIsUsed>
+              </identifier>
+            </term>
+          </expression>
+          <symbol> ) </symbol>
+          <symbol> { </symbol>
+          <statements>
+            <ifStatement>
+              <keyword> if </keyword>
+              <symbol> ( </symbol>
+              <expression>
+                <term>
+                  <identifier>
+                    <identifierName> invert </identifierName>
+                    <identifierCategory> field </identifierCategory>
+                    <identifierIndex> 7 </identifierIndex>
+                    <identifierIsUsed> true </identifierIsUsed>
+                  </identifier>
+                </term>
+              </expression>
+              <symbol> ) </symbol>
+              <symbol> { </symbol>
+              <statements>
+                <letStatement>
+                  <keyword> let </keyword>
+                  <identifier>
+                    <identifierName> y </identifierName>
+                    <identifierCategory> field </identifierCategory>
+                    <identifierIndex> 1 </identifierIndex>
+                    <identifierIsUsed> true </identifierIsUsed>
+                  </identifier>
+                  <symbol> = </symbol>
+                  <expression>
+                    <term>
+                      <identifier>
+                        <identifierName> y </identifierName>
+                        <identifierCategory> field </identifierCategory>
+                        <identifierIndex> 1 </identifierIndex>
+                        <identifierIsUsed> true </identifierIsUsed>
+                      </identifier>
+                    </term>
+                    <symbol> + </symbol>
+                    <term>
+                      <integerConstant> 4 </integerConstant>
+                    </term>
+                  </expression>
+                  <symbol> ; </symbol>
+                </letStatement>
+              </statements>
+              <symbol> } </symbol>
+              <keyword> else </keyword>
+              <symbol> { </symbol>
+              <statements>
+                <letStatement>
+                  <keyword> let </keyword>
+                  <identifier>
+                    <identifierName> x </identifierName>
+                    <identifierCategory> field </identifierCategory>
+                    <identifierIndex> 0 </identifierIndex>
+                    <identifierIsUsed> true </identifierIsUsed>
+                  </identifier>
+                  <symbol> = </symbol>
+                  <expression>
+                    <term>
+                      <identifier>
+                        <identifierName> x </identifierName>
+                        <identifierCategory> field </identifierCategory>
+                        <identifierIndex> 0 </identifierIndex>
+                        <identifierIsUsed> true </identifierIsUsed>
+                      </identifier>
+                    </term>
+                    <symbol> + </symbol>
+                    <term>
+                      <integerConstant> 4 </integerConstant>
+                    </term>
+                  </expression>
+                  <symbol> ; </symbol>
+                </letStatement>
+              </statements>
+              <symbol> } </symbol>
+            </ifStatement>
+          </statements>
+          <symbol> } </symbol>
+          <keyword> else </keyword>
+          <symbol> { </symbol>
+          <statements>
+            <ifStatement>
+              <keyword> if </keyword>
+              <symbol> ( </symbol>
+              <expression>
+                <term>
+                  <identifier>
+                    <identifierName> invert </identifierName>
+                    <identifierCategory> field </identifierCategory>
+                    <identifierIndex> 7 </identifierIndex>
+                    <identifierIsUsed> true </identifierIsUsed>
+                  </identifier>
+                </term>
+              </expression>
+              <symbol> ) </symbol>
+              <symbol> { </symbol>
+              <statements>
+                <letStatement>
+                  <keyword> let </keyword>
+                  <identifier>
+                    <identifierName> y </identifierName>
+                    <identifierCategory> field </identifierCategory>
+                    <identifierIndex> 1 </identifierIndex>
+                    <identifierIsUsed> true </identifierIsUsed>
+                  </identifier>
+                  <symbol> = </symbol>
+                  <expression>
+                    <term>
+                      <identifier>
+                        <identifierName> y </identifierName>
+                        <identifierCategory> field </identifierCategory>
+                        <identifierIndex> 1 </identifierIndex>
+                        <identifierIsUsed> true </identifierIsUsed>
+                      </identifier>
+                    </term>
+                    <symbol> - </symbol>
+                    <term>
+                      <integerConstant> 4 </integerConstant>
+                    </term>
+                  </expression>
+                  <symbol> ; </symbol>
+                </letStatement>
+              </statements>
+              <symbol> } </symbol>
+              <keyword> else </keyword>
+              <symbol> { </symbol>
+              <statements>
+                <letStatement>
+                  <keyword> let </keyword>
+                  <identifier>
+                    <identifierName> x </identifierName>
+                    <identifierCategory> field </identifierCategory>
+                    <identifierIndex> 0 </identifierIndex>
+                    <identifierIsUsed> true </identifierIsUsed>
+                  </identifier>
+                  <symbol> = </symbol>
+                  <expression>
+                    <term>
+                      <identifier>
+                        <identifierName> x </identifierName>
+                        <identifierCategory> field </identifierCategory>
+                        <identifierIndex> 0 </identifierIndex>
+                        <identifierIsUsed> true </identifierIsUsed>
+                      </identifier>
+                    </term>
+                    <symbol> - </symbol>
+                    <term>
+                      <integerConstant> 4 </integerConstant>
+                    </term>
+                  </expression>
+                  <symbol> ; </symbol>
+                </letStatement>
+              </statements>
+              <symbol> } </symbol>
+            </ifStatement>
+          </statements>
+          <symbol> } </symbol>
+        </ifStatement>
+        <ifStatement>
+          <keyword> if </keyword>
+          <symbol> ( </symbol>
+          <expression>
+            <term>
+              <symbol> ~ </symbol>
+              <term>
+                <symbol> ( </symbol>
+                <expression>
+                  <term>
+                    <identifier>
+                      <identifierName> x </identifierName>
+                      <identifierCategory> field </identifierCategory>
+                      <identifierIndex> 0 </identifierIndex>
+                      <identifierIsUsed> true </identifierIsUsed>
+                    </identifier>
+                  </term>
+                  <symbol> &gt; </symbol>
+                  <term>
+                    <identifier>
+                      <identifierName> leftWall </identifierName>
+                      <identifierCategory> field </identifierCategory>
+                      <identifierIndex> 10 </identifierIndex>
+                      <identifierIsUsed> true </identifierIsUsed>
+                    </identifier>
+                  </term>
+                </expression>
+                <symbol> ) </symbol>
+              </term>
+            </term>
+          </expression>
+          <symbol> ) </symbol>
+          <symbol> { </symbol>
+          <statements>
+            <letStatement>
+              <keyword> let </keyword>
+              <identifier>
+                <identifierName> wall </identifierName>
+                <identifierCategory> field </identifierCategory>
+                <identifierIndex> 14 </identifierIndex>
+                <identifierIsUsed> true </identifierIsUsed>
+              </identifier>
+              <symbol> = </symbol>
+              <expression>
+                <term>
+                  <integerConstant> 1 </integerConstant>
+                </term>
+              </expression>
+              <symbol> ; </symbol>
+            </letStatement>
+            <letStatement>
+              <keyword> let </keyword>
+              <identifier>
+                <identifierName> x </identifierName>
+                <identifierCategory> field </identifierCategory>
+                <identifierIndex> 0 </identifierIndex>
+                <identifierIsUsed> true </identifierIsUsed>
+              </identifier>
+              <symbol> = </symbol>
+              <expression>
+                <term>
+                  <identifier>
+                    <identifierName> leftWall </identifierName>
+                    <identifierCategory> field </identifierCategory>
+                    <identifierIndex> 10 </identifierIndex>
+                    <identifierIsUsed> true </identifierIsUsed>
+                  </identifier>
+                </term>
+              </expression>
+              <symbol> ; </symbol>
+            </letStatement>
+          </statements>
+          <symbol> } </symbol>
+        </ifStatement>
+        <ifStatement>
+          <keyword> if </keyword>
+          <symbol> ( </symbol>
+          <expression>
+            <term>
+              <symbol> ~ </symbol>
+              <term>
+                <symbol> ( </symbol>
+                <expression>
+                  <term>
+                    <identifier>
+                      <identifierName> x </identifierName>
+                      <identifierCategory> field </identifierCategory>
+                      <identifierIndex> 0 </identifierIndex>
+                      <identifierIsUsed> true </identifierIsUsed>
+                    </identifier>
+                  </term>
+                  <symbol> &lt; </symbol>
+                  <term>
+                    <identifier>
+                      <identifierName> rightWall </identifierName>
+                      <identifierCategory> field </identifierCategory>
+                      <identifierIndex> 11 </identifierIndex>
+                      <identifierIsUsed> true </identifierIsUsed>
+                    </identifier>
+                  </term>
+                </expression>
+                <symbol> ) </symbol>
+              </term>
+            </term>
+          </expression>
+          <symbol> ) </symbol>
+          <symbol> { </symbol>
+          <statements>
+            <letStatement>
+              <keyword> let </keyword>
+              <identifier>
+                <identifierName> wall </identifierName>
+                <identifierCategory> field </identifierCategory>
+                <identifierIndex> 14 </identifierIndex>
+                <identifierIsUsed> true </identifierIsUsed>
+              </identifier>
+              <symbol> = </symbol>
+              <expression>
+                <term>
+                  <integerConstant> 2 </integerConstant>
+                </term>
+              </expression>
+              <symbol> ; </symbol>
+            </letStatement>
+            <letStatement>
+              <keyword> let </keyword>
+              <identifier>
+                <identifierName> x </identifierName>
+                <identifierCategory> field </identifierCategory>
+                <identifierIndex> 0 </identifierIndex>
+                <identifierIsUsed> true </identifierIsUsed>
+              </identifier>
+              <symbol> = </symbol>
+              <expression>
+                <term>
+                  <identifier>
+                    <identifierName> rightWall </identifierName>
+                    <identifierCategory> field </identifierCategory>
+                    <identifierIndex> 11 </identifierIndex>
+                    <identifierIsUsed> true </identifierIsUsed>
+                  </identifier>
+                </term>
+              </expression>
+              <symbol> ; </symbol>
+            </letStatement>
+          </statements>
+          <symbol> } </symbol>
+        </ifStatement>
+        <ifStatement>
+          <keyword> if </keyword>
+          <symbol> ( </symbol>
+          <expression>
+            <term>
+              <symbol> ~ </symbol>
+              <term>
+                <symbol> ( </symbol>
+                <expression>
+                  <term>
+                    <identifier>
+                      <identifierName> y </identifierName>
+                      <identifierCategory> field </identifierCategory>
+                      <identifierIndex> 1 </identifierIndex>
+                      <identifierIsUsed> true </identifierIsUsed>
+                    </identifier>
+                  </term>
+                  <symbol> &gt; </symbol>
+                  <term>
+                    <identifier>
+                      <identifierName> topWall </identifierName>
+                      <identifierCategory> field </identifierCategory>
+                      <identifierIndex> 12 </identifierIndex>
+                      <identifierIsUsed> true </identifierIsUsed>
+                    </identifier>
+                  </term>
+                </expression>
+                <symbol> ) </symbol>
+              </term>
+            </term>
+          </expression>
+          <symbol> ) </symbol>
+          <symbol> { </symbol>
+          <statements>
+            <letStatement>
+              <keyword> let </keyword>
+              <identifier>
+                <identifierName> wall </identifierName>
+                <identifierCategory> field </identifierCategory>
+                <identifierIndex> 14 </identifierIndex>
+                <identifierIsUsed> true </identifierIsUsed>
+              </identifier>
+              <symbol> = </symbol>
+              <expression>
+                <term>
+                  <integerConstant> 3 </integerConstant>
+                </term>
+              </expression>
+              <symbol> ; </symbol>
+            </letStatement>
+            <letStatement>
+              <keyword> let </keyword>
+              <identifier>
+                <identifierName> y </identifierName>
+                <identifierCategory> field </identifierCategory>
+                <identifierIndex> 1 </identifierIndex>
+                <identifierIsUsed> true </identifierIsUsed>
+              </identifier>
+              <symbol> = </symbol>
+              <expression>
+                <term>
+                  <identifier>
+                    <identifierName> topWall </identifierName>
+                    <identifierCategory> field </identifierCategory>
+                    <identifierIndex> 12 </identifierIndex>
+                    <identifierIsUsed> true </identifierIsUsed>
+                  </identifier>
+                </term>
+              </expression>
+              <symbol> ; </symbol>
+            </letStatement>
+          </statements>
+          <symbol> } </symbol>
+        </ifStatement>
+        <ifStatement>
+          <keyword> if </keyword>
+          <symbol> ( </symbol>
+          <expression>
+            <term>
+              <symbol> ~ </symbol>
+              <term>
+                <symbol> ( </symbol>
+                <expression>
+                  <term>
+                    <identifier>
+                      <identifierName> y </identifierName>
+                      <identifierCategory> field </identifierCategory>
+                      <identifierIndex> 1 </identifierIndex>
+                      <identifierIsUsed> true </identifierIsUsed>
+                    </identifier>
+                  </term>
+                  <symbol> &lt; </symbol>
+                  <term>
+                    <identifier>
+                      <identifierName> bottomWall </identifierName>
+                      <identifierCategory> field </identifierCategory>
+                      <identifierIndex> 13 </identifierIndex>
+                      <identifierIsUsed> true </identifierIsUsed>
+                    </identifier>
+                  </term>
+                </expression>
+                <symbol> ) </symbol>
+              </term>
+            </term>
+          </expression>
+          <symbol> ) </symbol>
+          <symbol> { </symbol>
+          <statements>
+            <letStatement>
+              <keyword> let </keyword>
+              <identifier>
+                <identifierName> wall </identifierName>
+                <identifierCategory> field </identifierCategory>
+                <identifierIndex> 14 </identifierIndex>
+                <identifierIsUsed> true </identifierIsUsed>
+              </identifier>
+              <symbol> = </symbol>
+              <expression>
+                <term>
+                  <integerConstant> 4 </integerConstant>
+                </term>
+              </expression>
+              <symbol> ; </symbol>
+            </letStatement>
+            <letStatement>
+              <keyword> let </keyword>
+              <identifier>
+                <identifierName> y </identifierName>
+                <identifierCategory> field </identifierCategory>
+                <identifierIndex> 1 </identifierIndex>
+                <identifierIsUsed> true </identifierIsUsed>
+              </identifier>
+              <symbol> = </symbol>
+              <expression>
+                <term>
+                  <identifier>
+                    <identifierName> bottomWall </identifierName>
+                    <identifierCategory> field </identifierCategory>
+                    <identifierIndex> 13 </identifierIndex>
+                    <identifierIsUsed> true </identifierIsUsed>
+                  </identifier>
+                </term>
+              </expression>
+              <symbol> ; </symbol>
+            </letStatement>
+          </statements>
+          <symbol> } </symbol>
+        </ifStatement>
+        <doStatement>
+          <keyword> do </keyword>
+          <identifier> show </identifier>
+          <symbol> ( </symbol>
+          <expressionList>
+          </expressionList>
+          <symbol> ) </symbol>
+          <symbol> ; </symbol>
+        </doStatement>
+        <returnStatement>
+          <keyword> return </keyword>
+          <expression>
+            <term>
+              <identifier>
+                <identifierName> wall </identifierName>
+                <identifierCategory> field </identifierCategory>
+                <identifierIndex> 14 </identifierIndex>
+                <identifierIsUsed> true </identifierIsUsed>
+              </identifier>
+            </term>
+          </expression>
+          <symbol> ; </symbol>
+        </returnStatement>
+      </statements>
+      <symbol> } </symbol>
+    </subroutineBody>
+  </subroutineDec>
+  <subroutineDec>
+    <keyword> method </keyword>
+    <keyword> void </keyword>
+    <identifier> bounce </identifier>
+    <symbol> ( </symbol>
+    <parameterList>
+      <keyword> int </keyword>
+      <identifier>
+        <identifierName> bouncingDirection </identifierName>
+        <identifierCategory> argument </identifierCategory>
+        <identifierIndex> 0 </identifierIndex>
+        <identifierIsUsed> false </identifierIsUsed>
+      </identifier>
+    </parameterList>
+    <symbol> ) </symbol>
+    <subroutineBody>
+      <symbol> { </symbol>
+      <varDec>
+        <keyword> var </keyword>
+        <keyword> int </keyword>
+        <identifier>
+          <identifierName> newx </identifierName>
+          <identifierCategory> var </identifierCategory>
+          <identifierIndex> 1 </identifierIndex>
+          <identifierIsUsed> false </identifierIsUsed>
+        </identifier>
+        <symbol> , </symbol>
+        <identifier>
+          <identifierName> newy </identifierName>
+          <identifierCategory> var </identifierCategory>
+          <identifierIndex> 2 </identifierIndex>
+          <identifierIsUsed> false </identifierIsUsed>
+        </identifier>
+        <symbol> , </symbol>
+        <identifier>
+          <identifierName> divLengthx </identifierName>
+          <identifierCategory> var </identifierCategory>
+          <identifierIndex> 3 </identifierIndex>
+          <identifierIsUsed> false </identifierIsUsed>
+        </identifier>
+        <symbol> , </symbol>
+        <identifier>
+          <identifierName> divLengthy </identifierName>
+          <identifierCategory> var </identifierCategory>
+          <identifierIndex> 4 </identifierIndex>
+          <identifierIsUsed> false </identifierIsUsed>
+        </identifier>
+        <symbol> , </symbol>
+        <identifier>
+          <identifierName> factor </identifierName>
+          <identifierCategory> var </identifierCategory>
+          <identifierIndex> 5 </identifierIndex>
+          <identifierIsUsed> false </identifierIsUsed>
+        </identifier>
+        <symbol> ; </symbol>
+      </varDec>
+      <statements>
+        <letStatement>
+          <keyword> let </keyword>
+          <identifier>
+            <identifierName> divLengthx </identifierName>
+            <identifierCategory> var </identifierCategory>
+            <identifierIndex> 3 </identifierIndex>
+            <identifierIsUsed> true </identifierIsUsed>
+          </identifier>
+          <symbol> = </symbol>
+          <expression>
+            <term>
+              <identifier>
+                <identifierName> lengthx </identifierName>
+                <identifierCategory> field </identifierCategory>
+                <identifierIndex> 2 </identifierIndex>
+                <identifierIsUsed> true </identifierIsUsed>
+              </identifier>
+            </term>
+            <symbol> / </symbol>
+            <term>
+              <integerConstant> 10 </integerConstant>
+            </term>
+          </expression>
+          <symbol> ; </symbol>
+        </letStatement>
+        <letStatement>
+          <keyword> let </keyword>
+          <identifier>
+            <identifierName> divLengthy </identifierName>
+            <identifierCategory> var </identifierCategory>
+            <identifierIndex> 4 </identifierIndex>
+            <identifierIsUsed> true </identifierIsUsed>
+          </identifier>
+          <symbol> = </symbol>
+          <expression>
+            <term>
+              <identifier>
+                <identifierName> lengthy </identifierName>
+                <identifierCategory> field </identifierCategory>
+                <identifierIndex> 3 </identifierIndex>
+                <identifierIsUsed> true </identifierIsUsed>
+              </identifier>
+            </term>
+            <symbol> / </symbol>
+            <term>
+              <integerConstant> 10 </integerConstant>
+            </term>
+          </expression>
+          <symbol> ; </symbol>
+        </letStatement>
+        <ifStatement>
+          <keyword> if </keyword>
+          <symbol> ( </symbol>
+          <expression>
+            <term>
+              <identifier>
+                <identifierName> bouncingDirection </identifierName>
+                <identifierCategory> argument </identifierCategory>
+                <identifierIndex> 0 </identifierIndex>
+                <identifierIsUsed> true </identifierIsUsed>
+              </identifier>
+            </term>
+            <symbol> = </symbol>
+            <term>
+              <integerConstant> 0 </integerConstant>
+            </term>
+          </expression>
+          <symbol> ) </symbol>
+          <symbol> { </symbol>
+          <statements>
+            <letStatement>
+              <keyword> let </keyword>
+              <identifier>
+                <identifierName> factor </identifierName>
+                <identifierCategory> var </identifierCategory>
+                <identifierIndex> 5 </identifierIndex>
+                <identifierIsUsed> true </identifierIsUsed>
+              </identifier>
+              <symbol> = </symbol>
+              <expression>
+                <term>
+                  <integerConstant> 10 </integerConstant>
+                </term>
+              </expression>
+              <symbol> ; </symbol>
+            </letStatement>
+          </statements>
+          <symbol> } </symbol>
+          <keyword> else </keyword>
+          <symbol> { </symbol>
+          <statements>
+            <ifStatement>
+              <keyword> if </keyword>
+              <symbol> ( </symbol>
+              <expression>
+                <term>
+                  <symbol> ( </symbol>
+                  <expression>
+                    <term>
+                      <symbol> ( </symbol>
+                      <expression>
+                        <term>
+                          <symbol> ~ </symbol>
+                          <term>
+                            <symbol> ( </symbol>
+                            <expression>
+                              <term>
+                                <identifier>
+                                  <identifierName> lengthx </identifierName>
+                                  <identifierCategory> field </identifierCategory>
+                                  <identifierIndex> 2 </identifierIndex>
+                                  <identifierIsUsed> true </identifierIsUsed>
+                                </identifier>
+                              </term>
+                              <symbol> &lt; </symbol>
+                              <term>
+                                <integerConstant> 0 </integerConstant>
+                              </term>
+                            </expression>
+                            <symbol> ) </symbol>
+                          </term>
+                        </term>
+                      </expression>
+                      <symbol> ) </symbol>
+                    </term>
+                    <symbol> &amp; </symbol>
+                    <term>
+                      <symbol> ( </symbol>
+                      <expression>
+                        <term>
+                          <identifier>
+                            <identifierName> bouncingDirection </identifierName>
+                            <identifierCategory> argument </identifierCategory>
+                            <identifierIndex> 0 </identifierIndex>
+                            <identifierIsUsed> true </identifierIsUsed>
+                          </identifier>
+                        </term>
+                        <symbol> = </symbol>
+                        <term>
+                          <integerConstant> 1 </integerConstant>
+                        </term>
+                      </expression>
+                      <symbol> ) </symbol>
+                    </term>
+                  </expression>
+                  <symbol> ) </symbol>
+                </term>
+                <symbol> | </symbol>
+                <term>
+                  <symbol> ( </symbol>
+                  <expression>
+                    <term>
+                      <symbol> ( </symbol>
+                      <expression>
+                        <term>
+                          <identifier>
+                            <identifierName> lengthx </identifierName>
+                            <identifierCategory> field </identifierCategory>
+                            <identifierIndex> 2 </identifierIndex>
+                            <identifierIsUsed> true </identifierIsUsed>
+                          </identifier>
+                        </term>
+                        <symbol> &lt; </symbol>
+                        <term>
+                          <integerConstant> 0 </integerConstant>
+                        </term>
+                      </expression>
+                      <symbol> ) </symbol>
+                    </term>
+                    <symbol> &amp; </symbol>
+                    <term>
+                      <symbol> ( </symbol>
+                      <expression>
+                        <term>
+                          <identifier>
+                            <identifierName> bouncingDirection </identifierName>
+                            <identifierCategory> argument </identifierCategory>
+                            <identifierIndex> 0 </identifierIndex>
+                            <identifierIsUsed> true </identifierIsUsed>
+                          </identifier>
+                        </term>
+                        <symbol> = </symbol>
+                        <term>
+                          <symbol> ( </symbol>
+                          <expression>
+                            <term>
+                              <symbol> - </symbol>
+                              <term>
+                                <integerConstant> 1 </integerConstant>
+                              </term>
+                            </term>
+                          </expression>
+                          <symbol> ) </symbol>
+                        </term>
+                      </expression>
+                      <symbol> ) </symbol>
+                    </term>
+                  </expression>
+                  <symbol> ) </symbol>
+                </term>
+              </expression>
+              <symbol> ) </symbol>
+              <symbol> { </symbol>
+              <statements>
+                <letStatement>
+                  <keyword> let </keyword>
+                  <identifier>
+                    <identifierName> factor </identifierName>
+                    <identifierCategory> var </identifierCategory>
+                    <identifierIndex> 5 </identifierIndex>
+                    <identifierIsUsed> true </identifierIsUsed>
+                  </identifier>
+                  <symbol> = </symbol>
+                  <expression>
+                    <term>
+                      <integerConstant> 20 </integerConstant>
+                    </term>
+                  </expression>
+                  <symbol> ; </symbol>
+                </letStatement>
+              </statements>
+              <symbol> } </symbol>
+              <keyword> else </keyword>
+              <symbol> { </symbol>
+              <statements>
+                <letStatement>
+                  <keyword> let </keyword>
+                  <identifier>
+                    <identifierName> factor </identifierName>
+                    <identifierCategory> var </identifierCategory>
+                    <identifierIndex> 5 </identifierIndex>
+                    <identifierIsUsed> true </identifierIsUsed>
+                  </identifier>
+                  <symbol> = </symbol>
+                  <expression>
+                    <term>
+                      <integerConstant> 5 </integerConstant>
+                    </term>
+                  </expression>
+                  <symbol> ; </symbol>
+                </letStatement>
+              </statements>
+              <symbol> } </symbol>
+            </ifStatement>
+          </statements>
+          <symbol> } </symbol>
+        </ifStatement>
+        <ifStatement>
+          <keyword> if </keyword>
+          <symbol> ( </symbol>
+          <expression>
+            <term>
+              <identifier>
+                <identifierName> wall </identifierName>
+                <identifierCategory> field </identifierCategory>
+                <identifierIndex> 14 </identifierIndex>
+                <identifierIsUsed> true </identifierIsUsed>
+              </identifier>
+            </term>
+            <symbol> = </symbol>
+            <term>
+              <integerConstant> 1 </integerConstant>
+            </term>
+          </expression>
+          <symbol> ) </symbol>
+          <symbol> { </symbol>
+          <statements>
+            <letStatement>
+              <keyword> let </keyword>
+              <identifier>
+                <identifierName> newx </identifierName>
+                <identifierCategory> var </identifierCategory>
+                <identifierIndex> 1 </identifierIndex>
+                <identifierIsUsed> true </identifierIsUsed>
+              </identifier>
+              <symbol> = </symbol>
+              <expression>
+                <term>
+                  <integerConstant> 506 </integerConstant>
+                </term>
+              </expression>
+              <symbol> ; </symbol>
+            </letStatement>
+            <letStatement>
+              <keyword> let </keyword>
+              <identifier>
+                <identifierName> newy </identifierName>
+                <identifierCategory> var </identifierCategory>
+                <identifierIndex> 2 </identifierIndex>
+                <identifierIsUsed> true </identifierIsUsed>
+              </identifier>
+              <symbol> = </symbol>
+              <expression>
+                <term>
+                  <symbol> ( </symbol>
+                  <expression>
+                    <term>
+                      <identifier>
+                        <identifierName> divLengthy </identifierName>
+                        <identifierCategory> var </identifierCategory>
+                        <identifierIndex> 4 </identifierIndex>
+                        <identifierIsUsed> true </identifierIsUsed>
+                      </identifier>
+                    </term>
+                    <symbol> * </symbol>
+                    <term>
+                      <symbol> ( </symbol>
+                      <expression>
+                        <term>
+                          <symbol> - </symbol>
+                          <term>
+                            <integerConstant> 50 </integerConstant>
+                          </term>
+                        </term>
+                      </expression>
+                      <symbol> ) </symbol>
+                    </term>
+                  </expression>
+                  <symbol> ) </symbol>
+                </term>
+                <symbol> / </symbol>
+                <term>
+                  <identifier>
+                    <identifierName> divLengthx </identifierName>
+                    <identifierCategory> var </identifierCategory>
+                    <identifierIndex> 3 </identifierIndex>
+                    <identifierIsUsed> true </identifierIsUsed>
+                  </identifier>
+                </term>
+              </expression>
+              <symbol> ; </symbol>
+            </letStatement>
+            <letStatement>
+              <keyword> let </keyword>
+              <identifier>
+                <identifierName> newy </identifierName>
+                <identifierCategory> var </identifierCategory>
+                <identifierIndex> 2 </identifierIndex>
+                <identifierIsUsed> true </identifierIsUsed>
+              </identifier>
+              <symbol> = </symbol>
+              <expression>
+                <term>
+                  <identifier>
+                    <identifierName> y </identifierName>
+                    <identifierCategory> field </identifierCategory>
+                    <identifierIndex> 1 </identifierIndex>
+                    <identifierIsUsed> true </identifierIsUsed>
+                  </identifier>
+                </term>
+                <symbol> + </symbol>
+                <term>
+                  <symbol> ( </symbol>
+                  <expression>
+                    <term>
+                      <identifier>
+                        <identifierName> newy </identifierName>
+                        <identifierCategory> var </identifierCategory>
+                        <identifierIndex> 2 </identifierIndex>
+                        <identifierIsUsed> true </identifierIsUsed>
+                      </identifier>
+                    </term>
+                    <symbol> * </symbol>
+                    <term>
+                      <identifier>
+                        <identifierName> factor </identifierName>
+                        <identifierCategory> var </identifierCategory>
+                        <identifierIndex> 5 </identifierIndex>
+                        <identifierIsUsed> true </identifierIsUsed>
+                      </identifier>
+                    </term>
+                  </expression>
+                  <symbol> ) </symbol>
+                </term>
+              </expression>
+              <symbol> ; </symbol>
+            </letStatement>
+          </statements>
+          <symbol> } </symbol>
+          <keyword> else </keyword>
+          <symbol> { </symbol>
+          <statements>
+            <ifStatement>
+              <keyword> if </keyword>
+              <symbol> ( </symbol>
+              <expression>
+                <term>
+                  <identifier>
+                    <identifierName> wall </identifierName>
+                    <identifierCategory> field </identifierCategory>
+                    <identifierIndex> 14 </identifierIndex>
+                    <identifierIsUsed> true </identifierIsUsed>
+                  </identifier>
+                </term>
+                <symbol> = </symbol>
+                <term>
+                  <integerConstant> 2 </integerConstant>
+                </term>
+              </expression>
+              <symbol> ) </symbol>
+              <symbol> { </symbol>
+              <statements>
+                <letStatement>
+                  <keyword> let </keyword>
+                  <identifier>
+                    <identifierName> newx </identifierName>
+                    <identifierCategory> var </identifierCategory>
+                    <identifierIndex> 1 </identifierIndex>
+                    <identifierIsUsed> true </identifierIsUsed>
+                  </identifier>
+                  <symbol> = </symbol>
+                  <expression>
+                    <term>
+                      <integerConstant> 0 </integerConstant>
+                    </term>
+                  </expression>
+                  <symbol> ; </symbol>
+                </letStatement>
+                <letStatement>
+                  <keyword> let </keyword>
+                  <identifier>
+                    <identifierName> newy </identifierName>
+                    <identifierCategory> var </identifierCategory>
+                    <identifierIndex> 2 </identifierIndex>
+                    <identifierIsUsed> true </identifierIsUsed>
+                  </identifier>
+                  <symbol> = </symbol>
+                  <expression>
+                    <term>
+                      <symbol> ( </symbol>
+                      <expression>
+                        <term>
+                          <identifier>
+                            <identifierName> divLengthy </identifierName>
+                            <identifierCategory> var </identifierCategory>
+                            <identifierIndex> 4 </identifierIndex>
+                            <identifierIsUsed> true </identifierIsUsed>
+                          </identifier>
+                        </term>
+                        <symbol> * </symbol>
+                        <term>
+                          <integerConstant> 50 </integerConstant>
+                        </term>
+                      </expression>
+                      <symbol> ) </symbol>
+                    </term>
+                    <symbol> / </symbol>
+                    <term>
+                      <identifier>
+                        <identifierName> divLengthx </identifierName>
+                        <identifierCategory> var </identifierCategory>
+                        <identifierIndex> 3 </identifierIndex>
+                        <identifierIsUsed> true </identifierIsUsed>
+                      </identifier>
+                    </term>
+                  </expression>
+                  <symbol> ; </symbol>
+                </letStatement>
+                <letStatement>
+                  <keyword> let </keyword>
+                  <identifier>
+                    <identifierName> newy </identifierName>
+                    <identifierCategory> var </identifierCategory>
+                    <identifierIndex> 2 </identifierIndex>
+                    <identifierIsUsed> true </identifierIsUsed>
+                  </identifier>
+                  <symbol> = </symbol>
+                  <expression>
+                    <term>
+                      <identifier>
+                        <identifierName> y </identifierName>
+                        <identifierCategory> field </identifierCategory>
+                        <identifierIndex> 1 </identifierIndex>
+                        <identifierIsUsed> true </identifierIsUsed>
+                      </identifier>
+                    </term>
+                    <symbol> + </symbol>
+                    <term>
+                      <symbol> ( </symbol>
+                      <expression>
+                        <term>
+                          <identifier>
+                            <identifierName> newy </identifierName>
+                            <identifierCategory> var </identifierCategory>
+                            <identifierIndex> 2 </identifierIndex>
+                            <identifierIsUsed> true </identifierIsUsed>
+                          </identifier>
+                        </term>
+                        <symbol> * </symbol>
+                        <term>
+                          <identifier>
+                            <identifierName> factor </identifierName>
+                            <identifierCategory> var </identifierCategory>
+                            <identifierIndex> 5 </identifierIndex>
+                            <identifierIsUsed> true </identifierIsUsed>
+                          </identifier>
+                        </term>
+                      </expression>
+                      <symbol> ) </symbol>
+                    </term>
+                  </expression>
+                  <symbol> ; </symbol>
+                </letStatement>
+              </statements>
+              <symbol> } </symbol>
+              <keyword> else </keyword>
+              <symbol> { </symbol>
+              <statements>
+                <ifStatement>
+                  <keyword> if </keyword>
+                  <symbol> ( </symbol>
+                  <expression>
+                    <term>
+                      <identifier>
+                        <identifierName> wall </identifierName>
+                        <identifierCategory> field </identifierCategory>
+                        <identifierIndex> 14 </identifierIndex>
+                        <identifierIsUsed> true </identifierIsUsed>
+                      </identifier>
+                    </term>
+                    <symbol> = </symbol>
+                    <term>
+                      <integerConstant> 3 </integerConstant>
+                    </term>
+                  </expression>
+                  <symbol> ) </symbol>
+                  <symbol> { </symbol>
+                  <statements>
+                    <letStatement>
+                      <keyword> let </keyword>
+                      <identifier>
+                        <identifierName> newy </identifierName>
+                        <identifierCategory> var </identifierCategory>
+                        <identifierIndex> 2 </identifierIndex>
+                        <identifierIsUsed> true </identifierIsUsed>
+                      </identifier>
+                      <symbol> = </symbol>
+                      <expression>
+                        <term>
+                          <integerConstant> 250 </integerConstant>
+                        </term>
+                      </expression>
+                      <symbol> ; </symbol>
+                    </letStatement>
+                    <letStatement>
+                      <keyword> let </keyword>
+                      <identifier>
+                        <identifierName> newx </identifierName>
+                        <identifierCategory> var </identifierCategory>
+                        <identifierIndex> 1 </identifierIndex>
+                        <identifierIsUsed> true </identifierIsUsed>
+                      </identifier>
+                      <symbol> = </symbol>
+                      <expression>
+                        <term>
+                          <symbol> ( </symbol>
+                          <expression>
+                            <term>
+                              <identifier>
+                                <identifierName> divLengthx </identifierName>
+                                <identifierCategory> var </identifierCategory>
+                                <identifierIndex> 3 </identifierIndex>
+                                <identifierIsUsed> true </identifierIsUsed>
+                              </identifier>
+                            </term>
+                            <symbol> * </symbol>
+                            <term>
+                              <symbol> ( </symbol>
+                              <expression>
+                                <term>
+                                  <symbol> - </symbol>
+                                  <term>
+                                    <integerConstant> 25 </integerConstant>
+                                  </term>
+                                </term>
+                              </expression>
+                              <symbol> ) </symbol>
+                            </term>
+                          </expression>
+                          <symbol> ) </symbol>
+                        </term>
+                        <symbol> / </symbol>
+                        <term>
+                          <identifier>
+                            <identifierName> divLengthy </identifierName>
+                            <identifierCategory> var </identifierCategory>
+                            <identifierIndex> 4 </identifierIndex>
+                            <identifierIsUsed> true </identifierIsUsed>
+                          </identifier>
+                        </term>
+                      </expression>
+                      <symbol> ; </symbol>
+                    </letStatement>
+                    <letStatement>
+                      <keyword> let </keyword>
+                      <identifier>
+                        <identifierName> newx </identifierName>
+                        <identifierCategory> var </identifierCategory>
+                        <identifierIndex> 1 </identifierIndex>
+                        <identifierIsUsed> true </identifierIsUsed>
+                      </identifier>
+                      <symbol> = </symbol>
+                      <expression>
+                        <term>
+                          <identifier>
+                            <identifierName> x </identifierName>
+                            <identifierCategory> field </identifierCategory>
+                            <identifierIndex> 0 </identifierIndex>
+                            <identifierIsUsed> true </identifierIsUsed>
+                          </identifier>
+                        </term>
+                        <symbol> + </symbol>
+                        <term>
+                          <symbol> ( </symbol>
+                          <expression>
+                            <term>
+                              <identifier>
+                                <identifierName> newx </identifierName>
+                                <identifierCategory> var </identifierCategory>
+                                <identifierIndex> 1 </identifierIndex>
+                                <identifierIsUsed> true </identifierIsUsed>
+                              </identifier>
+                            </term>
+                            <symbol> * </symbol>
+                            <term>
+                              <identifier>
+                                <identifierName> factor </identifierName>
+                                <identifierCategory> var </identifierCategory>
+                                <identifierIndex> 5 </identifierIndex>
+                                <identifierIsUsed> true </identifierIsUsed>
+                              </identifier>
+                            </term>
+                          </expression>
+                          <symbol> ) </symbol>
+                        </term>
+                      </expression>
+                      <symbol> ; </symbol>
+                    </letStatement>
+                  </statements>
+                  <symbol> } </symbol>
+                  <keyword> else </keyword>
+                  <symbol> { </symbol>
+                  <statements>
+                    <letStatement>
+                      <keyword> let </keyword>
+                      <identifier>
+                        <identifierName> newy </identifierName>
+                        <identifierCategory> var </identifierCategory>
+                        <identifierIndex> 2 </identifierIndex>
+                        <identifierIsUsed> true </identifierIsUsed>
+                      </identifier>
+                      <symbol> = </symbol>
+                      <expression>
+                        <term>
+                          <integerConstant> 0 </integerConstant>
+                        </term>
+                      </expression>
+                      <symbol> ; </symbol>
+                    </letStatement>
+                    <letStatement>
+                      <keyword> let </keyword>
+                      <identifier>
+                        <identifierName> newx </identifierName>
+                        <identifierCategory> var </identifierCategory>
+                        <identifierIndex> 1 </identifierIndex>
+                        <identifierIsUsed> true </identifierIsUsed>
+                      </identifier>
+                      <symbol> = </symbol>
+                      <expression>
+                        <term>
+                          <symbol> ( </symbol>
+                          <expression>
+                            <term>
+                              <identifier>
+                                <identifierName> divLengthx </identifierName>
+                                <identifierCategory> var </identifierCategory>
+                                <identifierIndex> 3 </identifierIndex>
+                                <identifierIsUsed> true </identifierIsUsed>
+                              </identifier>
+                            </term>
+                            <symbol> * </symbol>
+                            <term>
+                              <integerConstant> 25 </integerConstant>
+                            </term>
+                          </expression>
+                          <symbol> ) </symbol>
+                        </term>
+                        <symbol> / </symbol>
+                        <term>
+                          <identifier>
+                            <identifierName> divLengthy </identifierName>
+                            <identifierCategory> var </identifierCategory>
+                            <identifierIndex> 4 </identifierIndex>
+                            <identifierIsUsed> true </identifierIsUsed>
+                          </identifier>
+                        </term>
+                      </expression>
+                      <symbol> ; </symbol>
+                    </letStatement>
+                    <letStatement>
+                      <keyword> let </keyword>
+                      <identifier>
+                        <identifierName> newx </identifierName>
+                        <identifierCategory> var </identifierCategory>
+                        <identifierIndex> 1 </identifierIndex>
+                        <identifierIsUsed> true </identifierIsUsed>
+                      </identifier>
+                      <symbol> = </symbol>
+                      <expression>
+                        <term>
+                          <identifier>
+                            <identifierName> x </identifierName>
+                            <identifierCategory> field </identifierCategory>
+                            <identifierIndex> 0 </identifierIndex>
+                            <identifierIsUsed> true </identifierIsUsed>
+                          </identifier>
+                        </term>
+                        <symbol> + </symbol>
+                        <term>
+                          <symbol> ( </symbol>
+                          <expression>
+                            <term>
+                              <identifier>
+                                <identifierName> newx </identifierName>
+                                <identifierCategory> var </identifierCategory>
+                                <identifierIndex> 1 </identifierIndex>
+                                <identifierIsUsed> true </identifierIsUsed>
+                              </identifier>
+                            </term>
+                            <symbol> * </symbol>
+                            <term>
+                              <identifier>
+                                <identifierName> factor </identifierName>
+                                <identifierCategory> var </identifierCategory>
+                                <identifierIndex> 5 </identifierIndex>
+                                <identifierIsUsed> true </identifierIsUsed>
+                              </identifier>
+                            </term>
+                          </expression>
+                          <symbol> ) </symbol>
+                        </term>
+                      </expression>
+                      <symbol> ; </symbol>
+                    </letStatement>
+                  </statements>
+                  <symbol> } </symbol>
+                </ifStatement>
+              </statements>
+              <symbol> } </symbol>
+            </ifStatement>
+          </statements>
+          <symbol> } </symbol>
+        </ifStatement>
+        <doStatement>
+          <keyword> do </keyword>
+          <identifier> setDestination </identifier>
+          <symbol> ( </symbol>
+          <expressionList>
+            <expression>
+              <term>
+                <identifier>
+                  <identifierName> newx </identifierName>
+                  <identifierCategory> var </identifierCategory>
+                  <identifierIndex> 1 </identifierIndex>
+                  <identifierIsUsed> true </identifierIsUsed>
+                </identifier>
+              </term>
+            </expression>
+            <symbol> , </symbol>
+            <expression>
+              <term>
+                <identifier>
+                  <identifierName> newy </identifierName>
+                  <identifierCategory> var </identifierCategory>
+                  <identifierIndex> 2 </identifierIndex>
+                  <identifierIsUsed> true </identifierIsUsed>
+                </identifier>
+              </term>
+            </expression>
+          </expressionList>
+          <symbol> ) </symbol>
+          <symbol> ; </symbol>
+        </doStatement>
+        <returnStatement>
+          <keyword> return </keyword>
+          <symbol> ; </symbol>
+        </returnStatement>
+      </statements>
+      <symbol> } </symbol>
+    </subroutineBody>
+  </subroutineDec>
+  <symbol> } </symbol>
+</class>
+

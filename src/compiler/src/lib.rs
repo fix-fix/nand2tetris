@@ -4,6 +4,7 @@ pub mod line_chars;
 pub mod node;
 pub mod node_printer;
 pub mod parser;
+pub mod symbol_table;
 pub mod token;
 pub mod tokenizer;
 pub mod xml;

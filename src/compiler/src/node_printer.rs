@@ -1,7 +1,11 @@
 use std::fmt::Write;
 
 use crate::{
-    node::*, parser::ParseResult, token::keyword_to_string, xml::xml_wrap_declaration as xwd,
+    node::*,
+    parser::ParseResult,
+    symbol_table::{SubVarKind, SymbolTable},
+    token::keyword_to_string,
+    xml::xml_wrap_declaration as xwd,
 };
 
 #[derive(Debug, Clone)]
@@ -19,6 +23,7 @@ pub enum Node {
     Term(Term),
     ExprList(Vec<Expr>),
     SubroutineCall(SubroutineCall),
+    VarIdentifier(String, bool),
 }
 
 const XML_LEVEL_INDENT: usize = 2;
@@ -30,7 +35,12 @@ where
     write!(out, "{:indent$}{}\n", "", s, indent = indent).unwrap();
 }
 
-pub fn print_to_xml(out: &mut dyn Write, node: Node, indent_: Option<usize>) {
+pub fn print_to_xml(
+    out: &mut dyn Write,
+    node: Node,
+    indent_: Option<usize>,
+    sym_table: &mut Option<&mut SymbolTable>,
+) {
     let indent = indent_.unwrap_or(0);
     let body_indent = indent + XML_LEVEL_INDENT;
 
@@ -44,10 +54,10 @@ pub fn print_to_xml(out: &mut dyn Write, node: Node, indent_: Option<usize>) {
     );
     macro_rules! print_child(
         ($s:expr) => (
-            print_to_xml(out, $s, Some(body_indent))
+            print_to_xml(out, $s, Some(body_indent), sym_table)
         );
         ($s:expr, $i:expr) => (
-            print_to_xml(out, $s, Some($i))
+            print_to_xml(out, $s, Some($i), sym_table)
         );
     );
 
@@ -80,10 +90,13 @@ pub fn print_to_xml(out: &mut dyn Write, node: Node, indent_: Option<usize>) {
             ));
             w!(match type_ {
                 GrammarSubroutineReturnType::Void => xwd("keyword", "void"),
-                GrammarSubroutineReturnType::Type(t) => print_type_to_xml(t),
+                GrammarSubroutineReturnType::Type(t) => print_type_to_xml(&t),
             });
             w!(xwd("identifier", ident.as_str()));
 
+            if let Some(s) = sym_table {
+                s.reset_subroutine_table();
+            };
             w!(xwd("symbol", "("));
             print_child!(Node::ParameterList(params));
             w!(xwd("symbol", ")"));
@@ -92,14 +105,19 @@ pub fn print_to_xml(out: &mut dyn Write, node: Node, indent_: Option<usize>) {
         }
         Node::ParameterList(params_) => {
             w!("<parameterList>", indent);
+            if let Some(s) = sym_table {
+                for param in params_.iter() {
+                    s.define_subroutine_var(&param.ident, SubVarKind::Argument, &param.type_);
+                }
+            };
             let mut params = params_.into_iter();
             if let Some(param) = params.next() {
-                w!(print_type_to_xml(param.type_));
-                w!(xwd("identifier", param.ident.as_str()));
+                w!(print_type_to_xml(&param.type_));
+                print_child!(Node::VarIdentifier(param.ident.into(), false));
                 for param in params {
                     w!(xwd("symbol", ","));
-                    w!(print_type_to_xml(param.type_));
-                    w!(xwd("identifier", param.ident.as_str()));
+                    w!(print_type_to_xml(&param.type_));
+                    print_child!(Node::VarIdentifier(param.ident.into(), false));
                 }
             }
             w!("</parameterList>", indent);
@@ -123,13 +141,18 @@ pub fn print_to_xml(out: &mut dyn Write, node: Node, indent_: Option<usize>) {
                     GrammarClassVarType::Static => "static",
                 }
             ));
-            w!(print_type_to_xml(item_type));
+            w!(print_type_to_xml(&item_type));
+            if let Some(s) = sym_table {
+                for name in names.iter() {
+                    s.define_class_var(name, &class_var_type, &item_type);
+                }
+            };
             let mut names_iter = names.iter();
             if let Some(name) = names_iter.next() {
-                w!(xwd("identifier", name));
+                print_child!(Node::VarIdentifier(name.into(), false));
                 for name in names_iter {
                     w!(xwd("symbol", ","));
-                    w!(xwd("identifier", name));
+                    print_child!(Node::VarIdentifier(name.into(), false));
                 }
             }
             w!(xwd("symbol", ";"));
@@ -138,17 +161,34 @@ pub fn print_to_xml(out: &mut dyn Write, node: Node, indent_: Option<usize>) {
         Node::VarDec(VarDec(type_, names)) => {
             w!("<varDec>", indent);
             w!(xwd("keyword", "var"));
-            w!(print_type_to_xml(type_));
+            w!(print_type_to_xml(&type_));
+            if let Some(s) = sym_table {
+                for name in names.iter() {
+                    s.define_subroutine_var(name, SubVarKind::Var, &type_);
+                }
+            };
             let mut names_iter = names.iter();
             if let Some(name) = names_iter.next() {
-                w!(xwd("identifier", name));
+                print_child!(Node::VarIdentifier(name.into(), false));
                 for name in names_iter {
                     w!(xwd("symbol", ","));
-                    w!(xwd("identifier", name));
+                    print_child!(Node::VarIdentifier(name.into(), false));
                 }
             }
             w!(xwd("symbol", ";"));
             w!("</varDec>", indent);
+        }
+        Node::VarIdentifier(name, is_usage) => {
+            if let Some(symbol) = sym_table.as_ref().and_then(|s| s.lookup(&name)) {
+                w!("<identifier>", indent);
+                w!(xwd("identifierName", name.as_str()));
+                w!(xwd("identifierCategory", symbol.kind.as_str()));
+                w!(xwd("identifierIndex", &symbol.index.to_string()));
+                w!(xwd("identifierIsUsed", &is_usage.to_string()));
+                w!("</identifier>", indent);
+            } else {
+                w!(xwd("identifier", name.as_str()), indent);
+            };
         }
         Node::Statements(statements) => {
             w!("<statements>", indent);
@@ -173,7 +213,7 @@ pub fn print_to_xml(out: &mut dyn Write, node: Node, indent_: Option<usize>) {
         })) => {
             w!("<letStatement>", indent);
             w!(xwd("keyword", "let"));
-            w!(xwd("identifier", name.as_str()));
+            print_child!(Node::VarIdentifier(name, true));
             if let Some(expr) = index_expr {
                 w!(xwd("symbol", "["));
                 print_child!(Node::Expr(expr));
@@ -234,9 +274,10 @@ pub fn print_to_xml(out: &mut dyn Write, node: Node, indent_: Option<usize>) {
                 }
             };
             if let Some(ident) = this_ident {
-                w!(xwd("identifier", ident.as_str()));
+                print_child!(Node::VarIdentifier(ident, true));
                 w!(xwd("symbol", "."));
             }
+            // TODO: What to do with methods as identifiers?
             w!(xwd("identifier", method.as_str()));
             w!(xwd("symbol", "("));
             print_child!(Node::ExprList(args));
@@ -254,7 +295,7 @@ pub fn print_to_xml(out: &mut dyn Write, node: Node, indent_: Option<usize>) {
         Node::Term(term) => {
             w!("<term>", indent);
             match term {
-                Term::VarName(ident) => w!(xwd("identifier", ident.as_str())),
+                Term::VarName(ident) => print_child!(Node::VarIdentifier(ident, true)),
                 Term::KeywordConstant(kw) => w!(xwd("keyword", keyword_to_string(&kw))),
                 Term::IntegerConstant(i) => w!(xwd("integerConstant", i.to_string().as_str())),
                 Term::StringConst(s) => w!(xwd("stringConstant", s.as_str())),
@@ -266,7 +307,7 @@ pub fn print_to_xml(out: &mut dyn Write, node: Node, indent_: Option<usize>) {
                     print_child!(Node::ParenExpr(*expr), indent);
                 }
                 Term::IndexExpr(ident, expr) => {
-                    w!(xwd("identifier", ident.as_str()));
+                    print_child!(Node::VarIdentifier(ident, true));
                     w!(xwd("symbol", "["));
                     print_child!(Node::Expr(*expr));
                     w!(xwd("symbol", "]"));
@@ -297,7 +338,7 @@ pub fn print_to_xml(out: &mut dyn Write, node: Node, indent_: Option<usize>) {
     }
 }
 
-fn print_type_to_xml(type_: GrammarItemType) -> String {
+fn print_type_to_xml(type_: &GrammarItemType) -> String {
     match type_ {
         GrammarItemType::Int => xwd("keyword", "int"),
         GrammarItemType::Char => xwd("keyword", "char"),
@@ -306,9 +347,10 @@ fn print_type_to_xml(type_: GrammarItemType) -> String {
     }
 }
 
-pub fn result_to_xml(result: ParseResult) -> String {
+pub fn result_to_xml(result: ParseResult, mut sym_table: Option<&mut SymbolTable>) -> String {
     use crate::node_printer::*;
     let mut out = String::new();
-    print_to_xml(&mut out, Node::Class(result.root), None);
+    print_to_xml(&mut out, Node::Class(result.root), None, &mut sym_table);
+    dbg!(sym_table);
     out
 }
