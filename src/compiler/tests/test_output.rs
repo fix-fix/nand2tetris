@@ -8,7 +8,7 @@ use compiler::{
 
 #[test]
 fn test_tokenizer_output() -> Result<(), Box<dyn std::error::Error>> {
-    glob!("inputs/**/*.jack", |path| {
+    glob!("inputs/10/**/*.jack", |path| {
         let input = fs::read_to_string(path).unwrap();
         let is_gold = false;
         if is_gold {
@@ -34,7 +34,7 @@ fn test_tokenizer_output() -> Result<(), Box<dyn std::error::Error>> {
 
 #[test]
 fn test_parser_output() -> Result<(), Box<dyn std::error::Error>> {
-    glob!("inputs/**/*.jack", |path| {
+    glob!("inputs/10/**/*.jack", |path| {
         let is_gold = false;
         if is_gold {
             let gold_filename = path.to_owned().with_file_name(format!(
