@@ -104,7 +104,11 @@ impl SymbolTable {
     }
 
     pub fn count_instance_fields(&self) -> u16 {
-        *self.class.index_dict.get(&ClassVarKind::Field).unwrap_or(&0)
+        *self
+            .class
+            .index_dict
+            .get(&ClassVarKind::Field)
+            .unwrap_or(&0)
     }
 
     pub fn define_class_var(

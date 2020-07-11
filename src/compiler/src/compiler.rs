@@ -41,7 +41,6 @@ pub fn compile_program(parse_result: ParseResult) -> Res<String> {
     let mut out = String::new();
     let sym_table = SymbolTable::new();
     let mut state = CompilerState::new(Default::default(), sym_table, &mut out);
-    dbg!(&parse_result.root);
     compile_class(&mut state, parse_result.root).map_err(|e| {
         dbg!(state.class_name, state.sym_table);
         e
@@ -69,11 +68,10 @@ fn compile_subroutine_dec(
     SubroutineDec(variant, item_type, ident, params, sub): SubroutineDec,
 ) -> Res {
     state.sym_table.reset_subroutine_table();
-    let is_method = variant == GrammarSubroutineVariant::Method;
     let n_locals: u16 = sub.0.iter().map(|var_dec| var_dec.1.len() as u16).sum();
     state.write(write_function(
         format!("{}.{}", state.class_name, ident),
-        n_locals + if is_method { 1 } else { 0 },
+        n_locals,
     ));
     match variant {
         GrammarSubroutineVariant::Constructor => {
@@ -85,6 +83,13 @@ fn compile_subroutine_dec(
         GrammarSubroutineVariant::Method => {
             state.write(write_push("argument", 0));
             state.write(write_pop("pointer", 0));
+
+            // Offset arguments in methods by setting fake value, since we also pass 'this'
+            state.sym_table.define_subroutine_var(
+                &"this".to_string(),
+                SubVarKind::Argument,
+                &GrammarItemType::Class(state.class_name.clone()),
+            );
         }
         _ => {}
     };
@@ -156,25 +161,39 @@ fn compile_statement_let(state: &mut CompilerState, stmt: LetStatement) -> Res {
         .sym_table
         .lookup(&stmt.name)
         .ok_or(format!("Unknown var: {}", &stmt.name))?;
-    compile_expression(state, stmt.value_expr)?;
     match stmt.index_expr {
-        Some(_) => todo!("Handle [index] in let"),
-        _ => {}
+        Some(expr) => {
+            state.write(write_push(var.kind.as_str(), var.index));
+            compile_expression(state, expr)?;
+            state.write("add");
+            compile_expression(state, stmt.value_expr)?;
+            state.write(write_pop("temp", 0));
+            state.write(write_pop("pointer", 1));
+            state.write(write_push("temp", 0));
+            state.write(write_pop("that", 0));
+        }
+        _ => {
+            compile_expression(state, stmt.value_expr)?;
+            state.write(write_pop(var.kind.as_str(), var.index));
+        }
     };
-    state.write(write_pop(var.kind.as_str(), var.index));
     Ok(())
 }
 
 fn compile_statement_if(state: &mut CompilerState, stmt: IfStatement) -> Res {
-    let else_label = state.get_label();
     let end_label = state.get_label();
+    let else_label = if stmt.else_statements.is_some() {
+        state.get_label()
+    } else {
+        end_label.clone()
+    };
     compile_expression(state, stmt.if_expr)?;
     state.write("not");
     state.write(write_if(&else_label));
     compile_statements(state, stmt.if_statements)?;
     state.write(write_goto(&end_label));
-    state.write(write_label(&else_label));
     if let Some(else_statements) = stmt.else_statements {
+        state.write(write_label(&else_label));
         compile_statements(state, else_statements)?;
     }
     state.write(write_label(&end_label));
@@ -232,7 +251,6 @@ fn compile_call(state: &mut CompilerState, call: SubroutineCall) -> Res {
     };
     let n_args = args.len();
     compile_expression_list(state, args)?;
-    // TODO: Handle n_args when passing this
     state.write(write_call(func_name, n_args));
     Ok(())
 }
@@ -299,7 +317,14 @@ fn compile_term(state: &mut CompilerState, term: Term) -> Res {
         Term::IntegerConstant(i) => {
             state.write(write_push("constant", i));
         }
-        // Term::StringConst(_) => {}
+        Term::StringConst(s) => {
+            state.write(write_push("constant", s.len() as u16));
+            state.write(write_call("String.new", 1));
+            for c in s.chars() {
+                state.write(write_push("constant", (c as u8).into()));
+                state.write(write_call("String.appendChar", 2));
+            }
+        }
         Term::UnaryOp(op, term) => {
             compile_term(state, *term)?;
             compile_unary_op(state, op)?;
@@ -307,11 +332,20 @@ fn compile_term(state: &mut CompilerState, term: Term) -> Res {
         Term::ParenExpr(expr) => {
             compile_expression(state, *expr)?;
         }
-        // Term::IndexExpr(_, _) => {}
+        Term::IndexExpr(name, expr) => {
+            let var = state
+                .sym_table
+                .lookup(&name)
+                .ok_or(format!("Unknown var: {}", &name))?;
+            state.write(write_push(var.kind.as_str(), var.index));
+            compile_expression(state, *expr)?;
+            state.write("add");
+            state.write(write_pop("pointer", 1));
+            state.write(write_push("that", 0));
+        }
         Term::SubroutineCall(call) => {
             compile_call(state, call)?;
-        }
-        _t => todo!("Support term: {:?}", _t),
+        } // _t => todo!("Support term: {:?}", _t),
     }
     Ok(())
 }
@@ -327,7 +361,7 @@ fn compile_op(state: &mut CompilerState, Op(op): Op) -> Res {
         "|" => "or".to_string(),
         "*" => write_call("Math.multiply", 2),
         "/" => write_call("Math.divide", 2),
-        other => todo!("Support op: {:?}", other),
+        other => unreachable!("Unsupported op: {:?}", other),
     });
     Ok(())
 }
@@ -336,7 +370,7 @@ fn compile_unary_op(state: &mut CompilerState, Op(op): Op) -> Res {
     state.write(match op.as_str() {
         "-" => "neg".to_string(),
         "~" => "not".to_string(),
-        other => todo!("Support unary op: {:?}", other),
+        other => unreachable!("Unsupported unary op: {:?}", other),
     });
     Ok(())
 }
