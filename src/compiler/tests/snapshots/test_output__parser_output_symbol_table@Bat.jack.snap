@@ -12,14 +12,14 @@ input_file: src/compiler/tests/inputs/11/Pong/Bat.jack
     <keyword> int </keyword>
     <identifier>
       <identifierName> x </identifierName>
-      <identifierCategory> field </identifierCategory>
+      <identifierCategory> this </identifierCategory>
       <identifierIndex> 0 </identifierIndex>
       <identifierIsUsed> false </identifierIsUsed>
     </identifier>
     <symbol> , </symbol>
     <identifier>
       <identifierName> y </identifierName>
-      <identifierCategory> field </identifierCategory>
+      <identifierCategory> this </identifierCategory>
       <identifierIndex> 1 </identifierIndex>
       <identifierIsUsed> false </identifierIsUsed>
     </identifier>
@@ -30,14 +30,14 @@ input_file: src/compiler/tests/inputs/11/Pong/Bat.jack
     <keyword> int </keyword>
     <identifier>
       <identifierName> width </identifierName>
-      <identifierCategory> field </identifierCategory>
+      <identifierCategory> this </identifierCategory>
       <identifierIndex> 2 </identifierIndex>
       <identifierIsUsed> false </identifierIsUsed>
     </identifier>
     <symbol> , </symbol>
     <identifier>
       <identifierName> height </identifierName>
-      <identifierCategory> field </identifierCategory>
+      <identifierCategory> this </identifierCategory>
       <identifierIndex> 3 </identifierIndex>
       <identifierIsUsed> false </identifierIsUsed>
     </identifier>
@@ -48,7 +48,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Bat.jack
     <keyword> int </keyword>
     <identifier>
       <identifierName> direction </identifierName>
-      <identifierCategory> field </identifierCategory>
+      <identifierCategory> this </identifierCategory>
       <identifierIndex> 4 </identifierIndex>
       <identifierIsUsed> false </identifierIsUsed>
     </identifier>
@@ -100,7 +100,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Bat.jack
           <keyword> let </keyword>
           <identifier>
             <identifierName> x </identifierName>
-            <identifierCategory> field </identifierCategory>
+            <identifierCategory> this </identifierCategory>
             <identifierIndex> 0 </identifierIndex>
             <identifierIsUsed> true </identifierIsUsed>
           </identifier>
@@ -121,7 +121,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Bat.jack
           <keyword> let </keyword>
           <identifier>
             <identifierName> y </identifierName>
-            <identifierCategory> field </identifierCategory>
+            <identifierCategory> this </identifierCategory>
             <identifierIndex> 1 </identifierIndex>
             <identifierIsUsed> true </identifierIsUsed>
           </identifier>
@@ -142,7 +142,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Bat.jack
           <keyword> let </keyword>
           <identifier>
             <identifierName> width </identifierName>
-            <identifierCategory> field </identifierCategory>
+            <identifierCategory> this </identifierCategory>
             <identifierIndex> 2 </identifierIndex>
             <identifierIsUsed> true </identifierIsUsed>
           </identifier>
@@ -163,7 +163,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Bat.jack
           <keyword> let </keyword>
           <identifier>
             <identifierName> height </identifierName>
-            <identifierCategory> field </identifierCategory>
+            <identifierCategory> this </identifierCategory>
             <identifierIndex> 3 </identifierIndex>
             <identifierIsUsed> true </identifierIsUsed>
           </identifier>
@@ -184,7 +184,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Bat.jack
           <keyword> let </keyword>
           <identifier>
             <identifierName> direction </identifierName>
-            <identifierCategory> field </identifierCategory>
+            <identifierCategory> this </identifierCategory>
             <identifierIndex> 4 </identifierIndex>
             <identifierIsUsed> true </identifierIsUsed>
           </identifier>
@@ -363,7 +363,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Bat.jack
               <term>
                 <identifier>
                   <identifierName> x </identifierName>
-                  <identifierCategory> field </identifierCategory>
+                  <identifierCategory> this </identifierCategory>
                   <identifierIndex> 0 </identifierIndex>
                   <identifierIsUsed> true </identifierIsUsed>
                 </identifier>
@@ -374,7 +374,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Bat.jack
               <term>
                 <identifier>
                   <identifierName> y </identifierName>
-                  <identifierCategory> field </identifierCategory>
+                  <identifierCategory> this </identifierCategory>
                   <identifierIndex> 1 </identifierIndex>
                   <identifierIsUsed> true </identifierIsUsed>
                 </identifier>
@@ -385,7 +385,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Bat.jack
               <term>
                 <identifier>
                   <identifierName> x </identifierName>
-                  <identifierCategory> field </identifierCategory>
+                  <identifierCategory> this </identifierCategory>
                   <identifierIndex> 0 </identifierIndex>
                   <identifierIsUsed> true </identifierIsUsed>
                 </identifier>
@@ -394,7 +394,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Bat.jack
               <term>
                 <identifier>
                   <identifierName> width </identifierName>
-                  <identifierCategory> field </identifierCategory>
+                  <identifierCategory> this </identifierCategory>
                   <identifierIndex> 2 </identifierIndex>
                   <identifierIsUsed> true </identifierIsUsed>
                 </identifier>
@@ -405,7 +405,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Bat.jack
               <term>
                 <identifier>
                   <identifierName> y </identifierName>
-                  <identifierCategory> field </identifierCategory>
+                  <identifierCategory> this </identifierCategory>
                   <identifierIndex> 1 </identifierIndex>
                   <identifierIsUsed> true </identifierIsUsed>
                 </identifier>
@@ -414,7 +414,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Bat.jack
               <term>
                 <identifier>
                   <identifierName> height </identifierName>
-                  <identifierCategory> field </identifierCategory>
+                  <identifierCategory> this </identifierCategory>
                   <identifierIndex> 3 </identifierIndex>
                   <identifierIsUsed> true </identifierIsUsed>
                 </identifier>
@@ -454,7 +454,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Bat.jack
           <keyword> let </keyword>
           <identifier>
             <identifierName> direction </identifierName>
-            <identifierCategory> field </identifierCategory>
+            <identifierCategory> this </identifierCategory>
             <identifierIndex> 4 </identifierIndex>
             <identifierIsUsed> true </identifierIsUsed>
           </identifier>
@@ -496,7 +496,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Bat.jack
             <term>
               <identifier>
                 <identifierName> x </identifierName>
-                <identifierCategory> field </identifierCategory>
+                <identifierCategory> this </identifierCategory>
                 <identifierIndex> 0 </identifierIndex>
                 <identifierIsUsed> true </identifierIsUsed>
               </identifier>
@@ -525,7 +525,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Bat.jack
             <term>
               <identifier>
                 <identifierName> x </identifierName>
-                <identifierCategory> field </identifierCategory>
+                <identifierCategory> this </identifierCategory>
                 <identifierIndex> 0 </identifierIndex>
                 <identifierIsUsed> true </identifierIsUsed>
               </identifier>
@@ -534,7 +534,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Bat.jack
             <term>
               <identifier>
                 <identifierName> width </identifierName>
-                <identifierCategory> field </identifierCategory>
+                <identifierCategory> this </identifierCategory>
                 <identifierIndex> 2 </identifierIndex>
                 <identifierIsUsed> true </identifierIsUsed>
               </identifier>
@@ -577,7 +577,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Bat.jack
           <keyword> let </keyword>
           <identifier>
             <identifierName> width </identifierName>
-            <identifierCategory> field </identifierCategory>
+            <identifierCategory> this </identifierCategory>
             <identifierIndex> 2 </identifierIndex>
             <identifierIsUsed> true </identifierIsUsed>
           </identifier>
@@ -629,7 +629,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Bat.jack
             <term>
               <identifier>
                 <identifierName> direction </identifierName>
-                <identifierCategory> field </identifierCategory>
+                <identifierCategory> this </identifierCategory>
                 <identifierIndex> 4 </identifierIndex>
                 <identifierIsUsed> true </identifierIsUsed>
               </identifier>
@@ -646,7 +646,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Bat.jack
               <keyword> let </keyword>
               <identifier>
                 <identifierName> x </identifierName>
-                <identifierCategory> field </identifierCategory>
+                <identifierCategory> this </identifierCategory>
                 <identifierIndex> 0 </identifierIndex>
                 <identifierIsUsed> true </identifierIsUsed>
               </identifier>
@@ -655,7 +655,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Bat.jack
                 <term>
                   <identifier>
                     <identifierName> x </identifierName>
-                    <identifierCategory> field </identifierCategory>
+                    <identifierCategory> this </identifierCategory>
                     <identifierIndex> 0 </identifierIndex>
                     <identifierIsUsed> true </identifierIsUsed>
                   </identifier>
@@ -674,7 +674,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Bat.jack
                 <term>
                   <identifier>
                     <identifierName> x </identifierName>
-                    <identifierCategory> field </identifierCategory>
+                    <identifierCategory> this </identifierCategory>
                     <identifierIndex> 0 </identifierIndex>
                     <identifierIsUsed> true </identifierIsUsed>
                   </identifier>
@@ -691,7 +691,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Bat.jack
                   <keyword> let </keyword>
                   <identifier>
                     <identifierName> x </identifierName>
-                    <identifierCategory> field </identifierCategory>
+                    <identifierCategory> this </identifierCategory>
                     <identifierIndex> 0 </identifierIndex>
                     <identifierIsUsed> true </identifierIsUsed>
                   </identifier>
@@ -736,7 +736,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Bat.jack
                       <term>
                         <identifier>
                           <identifierName> x </identifierName>
-                          <identifierCategory> field </identifierCategory>
+                          <identifierCategory> this </identifierCategory>
                           <identifierIndex> 0 </identifierIndex>
                           <identifierIsUsed> true </identifierIsUsed>
                         </identifier>
@@ -745,7 +745,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Bat.jack
                       <term>
                         <identifier>
                           <identifierName> width </identifierName>
-                          <identifierCategory> field </identifierCategory>
+                          <identifierCategory> this </identifierCategory>
                           <identifierIndex> 2 </identifierIndex>
                           <identifierIsUsed> true </identifierIsUsed>
                         </identifier>
@@ -763,7 +763,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Bat.jack
                   <term>
                     <identifier>
                       <identifierName> y </identifierName>
-                      <identifierCategory> field </identifierCategory>
+                      <identifierCategory> this </identifierCategory>
                       <identifierIndex> 1 </identifierIndex>
                       <identifierIsUsed> true </identifierIsUsed>
                     </identifier>
@@ -777,7 +777,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Bat.jack
                       <term>
                         <identifier>
                           <identifierName> x </identifierName>
-                          <identifierCategory> field </identifierCategory>
+                          <identifierCategory> this </identifierCategory>
                           <identifierIndex> 0 </identifierIndex>
                           <identifierIsUsed> true </identifierIsUsed>
                         </identifier>
@@ -786,7 +786,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Bat.jack
                       <term>
                         <identifier>
                           <identifierName> width </identifierName>
-                          <identifierCategory> field </identifierCategory>
+                          <identifierCategory> this </identifierCategory>
                           <identifierIndex> 2 </identifierIndex>
                           <identifierIsUsed> true </identifierIsUsed>
                         </identifier>
@@ -804,7 +804,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Bat.jack
                   <term>
                     <identifier>
                       <identifierName> y </identifierName>
-                      <identifierCategory> field </identifierCategory>
+                      <identifierCategory> this </identifierCategory>
                       <identifierIndex> 1 </identifierIndex>
                       <identifierIsUsed> true </identifierIsUsed>
                     </identifier>
@@ -813,7 +813,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Bat.jack
                   <term>
                     <identifier>
                       <identifierName> height </identifierName>
-                      <identifierCategory> field </identifierCategory>
+                      <identifierCategory> this </identifierCategory>
                       <identifierIndex> 3 </identifierIndex>
                       <identifierIsUsed> true </identifierIsUsed>
                     </identifier>
@@ -850,7 +850,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Bat.jack
                   <term>
                     <identifier>
                       <identifierName> x </identifierName>
-                      <identifierCategory> field </identifierCategory>
+                      <identifierCategory> this </identifierCategory>
                       <identifierIndex> 0 </identifierIndex>
                       <identifierIsUsed> true </identifierIsUsed>
                     </identifier>
@@ -861,7 +861,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Bat.jack
                   <term>
                     <identifier>
                       <identifierName> y </identifierName>
-                      <identifierCategory> field </identifierCategory>
+                      <identifierCategory> this </identifierCategory>
                       <identifierIndex> 1 </identifierIndex>
                       <identifierIsUsed> true </identifierIsUsed>
                     </identifier>
@@ -872,7 +872,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Bat.jack
                   <term>
                     <identifier>
                       <identifierName> x </identifierName>
-                      <identifierCategory> field </identifierCategory>
+                      <identifierCategory> this </identifierCategory>
                       <identifierIndex> 0 </identifierIndex>
                       <identifierIsUsed> true </identifierIsUsed>
                     </identifier>
@@ -887,7 +887,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Bat.jack
                   <term>
                     <identifier>
                       <identifierName> y </identifierName>
-                      <identifierCategory> field </identifierCategory>
+                      <identifierCategory> this </identifierCategory>
                       <identifierIndex> 1 </identifierIndex>
                       <identifierIsUsed> true </identifierIsUsed>
                     </identifier>
@@ -896,7 +896,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Bat.jack
                   <term>
                     <identifier>
                       <identifierName> height </identifierName>
-                      <identifierCategory> field </identifierCategory>
+                      <identifierCategory> this </identifierCategory>
                       <identifierIndex> 3 </identifierIndex>
                       <identifierIsUsed> true </identifierIsUsed>
                     </identifier>
@@ -915,7 +915,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Bat.jack
               <keyword> let </keyword>
               <identifier>
                 <identifierName> x </identifierName>
-                <identifierCategory> field </identifierCategory>
+                <identifierCategory> this </identifierCategory>
                 <identifierIndex> 0 </identifierIndex>
                 <identifierIsUsed> true </identifierIsUsed>
               </identifier>
@@ -924,7 +924,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Bat.jack
                 <term>
                   <identifier>
                     <identifierName> x </identifierName>
-                    <identifierCategory> field </identifierCategory>
+                    <identifierCategory> this </identifierCategory>
                     <identifierIndex> 0 </identifierIndex>
                     <identifierIsUsed> true </identifierIsUsed>
                   </identifier>
@@ -946,7 +946,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Bat.jack
                     <term>
                       <identifier>
                         <identifierName> x </identifierName>
-                        <identifierCategory> field </identifierCategory>
+                        <identifierCategory> this </identifierCategory>
                         <identifierIndex> 0 </identifierIndex>
                         <identifierIsUsed> true </identifierIsUsed>
                       </identifier>
@@ -955,7 +955,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Bat.jack
                     <term>
                       <identifier>
                         <identifierName> width </identifierName>
-                        <identifierCategory> field </identifierCategory>
+                        <identifierCategory> this </identifierCategory>
                         <identifierIndex> 2 </identifierIndex>
                         <identifierIsUsed> true </identifierIsUsed>
                       </identifier>
@@ -975,7 +975,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Bat.jack
                   <keyword> let </keyword>
                   <identifier>
                     <identifierName> x </identifierName>
-                    <identifierCategory> field </identifierCategory>
+                    <identifierCategory> this </identifierCategory>
                     <identifierIndex> 0 </identifierIndex>
                     <identifierIsUsed> true </identifierIsUsed>
                   </identifier>
@@ -988,7 +988,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Bat.jack
                     <term>
                       <identifier>
                         <identifierName> width </identifierName>
-                        <identifierCategory> field </identifierCategory>
+                        <identifierCategory> this </identifierCategory>
                         <identifierIndex> 2 </identifierIndex>
                         <identifierIsUsed> true </identifierIsUsed>
                       </identifier>
@@ -1026,7 +1026,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Bat.jack
                   <term>
                     <identifier>
                       <identifierName> x </identifierName>
-                      <identifierCategory> field </identifierCategory>
+                      <identifierCategory> this </identifierCategory>
                       <identifierIndex> 0 </identifierIndex>
                       <identifierIsUsed> true </identifierIsUsed>
                     </identifier>
@@ -1041,7 +1041,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Bat.jack
                   <term>
                     <identifier>
                       <identifierName> y </identifierName>
-                      <identifierCategory> field </identifierCategory>
+                      <identifierCategory> this </identifierCategory>
                       <identifierIndex> 1 </identifierIndex>
                       <identifierIsUsed> true </identifierIsUsed>
                     </identifier>
@@ -1052,7 +1052,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Bat.jack
                   <term>
                     <identifier>
                       <identifierName> x </identifierName>
-                      <identifierCategory> field </identifierCategory>
+                      <identifierCategory> this </identifierCategory>
                       <identifierIndex> 0 </identifierIndex>
                       <identifierIsUsed> true </identifierIsUsed>
                     </identifier>
@@ -1067,7 +1067,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Bat.jack
                   <term>
                     <identifier>
                       <identifierName> y </identifierName>
-                      <identifierCategory> field </identifierCategory>
+                      <identifierCategory> this </identifierCategory>
                       <identifierIndex> 1 </identifierIndex>
                       <identifierIsUsed> true </identifierIsUsed>
                     </identifier>
@@ -1076,7 +1076,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Bat.jack
                   <term>
                     <identifier>
                       <identifierName> height </identifierName>
-                      <identifierCategory> field </identifierCategory>
+                      <identifierCategory> this </identifierCategory>
                       <identifierIndex> 3 </identifierIndex>
                       <identifierIsUsed> true </identifierIsUsed>
                     </identifier>
@@ -1116,7 +1116,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Bat.jack
                       <term>
                         <identifier>
                           <identifierName> x </identifierName>
-                          <identifierCategory> field </identifierCategory>
+                          <identifierCategory> this </identifierCategory>
                           <identifierIndex> 0 </identifierIndex>
                           <identifierIsUsed> true </identifierIsUsed>
                         </identifier>
@@ -1125,7 +1125,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Bat.jack
                       <term>
                         <identifier>
                           <identifierName> width </identifierName>
-                          <identifierCategory> field </identifierCategory>
+                          <identifierCategory> this </identifierCategory>
                           <identifierIndex> 2 </identifierIndex>
                           <identifierIsUsed> true </identifierIsUsed>
                         </identifier>
@@ -1143,7 +1143,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Bat.jack
                   <term>
                     <identifier>
                       <identifierName> y </identifierName>
-                      <identifierCategory> field </identifierCategory>
+                      <identifierCategory> this </identifierCategory>
                       <identifierIndex> 1 </identifierIndex>
                       <identifierIsUsed> true </identifierIsUsed>
                     </identifier>
@@ -1154,7 +1154,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Bat.jack
                   <term>
                     <identifier>
                       <identifierName> x </identifierName>
-                      <identifierCategory> field </identifierCategory>
+                      <identifierCategory> this </identifierCategory>
                       <identifierIndex> 0 </identifierIndex>
                       <identifierIsUsed> true </identifierIsUsed>
                     </identifier>
@@ -1163,7 +1163,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Bat.jack
                   <term>
                     <identifier>
                       <identifierName> width </identifierName>
-                      <identifierCategory> field </identifierCategory>
+                      <identifierCategory> this </identifierCategory>
                       <identifierIndex> 2 </identifierIndex>
                       <identifierIsUsed> true </identifierIsUsed>
                     </identifier>
@@ -1174,7 +1174,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Bat.jack
                   <term>
                     <identifier>
                       <identifierName> y </identifierName>
-                      <identifierCategory> field </identifierCategory>
+                      <identifierCategory> this </identifierCategory>
                       <identifierIndex> 1 </identifierIndex>
                       <identifierIsUsed> true </identifierIsUsed>
                     </identifier>
@@ -1183,7 +1183,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Bat.jack
                   <term>
                     <identifier>
                       <identifierName> height </identifierName>
-                      <identifierCategory> field </identifierCategory>
+                      <identifierCategory> this </identifierCategory>
                       <identifierIndex> 3 </identifierIndex>
                       <identifierIsUsed> true </identifierIsUsed>
                     </identifier>

@@ -22,7 +22,7 @@ input_file: src/compiler/tests/inputs/11/ConvertToBin/Main.jack
         <keyword> int </keyword>
         <identifier>
           <identifierName> value </identifierName>
-          <identifierCategory> var </identifierCategory>
+          <identifierCategory> local </identifierCategory>
           <identifierIndex> 0 </identifierIndex>
           <identifierIsUsed> false </identifierIsUsed>
         </identifier>
@@ -64,7 +64,7 @@ input_file: src/compiler/tests/inputs/11/ConvertToBin/Main.jack
           <keyword> let </keyword>
           <identifier>
             <identifierName> value </identifierName>
-            <identifierCategory> var </identifierCategory>
+            <identifierCategory> local </identifierCategory>
             <identifierIndex> 0 </identifierIndex>
             <identifierIsUsed> true </identifierIsUsed>
           </identifier>
@@ -98,7 +98,7 @@ input_file: src/compiler/tests/inputs/11/ConvertToBin/Main.jack
               <term>
                 <identifier>
                   <identifierName> value </identifierName>
-                  <identifierCategory> var </identifierCategory>
+                  <identifierCategory> local </identifierCategory>
                   <identifierIndex> 0 </identifierIndex>
                   <identifierIsUsed> true </identifierIsUsed>
                 </identifier>
@@ -138,15 +138,15 @@ input_file: src/compiler/tests/inputs/11/ConvertToBin/Main.jack
         <keyword> int </keyword>
         <identifier>
           <identifierName> mask </identifierName>
-          <identifierCategory> var </identifierCategory>
-          <identifierIndex> 1 </identifierIndex>
+          <identifierCategory> local </identifierCategory>
+          <identifierIndex> 0 </identifierIndex>
           <identifierIsUsed> false </identifierIsUsed>
         </identifier>
         <symbol> , </symbol>
         <identifier>
           <identifierName> position </identifierName>
-          <identifierCategory> var </identifierCategory>
-          <identifierIndex> 2 </identifierIndex>
+          <identifierCategory> local </identifierCategory>
+          <identifierIndex> 1 </identifierIndex>
           <identifierIsUsed> false </identifierIsUsed>
         </identifier>
         <symbol> ; </symbol>
@@ -156,8 +156,8 @@ input_file: src/compiler/tests/inputs/11/ConvertToBin/Main.jack
         <keyword> boolean </keyword>
         <identifier>
           <identifierName> loop </identifierName>
-          <identifierCategory> var </identifierCategory>
-          <identifierIndex> 3 </identifierIndex>
+          <identifierCategory> local </identifierCategory>
+          <identifierIndex> 2 </identifierIndex>
           <identifierIsUsed> false </identifierIsUsed>
         </identifier>
         <symbol> ; </symbol>
@@ -167,8 +167,8 @@ input_file: src/compiler/tests/inputs/11/ConvertToBin/Main.jack
           <keyword> let </keyword>
           <identifier>
             <identifierName> loop </identifierName>
-            <identifierCategory> var </identifierCategory>
-            <identifierIndex> 3 </identifierIndex>
+            <identifierCategory> local </identifierCategory>
+            <identifierIndex> 2 </identifierIndex>
             <identifierIsUsed> true </identifierIsUsed>
           </identifier>
           <symbol> = </symbol>
@@ -186,8 +186,8 @@ input_file: src/compiler/tests/inputs/11/ConvertToBin/Main.jack
             <term>
               <identifier>
                 <identifierName> loop </identifierName>
-                <identifierCategory> var </identifierCategory>
-                <identifierIndex> 3 </identifierIndex>
+                <identifierCategory> local </identifierCategory>
+                <identifierIndex> 2 </identifierIndex>
                 <identifierIsUsed> true </identifierIsUsed>
               </identifier>
             </term>
@@ -199,8 +199,8 @@ input_file: src/compiler/tests/inputs/11/ConvertToBin/Main.jack
               <keyword> let </keyword>
               <identifier>
                 <identifierName> position </identifierName>
-                <identifierCategory> var </identifierCategory>
-                <identifierIndex> 2 </identifierIndex>
+                <identifierCategory> local </identifierCategory>
+                <identifierIndex> 1 </identifierIndex>
                 <identifierIsUsed> true </identifierIsUsed>
               </identifier>
               <symbol> = </symbol>
@@ -208,8 +208,8 @@ input_file: src/compiler/tests/inputs/11/ConvertToBin/Main.jack
                 <term>
                   <identifier>
                     <identifierName> position </identifierName>
-                    <identifierCategory> var </identifierCategory>
-                    <identifierIndex> 2 </identifierIndex>
+                    <identifierCategory> local </identifierCategory>
+                    <identifierIndex> 1 </identifierIndex>
                     <identifierIsUsed> true </identifierIsUsed>
                   </identifier>
                 </term>
@@ -224,8 +224,8 @@ input_file: src/compiler/tests/inputs/11/ConvertToBin/Main.jack
               <keyword> let </keyword>
               <identifier>
                 <identifierName> mask </identifierName>
-                <identifierCategory> var </identifierCategory>
-                <identifierIndex> 1 </identifierIndex>
+                <identifierCategory> local </identifierCategory>
+                <identifierIndex> 0 </identifierIndex>
                 <identifierIsUsed> true </identifierIsUsed>
               </identifier>
               <symbol> = </symbol>
@@ -240,8 +240,8 @@ input_file: src/compiler/tests/inputs/11/ConvertToBin/Main.jack
                       <term>
                         <identifier>
                           <identifierName> mask </identifierName>
-                          <identifierCategory> var </identifierCategory>
-                          <identifierIndex> 1 </identifierIndex>
+                          <identifierCategory> local </identifierCategory>
+                          <identifierIndex> 0 </identifierIndex>
                           <identifierIsUsed> true </identifierIsUsed>
                         </identifier>
                       </term>
@@ -264,8 +264,8 @@ input_file: src/compiler/tests/inputs/11/ConvertToBin/Main.jack
                       <term>
                         <identifier>
                           <identifierName> position </identifierName>
-                          <identifierCategory> var </identifierCategory>
-                          <identifierIndex> 2 </identifierIndex>
+                          <identifierCategory> local </identifierCategory>
+                          <identifierIndex> 1 </identifierIndex>
                           <identifierIsUsed> true </identifierIsUsed>
                         </identifier>
                       </term>
@@ -305,8 +305,8 @@ input_file: src/compiler/tests/inputs/11/ConvertToBin/Main.jack
                               <term>
                                 <identifier>
                                   <identifierName> mask </identifierName>
-                                  <identifierCategory> var </identifierCategory>
-                                  <identifierIndex> 1 </identifierIndex>
+                                  <identifierCategory> local </identifierCategory>
+                                  <identifierIndex> 0 </identifierIndex>
                                   <identifierIsUsed> true </identifierIsUsed>
                                 </identifier>
                               </term>
@@ -340,8 +340,8 @@ input_file: src/compiler/tests/inputs/11/ConvertToBin/Main.jack
                           <term>
                             <identifier>
                               <identifierName> position </identifierName>
-                              <identifierCategory> var </identifierCategory>
-                              <identifierIndex> 2 </identifierIndex>
+                              <identifierCategory> local </identifierCategory>
+                              <identifierIndex> 1 </identifierIndex>
                               <identifierIsUsed> true </identifierIsUsed>
                             </identifier>
                           </term>
@@ -376,8 +376,8 @@ input_file: src/compiler/tests/inputs/11/ConvertToBin/Main.jack
                           <term>
                             <identifier>
                               <identifierName> position </identifierName>
-                              <identifierCategory> var </identifierCategory>
-                              <identifierIndex> 2 </identifierIndex>
+                              <identifierCategory> local </identifierCategory>
+                              <identifierIndex> 1 </identifierIndex>
                               <identifierIsUsed> true </identifierIsUsed>
                             </identifier>
                           </term>
@@ -404,8 +404,8 @@ input_file: src/compiler/tests/inputs/11/ConvertToBin/Main.jack
                   <keyword> let </keyword>
                   <identifier>
                     <identifierName> loop </identifierName>
-                    <identifierCategory> var </identifierCategory>
-                    <identifierIndex> 3 </identifierIndex>
+                    <identifierCategory> local </identifierCategory>
+                    <identifierIndex> 2 </identifierIndex>
                     <identifierIsUsed> true </identifierIsUsed>
                   </identifier>
                   <symbol> = </symbol>

@@ -12,14 +12,14 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
     <keyword> int </keyword>
     <identifier>
       <identifierName> x </identifierName>
-      <identifierCategory> field </identifierCategory>
+      <identifierCategory> this </identifierCategory>
       <identifierIndex> 0 </identifierIndex>
       <identifierIsUsed> false </identifierIsUsed>
     </identifier>
     <symbol> , </symbol>
     <identifier>
       <identifierName> y </identifierName>
-      <identifierCategory> field </identifierCategory>
+      <identifierCategory> this </identifierCategory>
       <identifierIndex> 1 </identifierIndex>
       <identifierIsUsed> false </identifierIsUsed>
     </identifier>
@@ -30,14 +30,14 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
     <keyword> int </keyword>
     <identifier>
       <identifierName> lengthx </identifierName>
-      <identifierCategory> field </identifierCategory>
+      <identifierCategory> this </identifierCategory>
       <identifierIndex> 2 </identifierIndex>
       <identifierIsUsed> false </identifierIsUsed>
     </identifier>
     <symbol> , </symbol>
     <identifier>
       <identifierName> lengthy </identifierName>
-      <identifierCategory> field </identifierCategory>
+      <identifierCategory> this </identifierCategory>
       <identifierIndex> 3 </identifierIndex>
       <identifierIsUsed> false </identifierIsUsed>
     </identifier>
@@ -48,21 +48,21 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
     <keyword> int </keyword>
     <identifier>
       <identifierName> d </identifierName>
-      <identifierCategory> field </identifierCategory>
+      <identifierCategory> this </identifierCategory>
       <identifierIndex> 4 </identifierIndex>
       <identifierIsUsed> false </identifierIsUsed>
     </identifier>
     <symbol> , </symbol>
     <identifier>
       <identifierName> straightD </identifierName>
-      <identifierCategory> field </identifierCategory>
+      <identifierCategory> this </identifierCategory>
       <identifierIndex> 5 </identifierIndex>
       <identifierIsUsed> false </identifierIsUsed>
     </identifier>
     <symbol> , </symbol>
     <identifier>
       <identifierName> diagonalD </identifierName>
-      <identifierCategory> field </identifierCategory>
+      <identifierCategory> this </identifierCategory>
       <identifierIndex> 6 </identifierIndex>
       <identifierIsUsed> false </identifierIsUsed>
     </identifier>
@@ -73,21 +73,21 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
     <keyword> boolean </keyword>
     <identifier>
       <identifierName> invert </identifierName>
-      <identifierCategory> field </identifierCategory>
+      <identifierCategory> this </identifierCategory>
       <identifierIndex> 7 </identifierIndex>
       <identifierIsUsed> false </identifierIsUsed>
     </identifier>
     <symbol> , </symbol>
     <identifier>
       <identifierName> positivex </identifierName>
-      <identifierCategory> field </identifierCategory>
+      <identifierCategory> this </identifierCategory>
       <identifierIndex> 8 </identifierIndex>
       <identifierIsUsed> false </identifierIsUsed>
     </identifier>
     <symbol> , </symbol>
     <identifier>
       <identifierName> positivey </identifierName>
-      <identifierCategory> field </identifierCategory>
+      <identifierCategory> this </identifierCategory>
       <identifierIndex> 9 </identifierIndex>
       <identifierIsUsed> false </identifierIsUsed>
     </identifier>
@@ -98,28 +98,28 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
     <keyword> int </keyword>
     <identifier>
       <identifierName> leftWall </identifierName>
-      <identifierCategory> field </identifierCategory>
+      <identifierCategory> this </identifierCategory>
       <identifierIndex> 10 </identifierIndex>
       <identifierIsUsed> false </identifierIsUsed>
     </identifier>
     <symbol> , </symbol>
     <identifier>
       <identifierName> rightWall </identifierName>
-      <identifierCategory> field </identifierCategory>
+      <identifierCategory> this </identifierCategory>
       <identifierIndex> 11 </identifierIndex>
       <identifierIsUsed> false </identifierIsUsed>
     </identifier>
     <symbol> , </symbol>
     <identifier>
       <identifierName> topWall </identifierName>
-      <identifierCategory> field </identifierCategory>
+      <identifierCategory> this </identifierCategory>
       <identifierIndex> 12 </identifierIndex>
       <identifierIsUsed> false </identifierIsUsed>
     </identifier>
     <symbol> , </symbol>
     <identifier>
       <identifierName> bottomWall </identifierName>
-      <identifierCategory> field </identifierCategory>
+      <identifierCategory> this </identifierCategory>
       <identifierIndex> 13 </identifierIndex>
       <identifierIsUsed> false </identifierIsUsed>
     </identifier>
@@ -130,7 +130,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
     <keyword> int </keyword>
     <identifier>
       <identifierName> wall </identifierName>
-      <identifierCategory> field </identifierCategory>
+      <identifierCategory> this </identifierCategory>
       <identifierIndex> 14 </identifierIndex>
       <identifierIsUsed> false </identifierIsUsed>
     </identifier>
@@ -198,7 +198,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
           <keyword> let </keyword>
           <identifier>
             <identifierName> x </identifierName>
-            <identifierCategory> field </identifierCategory>
+            <identifierCategory> this </identifierCategory>
             <identifierIndex> 0 </identifierIndex>
             <identifierIsUsed> true </identifierIsUsed>
           </identifier>
@@ -219,7 +219,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
           <keyword> let </keyword>
           <identifier>
             <identifierName> y </identifierName>
-            <identifierCategory> field </identifierCategory>
+            <identifierCategory> this </identifierCategory>
             <identifierIndex> 1 </identifierIndex>
             <identifierIsUsed> true </identifierIsUsed>
           </identifier>
@@ -240,7 +240,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
           <keyword> let </keyword>
           <identifier>
             <identifierName> leftWall </identifierName>
-            <identifierCategory> field </identifierCategory>
+            <identifierCategory> this </identifierCategory>
             <identifierIndex> 10 </identifierIndex>
             <identifierIsUsed> true </identifierIsUsed>
           </identifier>
@@ -261,7 +261,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
           <keyword> let </keyword>
           <identifier>
             <identifierName> rightWall </identifierName>
-            <identifierCategory> field </identifierCategory>
+            <identifierCategory> this </identifierCategory>
             <identifierIndex> 11 </identifierIndex>
             <identifierIsUsed> true </identifierIsUsed>
           </identifier>
@@ -286,7 +286,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
           <keyword> let </keyword>
           <identifier>
             <identifierName> topWall </identifierName>
-            <identifierCategory> field </identifierCategory>
+            <identifierCategory> this </identifierCategory>
             <identifierIndex> 12 </identifierIndex>
             <identifierIsUsed> true </identifierIsUsed>
           </identifier>
@@ -307,7 +307,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
           <keyword> let </keyword>
           <identifier>
             <identifierName> bottomWall </identifierName>
-            <identifierCategory> field </identifierCategory>
+            <identifierCategory> this </identifierCategory>
             <identifierIndex> 13 </identifierIndex>
             <identifierIsUsed> true </identifierIsUsed>
           </identifier>
@@ -332,7 +332,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
           <keyword> let </keyword>
           <identifier>
             <identifierName> wall </identifierName>
-            <identifierCategory> field </identifierCategory>
+            <identifierCategory> this </identifierCategory>
             <identifierIndex> 14 </identifierIndex>
             <identifierIsUsed> true </identifierIsUsed>
           </identifier>
@@ -511,7 +511,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
               <term>
                 <identifier>
                   <identifierName> x </identifierName>
-                  <identifierCategory> field </identifierCategory>
+                  <identifierCategory> this </identifierCategory>
                   <identifierIndex> 0 </identifierIndex>
                   <identifierIsUsed> true </identifierIsUsed>
                 </identifier>
@@ -522,7 +522,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
               <term>
                 <identifier>
                   <identifierName> y </identifierName>
-                  <identifierCategory> field </identifierCategory>
+                  <identifierCategory> this </identifierCategory>
                   <identifierIndex> 1 </identifierIndex>
                   <identifierIsUsed> true </identifierIsUsed>
                 </identifier>
@@ -533,7 +533,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
               <term>
                 <identifier>
                   <identifierName> x </identifierName>
-                  <identifierCategory> field </identifierCategory>
+                  <identifierCategory> this </identifierCategory>
                   <identifierIndex> 0 </identifierIndex>
                   <identifierIsUsed> true </identifierIsUsed>
                 </identifier>
@@ -548,7 +548,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
               <term>
                 <identifier>
                   <identifierName> y </identifierName>
-                  <identifierCategory> field </identifierCategory>
+                  <identifierCategory> this </identifierCategory>
                   <identifierIndex> 1 </identifierIndex>
                   <identifierIsUsed> true </identifierIsUsed>
                 </identifier>
@@ -587,7 +587,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
             <term>
               <identifier>
                 <identifierName> x </identifierName>
-                <identifierCategory> field </identifierCategory>
+                <identifierCategory> this </identifierCategory>
                 <identifierIndex> 0 </identifierIndex>
                 <identifierIsUsed> true </identifierIsUsed>
               </identifier>
@@ -616,7 +616,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
             <term>
               <identifier>
                 <identifierName> x </identifierName>
-                <identifierCategory> field </identifierCategory>
+                <identifierCategory> this </identifierCategory>
                 <identifierIndex> 0 </identifierIndex>
                 <identifierIsUsed> true </identifierIsUsed>
               </identifier>
@@ -662,22 +662,22 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
         <keyword> int </keyword>
         <identifier>
           <identifierName> dx </identifierName>
-          <identifierCategory> var </identifierCategory>
-          <identifierIndex> 2 </identifierIndex>
+          <identifierCategory> local </identifierCategory>
+          <identifierIndex> 0 </identifierIndex>
           <identifierIsUsed> false </identifierIsUsed>
         </identifier>
         <symbol> , </symbol>
         <identifier>
           <identifierName> dy </identifierName>
-          <identifierCategory> var </identifierCategory>
-          <identifierIndex> 3 </identifierIndex>
+          <identifierCategory> local </identifierCategory>
+          <identifierIndex> 1 </identifierIndex>
           <identifierIsUsed> false </identifierIsUsed>
         </identifier>
         <symbol> , </symbol>
         <identifier>
           <identifierName> temp </identifierName>
-          <identifierCategory> var </identifierCategory>
-          <identifierIndex> 4 </identifierIndex>
+          <identifierCategory> local </identifierCategory>
+          <identifierIndex> 2 </identifierIndex>
           <identifierIsUsed> false </identifierIsUsed>
         </identifier>
         <symbol> ; </symbol>
@@ -687,7 +687,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
           <keyword> let </keyword>
           <identifier>
             <identifierName> lengthx </identifierName>
-            <identifierCategory> field </identifierCategory>
+            <identifierCategory> this </identifierCategory>
             <identifierIndex> 2 </identifierIndex>
             <identifierIsUsed> true </identifierIsUsed>
           </identifier>
@@ -705,7 +705,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
             <term>
               <identifier>
                 <identifierName> x </identifierName>
-                <identifierCategory> field </identifierCategory>
+                <identifierCategory> this </identifierCategory>
                 <identifierIndex> 0 </identifierIndex>
                 <identifierIsUsed> true </identifierIsUsed>
               </identifier>
@@ -717,7 +717,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
           <keyword> let </keyword>
           <identifier>
             <identifierName> lengthy </identifierName>
-            <identifierCategory> field </identifierCategory>
+            <identifierCategory> this </identifierCategory>
             <identifierIndex> 3 </identifierIndex>
             <identifierIsUsed> true </identifierIsUsed>
           </identifier>
@@ -735,7 +735,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
             <term>
               <identifier>
                 <identifierName> y </identifierName>
-                <identifierCategory> field </identifierCategory>
+                <identifierCategory> this </identifierCategory>
                 <identifierIndex> 1 </identifierIndex>
                 <identifierIsUsed> true </identifierIsUsed>
               </identifier>
@@ -747,8 +747,8 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
           <keyword> let </keyword>
           <identifier>
             <identifierName> dx </identifierName>
-            <identifierCategory> var </identifierCategory>
-            <identifierIndex> 2 </identifierIndex>
+            <identifierCategory> local </identifierCategory>
+            <identifierIndex> 0 </identifierIndex>
             <identifierIsUsed> true </identifierIsUsed>
           </identifier>
           <symbol> = </symbol>
@@ -763,7 +763,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
                   <term>
                     <identifier>
                       <identifierName> lengthx </identifierName>
-                      <identifierCategory> field </identifierCategory>
+                      <identifierCategory> this </identifierCategory>
                       <identifierIndex> 2 </identifierIndex>
                       <identifierIsUsed> true </identifierIsUsed>
                     </identifier>
@@ -779,8 +779,8 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
           <keyword> let </keyword>
           <identifier>
             <identifierName> dy </identifierName>
-            <identifierCategory> var </identifierCategory>
-            <identifierIndex> 3 </identifierIndex>
+            <identifierCategory> local </identifierCategory>
+            <identifierIndex> 1 </identifierIndex>
             <identifierIsUsed> true </identifierIsUsed>
           </identifier>
           <symbol> = </symbol>
@@ -795,7 +795,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
                   <term>
                     <identifier>
                       <identifierName> lengthy </identifierName>
-                      <identifierCategory> field </identifierCategory>
+                      <identifierCategory> this </identifierCategory>
                       <identifierIndex> 3 </identifierIndex>
                       <identifierIsUsed> true </identifierIsUsed>
                     </identifier>
@@ -811,7 +811,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
           <keyword> let </keyword>
           <identifier>
             <identifierName> invert </identifierName>
-            <identifierCategory> field </identifierCategory>
+            <identifierCategory> this </identifierCategory>
             <identifierIndex> 7 </identifierIndex>
             <identifierIsUsed> true </identifierIsUsed>
           </identifier>
@@ -823,8 +823,8 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
                 <term>
                   <identifier>
                     <identifierName> dx </identifierName>
-                    <identifierCategory> var </identifierCategory>
-                    <identifierIndex> 2 </identifierIndex>
+                    <identifierCategory> local </identifierCategory>
+                    <identifierIndex> 0 </identifierIndex>
                     <identifierIsUsed> true </identifierIsUsed>
                   </identifier>
                 </term>
@@ -832,8 +832,8 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
                 <term>
                   <identifier>
                     <identifierName> dy </identifierName>
-                    <identifierCategory> var </identifierCategory>
-                    <identifierIndex> 3 </identifierIndex>
+                    <identifierCategory> local </identifierCategory>
+                    <identifierIndex> 1 </identifierIndex>
                     <identifierIsUsed> true </identifierIsUsed>
                   </identifier>
                 </term>
@@ -850,7 +850,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
             <term>
               <identifier>
                 <identifierName> invert </identifierName>
-                <identifierCategory> field </identifierCategory>
+                <identifierCategory> this </identifierCategory>
                 <identifierIndex> 7 </identifierIndex>
                 <identifierIsUsed> true </identifierIsUsed>
               </identifier>
@@ -863,8 +863,8 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
               <keyword> let </keyword>
               <identifier>
                 <identifierName> temp </identifierName>
-                <identifierCategory> var </identifierCategory>
-                <identifierIndex> 4 </identifierIndex>
+                <identifierCategory> local </identifierCategory>
+                <identifierIndex> 2 </identifierIndex>
                 <identifierIsUsed> true </identifierIsUsed>
               </identifier>
               <symbol> = </symbol>
@@ -872,8 +872,8 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
                 <term>
                   <identifier>
                     <identifierName> dx </identifierName>
-                    <identifierCategory> var </identifierCategory>
-                    <identifierIndex> 2 </identifierIndex>
+                    <identifierCategory> local </identifierCategory>
+                    <identifierIndex> 0 </identifierIndex>
                     <identifierIsUsed> true </identifierIsUsed>
                   </identifier>
                 </term>
@@ -884,8 +884,8 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
               <keyword> let </keyword>
               <identifier>
                 <identifierName> dx </identifierName>
-                <identifierCategory> var </identifierCategory>
-                <identifierIndex> 2 </identifierIndex>
+                <identifierCategory> local </identifierCategory>
+                <identifierIndex> 0 </identifierIndex>
                 <identifierIsUsed> true </identifierIsUsed>
               </identifier>
               <symbol> = </symbol>
@@ -893,8 +893,8 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
                 <term>
                   <identifier>
                     <identifierName> dy </identifierName>
-                    <identifierCategory> var </identifierCategory>
-                    <identifierIndex> 3 </identifierIndex>
+                    <identifierCategory> local </identifierCategory>
+                    <identifierIndex> 1 </identifierIndex>
                     <identifierIsUsed> true </identifierIsUsed>
                   </identifier>
                 </term>
@@ -905,8 +905,8 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
               <keyword> let </keyword>
               <identifier>
                 <identifierName> dy </identifierName>
-                <identifierCategory> var </identifierCategory>
-                <identifierIndex> 3 </identifierIndex>
+                <identifierCategory> local </identifierCategory>
+                <identifierIndex> 1 </identifierIndex>
                 <identifierIsUsed> true </identifierIsUsed>
               </identifier>
               <symbol> = </symbol>
@@ -914,8 +914,8 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
                 <term>
                   <identifier>
                     <identifierName> temp </identifierName>
-                    <identifierCategory> var </identifierCategory>
-                    <identifierIndex> 4 </identifierIndex>
+                    <identifierCategory> local </identifierCategory>
+                    <identifierIndex> 2 </identifierIndex>
                     <identifierIsUsed> true </identifierIsUsed>
                   </identifier>
                 </term>
@@ -926,7 +926,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
               <keyword> let </keyword>
               <identifier>
                 <identifierName> positivex </identifierName>
-                <identifierCategory> field </identifierCategory>
+                <identifierCategory> this </identifierCategory>
                 <identifierIndex> 8 </identifierIndex>
                 <identifierIsUsed> true </identifierIsUsed>
               </identifier>
@@ -938,7 +938,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
                     <term>
                       <identifier>
                         <identifierName> y </identifierName>
-                        <identifierCategory> field </identifierCategory>
+                        <identifierCategory> this </identifierCategory>
                         <identifierIndex> 1 </identifierIndex>
                         <identifierIsUsed> true </identifierIsUsed>
                       </identifier>
@@ -962,7 +962,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
               <keyword> let </keyword>
               <identifier>
                 <identifierName> positivey </identifierName>
-                <identifierCategory> field </identifierCategory>
+                <identifierCategory> this </identifierCategory>
                 <identifierIndex> 9 </identifierIndex>
                 <identifierIsUsed> true </identifierIsUsed>
               </identifier>
@@ -974,7 +974,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
                     <term>
                       <identifier>
                         <identifierName> x </identifierName>
-                        <identifierCategory> field </identifierCategory>
+                        <identifierCategory> this </identifierCategory>
                         <identifierIndex> 0 </identifierIndex>
                         <identifierIsUsed> true </identifierIsUsed>
                       </identifier>
@@ -1003,7 +1003,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
               <keyword> let </keyword>
               <identifier>
                 <identifierName> positivex </identifierName>
-                <identifierCategory> field </identifierCategory>
+                <identifierCategory> this </identifierCategory>
                 <identifierIndex> 8 </identifierIndex>
                 <identifierIsUsed> true </identifierIsUsed>
               </identifier>
@@ -1015,7 +1015,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
                     <term>
                       <identifier>
                         <identifierName> x </identifierName>
-                        <identifierCategory> field </identifierCategory>
+                        <identifierCategory> this </identifierCategory>
                         <identifierIndex> 0 </identifierIndex>
                         <identifierIsUsed> true </identifierIsUsed>
                       </identifier>
@@ -1039,7 +1039,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
               <keyword> let </keyword>
               <identifier>
                 <identifierName> positivey </identifierName>
-                <identifierCategory> field </identifierCategory>
+                <identifierCategory> this </identifierCategory>
                 <identifierIndex> 9 </identifierIndex>
                 <identifierIsUsed> true </identifierIsUsed>
               </identifier>
@@ -1051,7 +1051,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
                     <term>
                       <identifier>
                         <identifierName> y </identifierName>
-                        <identifierCategory> field </identifierCategory>
+                        <identifierCategory> this </identifierCategory>
                         <identifierIndex> 1 </identifierIndex>
                         <identifierIsUsed> true </identifierIsUsed>
                       </identifier>
@@ -1078,7 +1078,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
           <keyword> let </keyword>
           <identifier>
             <identifierName> d </identifierName>
-            <identifierCategory> field </identifierCategory>
+            <identifierCategory> this </identifierCategory>
             <identifierIndex> 4 </identifierIndex>
             <identifierIsUsed> true </identifierIsUsed>
           </identifier>
@@ -1094,8 +1094,8 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
                 <term>
                   <identifier>
                     <identifierName> dy </identifierName>
-                    <identifierCategory> var </identifierCategory>
-                    <identifierIndex> 3 </identifierIndex>
+                    <identifierCategory> local </identifierCategory>
+                    <identifierIndex> 1 </identifierIndex>
                     <identifierIsUsed> true </identifierIsUsed>
                   </identifier>
                 </term>
@@ -1106,8 +1106,8 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
             <term>
               <identifier>
                 <identifierName> dx </identifierName>
-                <identifierCategory> var </identifierCategory>
-                <identifierIndex> 2 </identifierIndex>
+                <identifierCategory> local </identifierCategory>
+                <identifierIndex> 0 </identifierIndex>
                 <identifierIsUsed> true </identifierIsUsed>
               </identifier>
             </term>
@@ -1118,7 +1118,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
           <keyword> let </keyword>
           <identifier>
             <identifierName> straightD </identifierName>
-            <identifierCategory> field </identifierCategory>
+            <identifierCategory> this </identifierCategory>
             <identifierIndex> 5 </identifierIndex>
             <identifierIsUsed> true </identifierIsUsed>
           </identifier>
@@ -1131,8 +1131,8 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
             <term>
               <identifier>
                 <identifierName> dy </identifierName>
-                <identifierCategory> var </identifierCategory>
-                <identifierIndex> 3 </identifierIndex>
+                <identifierCategory> local </identifierCategory>
+                <identifierIndex> 1 </identifierIndex>
                 <identifierIsUsed> true </identifierIsUsed>
               </identifier>
             </term>
@@ -1143,7 +1143,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
           <keyword> let </keyword>
           <identifier>
             <identifierName> diagonalD </identifierName>
-            <identifierCategory> field </identifierCategory>
+            <identifierCategory> this </identifierCategory>
             <identifierIndex> 6 </identifierIndex>
             <identifierIsUsed> true </identifierIsUsed>
           </identifier>
@@ -1159,8 +1159,8 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
                 <term>
                   <identifier>
                     <identifierName> dy </identifierName>
-                    <identifierCategory> var </identifierCategory>
-                    <identifierIndex> 3 </identifierIndex>
+                    <identifierCategory> local </identifierCategory>
+                    <identifierIndex> 1 </identifierIndex>
                     <identifierIsUsed> true </identifierIsUsed>
                   </identifier>
                 </term>
@@ -1168,8 +1168,8 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
                 <term>
                   <identifier>
                     <identifierName> dx </identifierName>
-                    <identifierCategory> var </identifierCategory>
-                    <identifierIndex> 2 </identifierIndex>
+                    <identifierCategory> local </identifierCategory>
+                    <identifierIndex> 0 </identifierIndex>
                     <identifierIsUsed> true </identifierIsUsed>
                   </identifier>
                 </term>
@@ -1214,7 +1214,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
             <term>
               <identifier>
                 <identifierName> d </identifierName>
-                <identifierCategory> field </identifierCategory>
+                <identifierCategory> this </identifierCategory>
                 <identifierIndex> 4 </identifierIndex>
                 <identifierIsUsed> true </identifierIsUsed>
               </identifier>
@@ -1231,7 +1231,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
               <keyword> let </keyword>
               <identifier>
                 <identifierName> d </identifierName>
-                <identifierCategory> field </identifierCategory>
+                <identifierCategory> this </identifierCategory>
                 <identifierIndex> 4 </identifierIndex>
                 <identifierIsUsed> true </identifierIsUsed>
               </identifier>
@@ -1240,7 +1240,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
                 <term>
                   <identifier>
                     <identifierName> d </identifierName>
-                    <identifierCategory> field </identifierCategory>
+                    <identifierCategory> this </identifierCategory>
                     <identifierIndex> 4 </identifierIndex>
                     <identifierIsUsed> true </identifierIsUsed>
                   </identifier>
@@ -1249,7 +1249,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
                 <term>
                   <identifier>
                     <identifierName> straightD </identifierName>
-                    <identifierCategory> field </identifierCategory>
+                    <identifierCategory> this </identifierCategory>
                     <identifierIndex> 5 </identifierIndex>
                     <identifierIsUsed> true </identifierIsUsed>
                   </identifier>
@@ -1266,7 +1266,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
               <keyword> let </keyword>
               <identifier>
                 <identifierName> d </identifierName>
-                <identifierCategory> field </identifierCategory>
+                <identifierCategory> this </identifierCategory>
                 <identifierIndex> 4 </identifierIndex>
                 <identifierIsUsed> true </identifierIsUsed>
               </identifier>
@@ -1275,7 +1275,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
                 <term>
                   <identifier>
                     <identifierName> d </identifierName>
-                    <identifierCategory> field </identifierCategory>
+                    <identifierCategory> this </identifierCategory>
                     <identifierIndex> 4 </identifierIndex>
                     <identifierIsUsed> true </identifierIsUsed>
                   </identifier>
@@ -1284,7 +1284,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
                 <term>
                   <identifier>
                     <identifierName> diagonalD </identifierName>
-                    <identifierCategory> field </identifierCategory>
+                    <identifierCategory> this </identifierCategory>
                     <identifierIndex> 6 </identifierIndex>
                     <identifierIsUsed> true </identifierIsUsed>
                   </identifier>
@@ -1299,7 +1299,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
                 <term>
                   <identifier>
                     <identifierName> positivey </identifierName>
-                    <identifierCategory> field </identifierCategory>
+                    <identifierCategory> this </identifierCategory>
                     <identifierIndex> 9 </identifierIndex>
                     <identifierIsUsed> true </identifierIsUsed>
                   </identifier>
@@ -1315,7 +1315,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
                     <term>
                       <identifier>
                         <identifierName> invert </identifierName>
-                        <identifierCategory> field </identifierCategory>
+                        <identifierCategory> this </identifierCategory>
                         <identifierIndex> 7 </identifierIndex>
                         <identifierIsUsed> true </identifierIsUsed>
                       </identifier>
@@ -1328,7 +1328,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
                       <keyword> let </keyword>
                       <identifier>
                         <identifierName> x </identifierName>
-                        <identifierCategory> field </identifierCategory>
+                        <identifierCategory> this </identifierCategory>
                         <identifierIndex> 0 </identifierIndex>
                         <identifierIsUsed> true </identifierIsUsed>
                       </identifier>
@@ -1337,7 +1337,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
                         <term>
                           <identifier>
                             <identifierName> x </identifierName>
-                            <identifierCategory> field </identifierCategory>
+                            <identifierCategory> this </identifierCategory>
                             <identifierIndex> 0 </identifierIndex>
                             <identifierIsUsed> true </identifierIsUsed>
                           </identifier>
@@ -1358,7 +1358,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
                       <keyword> let </keyword>
                       <identifier>
                         <identifierName> y </identifierName>
-                        <identifierCategory> field </identifierCategory>
+                        <identifierCategory> this </identifierCategory>
                         <identifierIndex> 1 </identifierIndex>
                         <identifierIsUsed> true </identifierIsUsed>
                       </identifier>
@@ -1367,7 +1367,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
                         <term>
                           <identifier>
                             <identifierName> y </identifierName>
-                            <identifierCategory> field </identifierCategory>
+                            <identifierCategory> this </identifierCategory>
                             <identifierIndex> 1 </identifierIndex>
                             <identifierIsUsed> true </identifierIsUsed>
                           </identifier>
@@ -1394,7 +1394,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
                     <term>
                       <identifier>
                         <identifierName> invert </identifierName>
-                        <identifierCategory> field </identifierCategory>
+                        <identifierCategory> this </identifierCategory>
                         <identifierIndex> 7 </identifierIndex>
                         <identifierIsUsed> true </identifierIsUsed>
                       </identifier>
@@ -1407,7 +1407,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
                       <keyword> let </keyword>
                       <identifier>
                         <identifierName> x </identifierName>
-                        <identifierCategory> field </identifierCategory>
+                        <identifierCategory> this </identifierCategory>
                         <identifierIndex> 0 </identifierIndex>
                         <identifierIsUsed> true </identifierIsUsed>
                       </identifier>
@@ -1416,7 +1416,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
                         <term>
                           <identifier>
                             <identifierName> x </identifierName>
-                            <identifierCategory> field </identifierCategory>
+                            <identifierCategory> this </identifierCategory>
                             <identifierIndex> 0 </identifierIndex>
                             <identifierIsUsed> true </identifierIsUsed>
                           </identifier>
@@ -1437,7 +1437,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
                       <keyword> let </keyword>
                       <identifier>
                         <identifierName> y </identifierName>
-                        <identifierCategory> field </identifierCategory>
+                        <identifierCategory> this </identifierCategory>
                         <identifierIndex> 1 </identifierIndex>
                         <identifierIsUsed> true </identifierIsUsed>
                       </identifier>
@@ -1446,7 +1446,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
                         <term>
                           <identifier>
                             <identifierName> y </identifierName>
-                            <identifierCategory> field </identifierCategory>
+                            <identifierCategory> this </identifierCategory>
                             <identifierIndex> 1 </identifierIndex>
                             <identifierIsUsed> true </identifierIsUsed>
                           </identifier>
@@ -1474,7 +1474,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
             <term>
               <identifier>
                 <identifierName> positivex </identifierName>
-                <identifierCategory> field </identifierCategory>
+                <identifierCategory> this </identifierCategory>
                 <identifierIndex> 8 </identifierIndex>
                 <identifierIsUsed> true </identifierIsUsed>
               </identifier>
@@ -1490,7 +1490,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
                 <term>
                   <identifier>
                     <identifierName> invert </identifierName>
-                    <identifierCategory> field </identifierCategory>
+                    <identifierCategory> this </identifierCategory>
                     <identifierIndex> 7 </identifierIndex>
                     <identifierIsUsed> true </identifierIsUsed>
                   </identifier>
@@ -1503,7 +1503,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
                   <keyword> let </keyword>
                   <identifier>
                     <identifierName> y </identifierName>
-                    <identifierCategory> field </identifierCategory>
+                    <identifierCategory> this </identifierCategory>
                     <identifierIndex> 1 </identifierIndex>
                     <identifierIsUsed> true </identifierIsUsed>
                   </identifier>
@@ -1512,7 +1512,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
                     <term>
                       <identifier>
                         <identifierName> y </identifierName>
-                        <identifierCategory> field </identifierCategory>
+                        <identifierCategory> this </identifierCategory>
                         <identifierIndex> 1 </identifierIndex>
                         <identifierIsUsed> true </identifierIsUsed>
                       </identifier>
@@ -1533,7 +1533,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
                   <keyword> let </keyword>
                   <identifier>
                     <identifierName> x </identifierName>
-                    <identifierCategory> field </identifierCategory>
+                    <identifierCategory> this </identifierCategory>
                     <identifierIndex> 0 </identifierIndex>
                     <identifierIsUsed> true </identifierIsUsed>
                   </identifier>
@@ -1542,7 +1542,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
                     <term>
                       <identifier>
                         <identifierName> x </identifierName>
-                        <identifierCategory> field </identifierCategory>
+                        <identifierCategory> this </identifierCategory>
                         <identifierIndex> 0 </identifierIndex>
                         <identifierIsUsed> true </identifierIsUsed>
                       </identifier>
@@ -1569,7 +1569,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
                 <term>
                   <identifier>
                     <identifierName> invert </identifierName>
-                    <identifierCategory> field </identifierCategory>
+                    <identifierCategory> this </identifierCategory>
                     <identifierIndex> 7 </identifierIndex>
                     <identifierIsUsed> true </identifierIsUsed>
                   </identifier>
@@ -1582,7 +1582,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
                   <keyword> let </keyword>
                   <identifier>
                     <identifierName> y </identifierName>
-                    <identifierCategory> field </identifierCategory>
+                    <identifierCategory> this </identifierCategory>
                     <identifierIndex> 1 </identifierIndex>
                     <identifierIsUsed> true </identifierIsUsed>
                   </identifier>
@@ -1591,7 +1591,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
                     <term>
                       <identifier>
                         <identifierName> y </identifierName>
-                        <identifierCategory> field </identifierCategory>
+                        <identifierCategory> this </identifierCategory>
                         <identifierIndex> 1 </identifierIndex>
                         <identifierIsUsed> true </identifierIsUsed>
                       </identifier>
@@ -1612,7 +1612,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
                   <keyword> let </keyword>
                   <identifier>
                     <identifierName> x </identifierName>
-                    <identifierCategory> field </identifierCategory>
+                    <identifierCategory> this </identifierCategory>
                     <identifierIndex> 0 </identifierIndex>
                     <identifierIsUsed> true </identifierIsUsed>
                   </identifier>
@@ -1621,7 +1621,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
                     <term>
                       <identifier>
                         <identifierName> x </identifierName>
-                        <identifierCategory> field </identifierCategory>
+                        <identifierCategory> this </identifierCategory>
                         <identifierIndex> 0 </identifierIndex>
                         <identifierIsUsed> true </identifierIsUsed>
                       </identifier>
@@ -1651,7 +1651,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
                   <term>
                     <identifier>
                       <identifierName> x </identifierName>
-                      <identifierCategory> field </identifierCategory>
+                      <identifierCategory> this </identifierCategory>
                       <identifierIndex> 0 </identifierIndex>
                       <identifierIsUsed> true </identifierIsUsed>
                     </identifier>
@@ -1660,7 +1660,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
                   <term>
                     <identifier>
                       <identifierName> leftWall </identifierName>
-                      <identifierCategory> field </identifierCategory>
+                      <identifierCategory> this </identifierCategory>
                       <identifierIndex> 10 </identifierIndex>
                       <identifierIsUsed> true </identifierIsUsed>
                     </identifier>
@@ -1677,7 +1677,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
               <keyword> let </keyword>
               <identifier>
                 <identifierName> wall </identifierName>
-                <identifierCategory> field </identifierCategory>
+                <identifierCategory> this </identifierCategory>
                 <identifierIndex> 14 </identifierIndex>
                 <identifierIsUsed> true </identifierIsUsed>
               </identifier>
@@ -1693,7 +1693,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
               <keyword> let </keyword>
               <identifier>
                 <identifierName> x </identifierName>
-                <identifierCategory> field </identifierCategory>
+                <identifierCategory> this </identifierCategory>
                 <identifierIndex> 0 </identifierIndex>
                 <identifierIsUsed> true </identifierIsUsed>
               </identifier>
@@ -1702,7 +1702,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
                 <term>
                   <identifier>
                     <identifierName> leftWall </identifierName>
-                    <identifierCategory> field </identifierCategory>
+                    <identifierCategory> this </identifierCategory>
                     <identifierIndex> 10 </identifierIndex>
                     <identifierIsUsed> true </identifierIsUsed>
                   </identifier>
@@ -1725,7 +1725,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
                   <term>
                     <identifier>
                       <identifierName> x </identifierName>
-                      <identifierCategory> field </identifierCategory>
+                      <identifierCategory> this </identifierCategory>
                       <identifierIndex> 0 </identifierIndex>
                       <identifierIsUsed> true </identifierIsUsed>
                     </identifier>
@@ -1734,7 +1734,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
                   <term>
                     <identifier>
                       <identifierName> rightWall </identifierName>
-                      <identifierCategory> field </identifierCategory>
+                      <identifierCategory> this </identifierCategory>
                       <identifierIndex> 11 </identifierIndex>
                       <identifierIsUsed> true </identifierIsUsed>
                     </identifier>
@@ -1751,7 +1751,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
               <keyword> let </keyword>
               <identifier>
                 <identifierName> wall </identifierName>
-                <identifierCategory> field </identifierCategory>
+                <identifierCategory> this </identifierCategory>
                 <identifierIndex> 14 </identifierIndex>
                 <identifierIsUsed> true </identifierIsUsed>
               </identifier>
@@ -1767,7 +1767,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
               <keyword> let </keyword>
               <identifier>
                 <identifierName> x </identifierName>
-                <identifierCategory> field </identifierCategory>
+                <identifierCategory> this </identifierCategory>
                 <identifierIndex> 0 </identifierIndex>
                 <identifierIsUsed> true </identifierIsUsed>
               </identifier>
@@ -1776,7 +1776,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
                 <term>
                   <identifier>
                     <identifierName> rightWall </identifierName>
-                    <identifierCategory> field </identifierCategory>
+                    <identifierCategory> this </identifierCategory>
                     <identifierIndex> 11 </identifierIndex>
                     <identifierIsUsed> true </identifierIsUsed>
                   </identifier>
@@ -1799,7 +1799,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
                   <term>
                     <identifier>
                       <identifierName> y </identifierName>
-                      <identifierCategory> field </identifierCategory>
+                      <identifierCategory> this </identifierCategory>
                       <identifierIndex> 1 </identifierIndex>
                       <identifierIsUsed> true </identifierIsUsed>
                     </identifier>
@@ -1808,7 +1808,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
                   <term>
                     <identifier>
                       <identifierName> topWall </identifierName>
-                      <identifierCategory> field </identifierCategory>
+                      <identifierCategory> this </identifierCategory>
                       <identifierIndex> 12 </identifierIndex>
                       <identifierIsUsed> true </identifierIsUsed>
                     </identifier>
@@ -1825,7 +1825,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
               <keyword> let </keyword>
               <identifier>
                 <identifierName> wall </identifierName>
-                <identifierCategory> field </identifierCategory>
+                <identifierCategory> this </identifierCategory>
                 <identifierIndex> 14 </identifierIndex>
                 <identifierIsUsed> true </identifierIsUsed>
               </identifier>
@@ -1841,7 +1841,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
               <keyword> let </keyword>
               <identifier>
                 <identifierName> y </identifierName>
-                <identifierCategory> field </identifierCategory>
+                <identifierCategory> this </identifierCategory>
                 <identifierIndex> 1 </identifierIndex>
                 <identifierIsUsed> true </identifierIsUsed>
               </identifier>
@@ -1850,7 +1850,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
                 <term>
                   <identifier>
                     <identifierName> topWall </identifierName>
-                    <identifierCategory> field </identifierCategory>
+                    <identifierCategory> this </identifierCategory>
                     <identifierIndex> 12 </identifierIndex>
                     <identifierIsUsed> true </identifierIsUsed>
                   </identifier>
@@ -1873,7 +1873,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
                   <term>
                     <identifier>
                       <identifierName> y </identifierName>
-                      <identifierCategory> field </identifierCategory>
+                      <identifierCategory> this </identifierCategory>
                       <identifierIndex> 1 </identifierIndex>
                       <identifierIsUsed> true </identifierIsUsed>
                     </identifier>
@@ -1882,7 +1882,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
                   <term>
                     <identifier>
                       <identifierName> bottomWall </identifierName>
-                      <identifierCategory> field </identifierCategory>
+                      <identifierCategory> this </identifierCategory>
                       <identifierIndex> 13 </identifierIndex>
                       <identifierIsUsed> true </identifierIsUsed>
                     </identifier>
@@ -1899,7 +1899,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
               <keyword> let </keyword>
               <identifier>
                 <identifierName> wall </identifierName>
-                <identifierCategory> field </identifierCategory>
+                <identifierCategory> this </identifierCategory>
                 <identifierIndex> 14 </identifierIndex>
                 <identifierIsUsed> true </identifierIsUsed>
               </identifier>
@@ -1915,7 +1915,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
               <keyword> let </keyword>
               <identifier>
                 <identifierName> y </identifierName>
-                <identifierCategory> field </identifierCategory>
+                <identifierCategory> this </identifierCategory>
                 <identifierIndex> 1 </identifierIndex>
                 <identifierIsUsed> true </identifierIsUsed>
               </identifier>
@@ -1924,7 +1924,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
                 <term>
                   <identifier>
                     <identifierName> bottomWall </identifierName>
-                    <identifierCategory> field </identifierCategory>
+                    <identifierCategory> this </identifierCategory>
                     <identifierIndex> 13 </identifierIndex>
                     <identifierIsUsed> true </identifierIsUsed>
                   </identifier>
@@ -1950,7 +1950,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
             <term>
               <identifier>
                 <identifierName> wall </identifierName>
-                <identifierCategory> field </identifierCategory>
+                <identifierCategory> this </identifierCategory>
                 <identifierIndex> 14 </identifierIndex>
                 <identifierIsUsed> true </identifierIsUsed>
               </identifier>
@@ -1984,36 +1984,36 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
         <keyword> int </keyword>
         <identifier>
           <identifierName> newx </identifierName>
-          <identifierCategory> var </identifierCategory>
-          <identifierIndex> 1 </identifierIndex>
+          <identifierCategory> local </identifierCategory>
+          <identifierIndex> 0 </identifierIndex>
           <identifierIsUsed> false </identifierIsUsed>
         </identifier>
         <symbol> , </symbol>
         <identifier>
           <identifierName> newy </identifierName>
-          <identifierCategory> var </identifierCategory>
-          <identifierIndex> 2 </identifierIndex>
+          <identifierCategory> local </identifierCategory>
+          <identifierIndex> 1 </identifierIndex>
           <identifierIsUsed> false </identifierIsUsed>
         </identifier>
         <symbol> , </symbol>
         <identifier>
           <identifierName> divLengthx </identifierName>
-          <identifierCategory> var </identifierCategory>
-          <identifierIndex> 3 </identifierIndex>
+          <identifierCategory> local </identifierCategory>
+          <identifierIndex> 2 </identifierIndex>
           <identifierIsUsed> false </identifierIsUsed>
         </identifier>
         <symbol> , </symbol>
         <identifier>
           <identifierName> divLengthy </identifierName>
-          <identifierCategory> var </identifierCategory>
-          <identifierIndex> 4 </identifierIndex>
+          <identifierCategory> local </identifierCategory>
+          <identifierIndex> 3 </identifierIndex>
           <identifierIsUsed> false </identifierIsUsed>
         </identifier>
         <symbol> , </symbol>
         <identifier>
           <identifierName> factor </identifierName>
-          <identifierCategory> var </identifierCategory>
-          <identifierIndex> 5 </identifierIndex>
+          <identifierCategory> local </identifierCategory>
+          <identifierIndex> 4 </identifierIndex>
           <identifierIsUsed> false </identifierIsUsed>
         </identifier>
         <symbol> ; </symbol>
@@ -2023,8 +2023,8 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
           <keyword> let </keyword>
           <identifier>
             <identifierName> divLengthx </identifierName>
-            <identifierCategory> var </identifierCategory>
-            <identifierIndex> 3 </identifierIndex>
+            <identifierCategory> local </identifierCategory>
+            <identifierIndex> 2 </identifierIndex>
             <identifierIsUsed> true </identifierIsUsed>
           </identifier>
           <symbol> = </symbol>
@@ -2032,7 +2032,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
             <term>
               <identifier>
                 <identifierName> lengthx </identifierName>
-                <identifierCategory> field </identifierCategory>
+                <identifierCategory> this </identifierCategory>
                 <identifierIndex> 2 </identifierIndex>
                 <identifierIsUsed> true </identifierIsUsed>
               </identifier>
@@ -2048,8 +2048,8 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
           <keyword> let </keyword>
           <identifier>
             <identifierName> divLengthy </identifierName>
-            <identifierCategory> var </identifierCategory>
-            <identifierIndex> 4 </identifierIndex>
+            <identifierCategory> local </identifierCategory>
+            <identifierIndex> 3 </identifierIndex>
             <identifierIsUsed> true </identifierIsUsed>
           </identifier>
           <symbol> = </symbol>
@@ -2057,7 +2057,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
             <term>
               <identifier>
                 <identifierName> lengthy </identifierName>
-                <identifierCategory> field </identifierCategory>
+                <identifierCategory> this </identifierCategory>
                 <identifierIndex> 3 </identifierIndex>
                 <identifierIsUsed> true </identifierIsUsed>
               </identifier>
@@ -2093,8 +2093,8 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
               <keyword> let </keyword>
               <identifier>
                 <identifierName> factor </identifierName>
-                <identifierCategory> var </identifierCategory>
-                <identifierIndex> 5 </identifierIndex>
+                <identifierCategory> local </identifierCategory>
+                <identifierIndex> 4 </identifierIndex>
                 <identifierIsUsed> true </identifierIsUsed>
               </identifier>
               <symbol> = </symbol>
@@ -2128,7 +2128,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
                               <term>
                                 <identifier>
                                   <identifierName> lengthx </identifierName>
-                                  <identifierCategory> field </identifierCategory>
+                                  <identifierCategory> this </identifierCategory>
                                   <identifierIndex> 2 </identifierIndex>
                                   <identifierIsUsed> true </identifierIsUsed>
                                 </identifier>
@@ -2176,7 +2176,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
                         <term>
                           <identifier>
                             <identifierName> lengthx </identifierName>
-                            <identifierCategory> field </identifierCategory>
+                            <identifierCategory> this </identifierCategory>
                             <identifierIndex> 2 </identifierIndex>
                             <identifierIsUsed> true </identifierIsUsed>
                           </identifier>
@@ -2227,8 +2227,8 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
                   <keyword> let </keyword>
                   <identifier>
                     <identifierName> factor </identifierName>
-                    <identifierCategory> var </identifierCategory>
-                    <identifierIndex> 5 </identifierIndex>
+                    <identifierCategory> local </identifierCategory>
+                    <identifierIndex> 4 </identifierIndex>
                     <identifierIsUsed> true </identifierIsUsed>
                   </identifier>
                   <symbol> = </symbol>
@@ -2248,8 +2248,8 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
                   <keyword> let </keyword>
                   <identifier>
                     <identifierName> factor </identifierName>
-                    <identifierCategory> var </identifierCategory>
-                    <identifierIndex> 5 </identifierIndex>
+                    <identifierCategory> local </identifierCategory>
+                    <identifierIndex> 4 </identifierIndex>
                     <identifierIsUsed> true </identifierIsUsed>
                   </identifier>
                   <symbol> = </symbol>
@@ -2273,7 +2273,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
             <term>
               <identifier>
                 <identifierName> wall </identifierName>
-                <identifierCategory> field </identifierCategory>
+                <identifierCategory> this </identifierCategory>
                 <identifierIndex> 14 </identifierIndex>
                 <identifierIsUsed> true </identifierIsUsed>
               </identifier>
@@ -2290,8 +2290,8 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
               <keyword> let </keyword>
               <identifier>
                 <identifierName> newx </identifierName>
-                <identifierCategory> var </identifierCategory>
-                <identifierIndex> 1 </identifierIndex>
+                <identifierCategory> local </identifierCategory>
+                <identifierIndex> 0 </identifierIndex>
                 <identifierIsUsed> true </identifierIsUsed>
               </identifier>
               <symbol> = </symbol>
@@ -2306,8 +2306,8 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
               <keyword> let </keyword>
               <identifier>
                 <identifierName> newy </identifierName>
-                <identifierCategory> var </identifierCategory>
-                <identifierIndex> 2 </identifierIndex>
+                <identifierCategory> local </identifierCategory>
+                <identifierIndex> 1 </identifierIndex>
                 <identifierIsUsed> true </identifierIsUsed>
               </identifier>
               <symbol> = </symbol>
@@ -2318,8 +2318,8 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
                     <term>
                       <identifier>
                         <identifierName> divLengthy </identifierName>
-                        <identifierCategory> var </identifierCategory>
-                        <identifierIndex> 4 </identifierIndex>
+                        <identifierCategory> local </identifierCategory>
+                        <identifierIndex> 3 </identifierIndex>
                         <identifierIsUsed> true </identifierIsUsed>
                       </identifier>
                     </term>
@@ -2343,8 +2343,8 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
                 <term>
                   <identifier>
                     <identifierName> divLengthx </identifierName>
-                    <identifierCategory> var </identifierCategory>
-                    <identifierIndex> 3 </identifierIndex>
+                    <identifierCategory> local </identifierCategory>
+                    <identifierIndex> 2 </identifierIndex>
                     <identifierIsUsed> true </identifierIsUsed>
                   </identifier>
                 </term>
@@ -2355,8 +2355,8 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
               <keyword> let </keyword>
               <identifier>
                 <identifierName> newy </identifierName>
-                <identifierCategory> var </identifierCategory>
-                <identifierIndex> 2 </identifierIndex>
+                <identifierCategory> local </identifierCategory>
+                <identifierIndex> 1 </identifierIndex>
                 <identifierIsUsed> true </identifierIsUsed>
               </identifier>
               <symbol> = </symbol>
@@ -2364,7 +2364,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
                 <term>
                   <identifier>
                     <identifierName> y </identifierName>
-                    <identifierCategory> field </identifierCategory>
+                    <identifierCategory> this </identifierCategory>
                     <identifierIndex> 1 </identifierIndex>
                     <identifierIsUsed> true </identifierIsUsed>
                   </identifier>
@@ -2376,8 +2376,8 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
                     <term>
                       <identifier>
                         <identifierName> newy </identifierName>
-                        <identifierCategory> var </identifierCategory>
-                        <identifierIndex> 2 </identifierIndex>
+                        <identifierCategory> local </identifierCategory>
+                        <identifierIndex> 1 </identifierIndex>
                         <identifierIsUsed> true </identifierIsUsed>
                       </identifier>
                     </term>
@@ -2385,8 +2385,8 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
                     <term>
                       <identifier>
                         <identifierName> factor </identifierName>
-                        <identifierCategory> var </identifierCategory>
-                        <identifierIndex> 5 </identifierIndex>
+                        <identifierCategory> local </identifierCategory>
+                        <identifierIndex> 4 </identifierIndex>
                         <identifierIsUsed> true </identifierIsUsed>
                       </identifier>
                     </term>
@@ -2408,7 +2408,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
                 <term>
                   <identifier>
                     <identifierName> wall </identifierName>
-                    <identifierCategory> field </identifierCategory>
+                    <identifierCategory> this </identifierCategory>
                     <identifierIndex> 14 </identifierIndex>
                     <identifierIsUsed> true </identifierIsUsed>
                   </identifier>
@@ -2425,8 +2425,8 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
                   <keyword> let </keyword>
                   <identifier>
                     <identifierName> newx </identifierName>
-                    <identifierCategory> var </identifierCategory>
-                    <identifierIndex> 1 </identifierIndex>
+                    <identifierCategory> local </identifierCategory>
+                    <identifierIndex> 0 </identifierIndex>
                     <identifierIsUsed> true </identifierIsUsed>
                   </identifier>
                   <symbol> = </symbol>
@@ -2441,8 +2441,8 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
                   <keyword> let </keyword>
                   <identifier>
                     <identifierName> newy </identifierName>
-                    <identifierCategory> var </identifierCategory>
-                    <identifierIndex> 2 </identifierIndex>
+                    <identifierCategory> local </identifierCategory>
+                    <identifierIndex> 1 </identifierIndex>
                     <identifierIsUsed> true </identifierIsUsed>
                   </identifier>
                   <symbol> = </symbol>
@@ -2453,8 +2453,8 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
                         <term>
                           <identifier>
                             <identifierName> divLengthy </identifierName>
-                            <identifierCategory> var </identifierCategory>
-                            <identifierIndex> 4 </identifierIndex>
+                            <identifierCategory> local </identifierCategory>
+                            <identifierIndex> 3 </identifierIndex>
                             <identifierIsUsed> true </identifierIsUsed>
                           </identifier>
                         </term>
@@ -2469,8 +2469,8 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
                     <term>
                       <identifier>
                         <identifierName> divLengthx </identifierName>
-                        <identifierCategory> var </identifierCategory>
-                        <identifierIndex> 3 </identifierIndex>
+                        <identifierCategory> local </identifierCategory>
+                        <identifierIndex> 2 </identifierIndex>
                         <identifierIsUsed> true </identifierIsUsed>
                       </identifier>
                     </term>
@@ -2481,8 +2481,8 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
                   <keyword> let </keyword>
                   <identifier>
                     <identifierName> newy </identifierName>
-                    <identifierCategory> var </identifierCategory>
-                    <identifierIndex> 2 </identifierIndex>
+                    <identifierCategory> local </identifierCategory>
+                    <identifierIndex> 1 </identifierIndex>
                     <identifierIsUsed> true </identifierIsUsed>
                   </identifier>
                   <symbol> = </symbol>
@@ -2490,7 +2490,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
                     <term>
                       <identifier>
                         <identifierName> y </identifierName>
-                        <identifierCategory> field </identifierCategory>
+                        <identifierCategory> this </identifierCategory>
                         <identifierIndex> 1 </identifierIndex>
                         <identifierIsUsed> true </identifierIsUsed>
                       </identifier>
@@ -2502,8 +2502,8 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
                         <term>
                           <identifier>
                             <identifierName> newy </identifierName>
-                            <identifierCategory> var </identifierCategory>
-                            <identifierIndex> 2 </identifierIndex>
+                            <identifierCategory> local </identifierCategory>
+                            <identifierIndex> 1 </identifierIndex>
                             <identifierIsUsed> true </identifierIsUsed>
                           </identifier>
                         </term>
@@ -2511,8 +2511,8 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
                         <term>
                           <identifier>
                             <identifierName> factor </identifierName>
-                            <identifierCategory> var </identifierCategory>
-                            <identifierIndex> 5 </identifierIndex>
+                            <identifierCategory> local </identifierCategory>
+                            <identifierIndex> 4 </identifierIndex>
                             <identifierIsUsed> true </identifierIsUsed>
                           </identifier>
                         </term>
@@ -2534,7 +2534,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
                     <term>
                       <identifier>
                         <identifierName> wall </identifierName>
-                        <identifierCategory> field </identifierCategory>
+                        <identifierCategory> this </identifierCategory>
                         <identifierIndex> 14 </identifierIndex>
                         <identifierIsUsed> true </identifierIsUsed>
                       </identifier>
@@ -2551,8 +2551,8 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
                       <keyword> let </keyword>
                       <identifier>
                         <identifierName> newy </identifierName>
-                        <identifierCategory> var </identifierCategory>
-                        <identifierIndex> 2 </identifierIndex>
+                        <identifierCategory> local </identifierCategory>
+                        <identifierIndex> 1 </identifierIndex>
                         <identifierIsUsed> true </identifierIsUsed>
                       </identifier>
                       <symbol> = </symbol>
@@ -2567,8 +2567,8 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
                       <keyword> let </keyword>
                       <identifier>
                         <identifierName> newx </identifierName>
-                        <identifierCategory> var </identifierCategory>
-                        <identifierIndex> 1 </identifierIndex>
+                        <identifierCategory> local </identifierCategory>
+                        <identifierIndex> 0 </identifierIndex>
                         <identifierIsUsed> true </identifierIsUsed>
                       </identifier>
                       <symbol> = </symbol>
@@ -2579,8 +2579,8 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
                             <term>
                               <identifier>
                                 <identifierName> divLengthx </identifierName>
-                                <identifierCategory> var </identifierCategory>
-                                <identifierIndex> 3 </identifierIndex>
+                                <identifierCategory> local </identifierCategory>
+                                <identifierIndex> 2 </identifierIndex>
                                 <identifierIsUsed> true </identifierIsUsed>
                               </identifier>
                             </term>
@@ -2604,8 +2604,8 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
                         <term>
                           <identifier>
                             <identifierName> divLengthy </identifierName>
-                            <identifierCategory> var </identifierCategory>
-                            <identifierIndex> 4 </identifierIndex>
+                            <identifierCategory> local </identifierCategory>
+                            <identifierIndex> 3 </identifierIndex>
                             <identifierIsUsed> true </identifierIsUsed>
                           </identifier>
                         </term>
@@ -2616,8 +2616,8 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
                       <keyword> let </keyword>
                       <identifier>
                         <identifierName> newx </identifierName>
-                        <identifierCategory> var </identifierCategory>
-                        <identifierIndex> 1 </identifierIndex>
+                        <identifierCategory> local </identifierCategory>
+                        <identifierIndex> 0 </identifierIndex>
                         <identifierIsUsed> true </identifierIsUsed>
                       </identifier>
                       <symbol> = </symbol>
@@ -2625,7 +2625,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
                         <term>
                           <identifier>
                             <identifierName> x </identifierName>
-                            <identifierCategory> field </identifierCategory>
+                            <identifierCategory> this </identifierCategory>
                             <identifierIndex> 0 </identifierIndex>
                             <identifierIsUsed> true </identifierIsUsed>
                           </identifier>
@@ -2637,8 +2637,8 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
                             <term>
                               <identifier>
                                 <identifierName> newx </identifierName>
-                                <identifierCategory> var </identifierCategory>
-                                <identifierIndex> 1 </identifierIndex>
+                                <identifierCategory> local </identifierCategory>
+                                <identifierIndex> 0 </identifierIndex>
                                 <identifierIsUsed> true </identifierIsUsed>
                               </identifier>
                             </term>
@@ -2646,8 +2646,8 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
                             <term>
                               <identifier>
                                 <identifierName> factor </identifierName>
-                                <identifierCategory> var </identifierCategory>
-                                <identifierIndex> 5 </identifierIndex>
+                                <identifierCategory> local </identifierCategory>
+                                <identifierIndex> 4 </identifierIndex>
                                 <identifierIsUsed> true </identifierIsUsed>
                               </identifier>
                             </term>
@@ -2666,8 +2666,8 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
                       <keyword> let </keyword>
                       <identifier>
                         <identifierName> newy </identifierName>
-                        <identifierCategory> var </identifierCategory>
-                        <identifierIndex> 2 </identifierIndex>
+                        <identifierCategory> local </identifierCategory>
+                        <identifierIndex> 1 </identifierIndex>
                         <identifierIsUsed> true </identifierIsUsed>
                       </identifier>
                       <symbol> = </symbol>
@@ -2682,8 +2682,8 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
                       <keyword> let </keyword>
                       <identifier>
                         <identifierName> newx </identifierName>
-                        <identifierCategory> var </identifierCategory>
-                        <identifierIndex> 1 </identifierIndex>
+                        <identifierCategory> local </identifierCategory>
+                        <identifierIndex> 0 </identifierIndex>
                         <identifierIsUsed> true </identifierIsUsed>
                       </identifier>
                       <symbol> = </symbol>
@@ -2694,8 +2694,8 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
                             <term>
                               <identifier>
                                 <identifierName> divLengthx </identifierName>
-                                <identifierCategory> var </identifierCategory>
-                                <identifierIndex> 3 </identifierIndex>
+                                <identifierCategory> local </identifierCategory>
+                                <identifierIndex> 2 </identifierIndex>
                                 <identifierIsUsed> true </identifierIsUsed>
                               </identifier>
                             </term>
@@ -2710,8 +2710,8 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
                         <term>
                           <identifier>
                             <identifierName> divLengthy </identifierName>
-                            <identifierCategory> var </identifierCategory>
-                            <identifierIndex> 4 </identifierIndex>
+                            <identifierCategory> local </identifierCategory>
+                            <identifierIndex> 3 </identifierIndex>
                             <identifierIsUsed> true </identifierIsUsed>
                           </identifier>
                         </term>
@@ -2722,8 +2722,8 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
                       <keyword> let </keyword>
                       <identifier>
                         <identifierName> newx </identifierName>
-                        <identifierCategory> var </identifierCategory>
-                        <identifierIndex> 1 </identifierIndex>
+                        <identifierCategory> local </identifierCategory>
+                        <identifierIndex> 0 </identifierIndex>
                         <identifierIsUsed> true </identifierIsUsed>
                       </identifier>
                       <symbol> = </symbol>
@@ -2731,7 +2731,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
                         <term>
                           <identifier>
                             <identifierName> x </identifierName>
-                            <identifierCategory> field </identifierCategory>
+                            <identifierCategory> this </identifierCategory>
                             <identifierIndex> 0 </identifierIndex>
                             <identifierIsUsed> true </identifierIsUsed>
                           </identifier>
@@ -2743,8 +2743,8 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
                             <term>
                               <identifier>
                                 <identifierName> newx </identifierName>
-                                <identifierCategory> var </identifierCategory>
-                                <identifierIndex> 1 </identifierIndex>
+                                <identifierCategory> local </identifierCategory>
+                                <identifierIndex> 0 </identifierIndex>
                                 <identifierIsUsed> true </identifierIsUsed>
                               </identifier>
                             </term>
@@ -2752,8 +2752,8 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
                             <term>
                               <identifier>
                                 <identifierName> factor </identifierName>
-                                <identifierCategory> var </identifierCategory>
-                                <identifierIndex> 5 </identifierIndex>
+                                <identifierCategory> local </identifierCategory>
+                                <identifierIndex> 4 </identifierIndex>
                                 <identifierIsUsed> true </identifierIsUsed>
                               </identifier>
                             </term>
@@ -2781,8 +2781,8 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
               <term>
                 <identifier>
                   <identifierName> newx </identifierName>
-                  <identifierCategory> var </identifierCategory>
-                  <identifierIndex> 1 </identifierIndex>
+                  <identifierCategory> local </identifierCategory>
+                  <identifierIndex> 0 </identifierIndex>
                   <identifierIsUsed> true </identifierIsUsed>
                 </identifier>
               </term>
@@ -2792,8 +2792,8 @@ input_file: src/compiler/tests/inputs/11/Pong/Ball.jack
               <term>
                 <identifier>
                   <identifierName> newy </identifierName>
-                  <identifierCategory> var </identifierCategory>
-                  <identifierIndex> 2 </identifierIndex>
+                  <identifierCategory> local </identifierCategory>
+                  <identifierIndex> 1 </identifierIndex>
                   <identifierIsUsed> true </identifierIsUsed>
                 </identifier>
               </term>

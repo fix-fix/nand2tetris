@@ -31,7 +31,7 @@ impl From<&EntryClass> for Entry {
             index: other.index,
             typ: other.typ.clone(),
             kind: match other.kind {
-                ClassVarKind::Field => "field".to_string(),
+                ClassVarKind::Field => "this".to_string(),
                 ClassVarKind::Static => "static".to_string(),
             },
         }
@@ -101,6 +101,10 @@ impl SymbolTable {
             return Some(e.into());
         }
         None
+    }
+
+    pub fn count_instance_fields(&self) -> u16 {
+        *self.class.index_dict.get(&ClassVarKind::Field).unwrap_or(&0)
     }
 
     pub fn define_class_var(

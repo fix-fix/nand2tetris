@@ -22,7 +22,7 @@ input_file: src/compiler/tests/inputs/11/Average/Main.jack
         <identifier> Array </identifier>
         <identifier>
           <identifierName> a </identifierName>
-          <identifierCategory> var </identifierCategory>
+          <identifierCategory> local </identifierCategory>
           <identifierIndex> 0 </identifierIndex>
           <identifierIsUsed> false </identifierIsUsed>
         </identifier>
@@ -33,7 +33,7 @@ input_file: src/compiler/tests/inputs/11/Average/Main.jack
         <keyword> int </keyword>
         <identifier>
           <identifierName> length </identifierName>
-          <identifierCategory> var </identifierCategory>
+          <identifierCategory> local </identifierCategory>
           <identifierIndex> 1 </identifierIndex>
           <identifierIsUsed> false </identifierIsUsed>
         </identifier>
@@ -44,14 +44,14 @@ input_file: src/compiler/tests/inputs/11/Average/Main.jack
         <keyword> int </keyword>
         <identifier>
           <identifierName> i </identifierName>
-          <identifierCategory> var </identifierCategory>
+          <identifierCategory> local </identifierCategory>
           <identifierIndex> 2 </identifierIndex>
           <identifierIsUsed> false </identifierIsUsed>
         </identifier>
         <symbol> , </symbol>
         <identifier>
           <identifierName> sum </identifierName>
-          <identifierCategory> var </identifierCategory>
+          <identifierCategory> local </identifierCategory>
           <identifierIndex> 3 </identifierIndex>
           <identifierIsUsed> false </identifierIsUsed>
         </identifier>
@@ -62,7 +62,7 @@ input_file: src/compiler/tests/inputs/11/Average/Main.jack
           <keyword> let </keyword>
           <identifier>
             <identifierName> length </identifierName>
-            <identifierCategory> var </identifierCategory>
+            <identifierCategory> local </identifierCategory>
             <identifierIndex> 1 </identifierIndex>
             <identifierIsUsed> true </identifierIsUsed>
           </identifier>
@@ -89,7 +89,7 @@ input_file: src/compiler/tests/inputs/11/Average/Main.jack
           <keyword> let </keyword>
           <identifier>
             <identifierName> a </identifierName>
-            <identifierCategory> var </identifierCategory>
+            <identifierCategory> local </identifierCategory>
             <identifierIndex> 0 </identifierIndex>
             <identifierIsUsed> true </identifierIsUsed>
           </identifier>
@@ -105,7 +105,7 @@ input_file: src/compiler/tests/inputs/11/Average/Main.jack
                   <term>
                     <identifier>
                       <identifierName> length </identifierName>
-                      <identifierCategory> var </identifierCategory>
+                      <identifierCategory> local </identifierCategory>
                       <identifierIndex> 1 </identifierIndex>
                       <identifierIsUsed> true </identifierIsUsed>
                     </identifier>
@@ -121,7 +121,7 @@ input_file: src/compiler/tests/inputs/11/Average/Main.jack
           <keyword> let </keyword>
           <identifier>
             <identifierName> i </identifierName>
-            <identifierCategory> var </identifierCategory>
+            <identifierCategory> local </identifierCategory>
             <identifierIndex> 2 </identifierIndex>
             <identifierIsUsed> true </identifierIsUsed>
           </identifier>
@@ -140,7 +140,7 @@ input_file: src/compiler/tests/inputs/11/Average/Main.jack
             <term>
               <identifier>
                 <identifierName> i </identifierName>
-                <identifierCategory> var </identifierCategory>
+                <identifierCategory> local </identifierCategory>
                 <identifierIndex> 2 </identifierIndex>
                 <identifierIsUsed> true </identifierIsUsed>
               </identifier>
@@ -149,7 +149,7 @@ input_file: src/compiler/tests/inputs/11/Average/Main.jack
             <term>
               <identifier>
                 <identifierName> length </identifierName>
-                <identifierCategory> var </identifierCategory>
+                <identifierCategory> local </identifierCategory>
                 <identifierIndex> 1 </identifierIndex>
                 <identifierIsUsed> true </identifierIsUsed>
               </identifier>
@@ -162,7 +162,7 @@ input_file: src/compiler/tests/inputs/11/Average/Main.jack
               <keyword> let </keyword>
               <identifier>
                 <identifierName> a </identifierName>
-                <identifierCategory> var </identifierCategory>
+                <identifierCategory> local </identifierCategory>
                 <identifierIndex> 0 </identifierIndex>
                 <identifierIsUsed> true </identifierIsUsed>
               </identifier>
@@ -171,7 +171,7 @@ input_file: src/compiler/tests/inputs/11/Average/Main.jack
                 <term>
                   <identifier>
                     <identifierName> i </identifierName>
-                    <identifierCategory> var </identifierCategory>
+                    <identifierCategory> local </identifierCategory>
                     <identifierIndex> 2 </identifierIndex>
                     <identifierIsUsed> true </identifierIsUsed>
                   </identifier>
@@ -201,7 +201,7 @@ input_file: src/compiler/tests/inputs/11/Average/Main.jack
               <keyword> let </keyword>
               <identifier>
                 <identifierName> sum </identifierName>
-                <identifierCategory> var </identifierCategory>
+                <identifierCategory> local </identifierCategory>
                 <identifierIndex> 3 </identifierIndex>
                 <identifierIsUsed> true </identifierIsUsed>
               </identifier>
@@ -210,7 +210,7 @@ input_file: src/compiler/tests/inputs/11/Average/Main.jack
                 <term>
                   <identifier>
                     <identifierName> sum </identifierName>
-                    <identifierCategory> var </identifierCategory>
+                    <identifierCategory> local </identifierCategory>
                     <identifierIndex> 3 </identifierIndex>
                     <identifierIsUsed> true </identifierIsUsed>
                   </identifier>
@@ -219,7 +219,7 @@ input_file: src/compiler/tests/inputs/11/Average/Main.jack
                 <term>
                   <identifier>
                     <identifierName> a </identifierName>
-                    <identifierCategory> var </identifierCategory>
+                    <identifierCategory> local </identifierCategory>
                     <identifierIndex> 0 </identifierIndex>
                     <identifierIsUsed> true </identifierIsUsed>
                   </identifier>
@@ -228,7 +228,7 @@ input_file: src/compiler/tests/inputs/11/Average/Main.jack
                     <term>
                       <identifier>
                         <identifierName> i </identifierName>
-                        <identifierCategory> var </identifierCategory>
+                        <identifierCategory> local </identifierCategory>
                         <identifierIndex> 2 </identifierIndex>
                         <identifierIsUsed> true </identifierIsUsed>
                       </identifier>
@@ -243,7 +243,7 @@ input_file: src/compiler/tests/inputs/11/Average/Main.jack
               <keyword> let </keyword>
               <identifier>
                 <identifierName> i </identifierName>
-                <identifierCategory> var </identifierCategory>
+                <identifierCategory> local </identifierCategory>
                 <identifierIndex> 2 </identifierIndex>
                 <identifierIsUsed> true </identifierIsUsed>
               </identifier>
@@ -252,7 +252,7 @@ input_file: src/compiler/tests/inputs/11/Average/Main.jack
                 <term>
                   <identifier>
                     <identifierName> i </identifierName>
-                    <identifierCategory> var </identifierCategory>
+                    <identifierCategory> local </identifierCategory>
                     <identifierIndex> 2 </identifierIndex>
                     <identifierIsUsed> true </identifierIsUsed>
                   </identifier>
@@ -294,7 +294,7 @@ input_file: src/compiler/tests/inputs/11/Average/Main.jack
               <term>
                 <identifier>
                   <identifierName> sum </identifierName>
-                  <identifierCategory> var </identifierCategory>
+                  <identifierCategory> local </identifierCategory>
                   <identifierIndex> 3 </identifierIndex>
                   <identifierIsUsed> true </identifierIsUsed>
                 </identifier>
@@ -303,7 +303,7 @@ input_file: src/compiler/tests/inputs/11/Average/Main.jack
               <term>
                 <identifier>
                   <identifierName> length </identifierName>
-                  <identifierCategory> var </identifierCategory>
+                  <identifierCategory> local </identifierCategory>
                   <identifierIndex> 1 </identifierIndex>
                   <identifierIsUsed> true </identifierIsUsed>
                 </identifier>

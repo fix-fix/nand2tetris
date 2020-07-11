@@ -75,6 +75,19 @@ fn compile_subroutine_dec(
         format!("{}.{}", state.class_name, ident),
         n_locals + if is_method { 1 } else { 0 },
     ));
+    match variant {
+        GrammarSubroutineVariant::Constructor => {
+            let object_size = state.sym_table.count_instance_fields();
+            state.write(write_push("constant", object_size));
+            state.write(write_call("Memory.alloc", 1));
+            state.write(write_pop("pointer", 0));
+        }
+        GrammarSubroutineVariant::Method => {
+            state.write(write_push("argument", 0));
+            state.write(write_pop("pointer", 0));
+        }
+        _ => {}
+    };
     for param in params.iter() {
         state
             .sym_table
@@ -82,7 +95,6 @@ fn compile_subroutine_dec(
     }
 
     compile_subroutine(state, sub, item_type)?;
-    // TODO: Handle methods
     Ok(())
 }
 
@@ -203,14 +215,17 @@ fn compile_statement_return(state: &mut CompilerState, stmt: ReturnStatement) ->
 }
 
 fn compile_call(state: &mut CompilerState, call: SubroutineCall) -> Res {
-    // TODO Handle functions/methods/constructors
     let (func_name, args) = match call {
-        SubroutineCall::SimpleCall(_, _args) => todo!(),
+        SubroutineCall::SimpleCall(method, args) => get_method_call(
+            Term::KeywordConstant(Keyword::This),
+            state.class_name.clone(),
+            method,
+            args,
+        ),
         SubroutineCall::MethodCall(this_, method, args) => {
             let var = state.sym_table.lookup(&this_);
             match var {
-                // TODO: Prepend this to args, if it's an object
-                Some(_) => todo!(),
+                Some(entry) => get_method_call(Term::VarName(this_), entry.typ, method, args),
                 None => (format!("{}.{}", this_, method), args),
             }
         }
@@ -220,6 +235,25 @@ fn compile_call(state: &mut CompilerState, call: SubroutineCall) -> Res {
     // TODO: Handle n_args when passing this
     state.write(write_call(func_name, n_args));
     Ok(())
+}
+
+fn get_method_call(
+    var_term: Term,
+    typ: String,
+    method: String,
+    args: Vec<Expr>,
+) -> (String, Vec<Expr>) {
+    let mut args_with_this = vec![Expr(var_term, vec![])];
+    args_with_this.extend(args);
+    (
+        format!(
+            "{}.{}",
+            // Call actual class
+            typ,
+            method
+        ),
+        args_with_this,
+    )
 }
 
 fn compile_expression_list(state: &mut CompilerState, exprs: Vec<Expr>) -> Res {
@@ -257,7 +291,7 @@ fn compile_term(state: &mut CompilerState, term: Term) -> Res {
                     state.write(write_push("constant", 0));
                 }
                 Keyword::This => {
-                    state.write(write_push("this", 0));
+                    state.write(write_push("pointer", 0));
                 }
                 _ => Err(format!("Unexpected constant used as term: {:?}", kw))?,
             };

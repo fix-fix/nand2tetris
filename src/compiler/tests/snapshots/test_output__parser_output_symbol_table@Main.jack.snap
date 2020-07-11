@@ -22,7 +22,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Main.jack
         <identifier> PongGame </identifier>
         <identifier>
           <identifierName> game </identifierName>
-          <identifierCategory> var </identifierCategory>
+          <identifierCategory> local </identifierCategory>
           <identifierIndex> 0 </identifierIndex>
           <identifierIsUsed> false </identifierIsUsed>
         </identifier>
@@ -44,7 +44,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Main.jack
           <keyword> let </keyword>
           <identifier>
             <identifierName> game </identifierName>
-            <identifierCategory> var </identifierCategory>
+            <identifierCategory> local </identifierCategory>
             <identifierIndex> 0 </identifierIndex>
             <identifierIsUsed> true </identifierIsUsed>
           </identifier>
@@ -66,7 +66,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Main.jack
           <keyword> do </keyword>
           <identifier>
             <identifierName> game </identifierName>
-            <identifierCategory> var </identifierCategory>
+            <identifierCategory> local </identifierCategory>
             <identifierIndex> 0 </identifierIndex>
             <identifierIsUsed> true </identifierIsUsed>
           </identifier>
@@ -82,7 +82,7 @@ input_file: src/compiler/tests/inputs/11/Pong/Main.jack
           <keyword> do </keyword>
           <identifier>
             <identifierName> game </identifierName>
-            <identifierCategory> var </identifierCategory>
+            <identifierCategory> local </identifierCategory>
             <identifierIndex> 0 </identifierIndex>
             <identifierIsUsed> true </identifierIsUsed>
           </identifier>

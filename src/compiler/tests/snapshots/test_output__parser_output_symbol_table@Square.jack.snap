@@ -12,14 +12,14 @@ input_file: src/compiler/tests/inputs/11/Square/Square.jack
     <keyword> int </keyword>
     <identifier>
       <identifierName> x </identifierName>
-      <identifierCategory> field </identifierCategory>
+      <identifierCategory> this </identifierCategory>
       <identifierIndex> 0 </identifierIndex>
       <identifierIsUsed> false </identifierIsUsed>
     </identifier>
     <symbol> , </symbol>
     <identifier>
       <identifierName> y </identifierName>
-      <identifierCategory> field </identifierCategory>
+      <identifierCategory> this </identifierCategory>
       <identifierIndex> 1 </identifierIndex>
       <identifierIsUsed> false </identifierIsUsed>
     </identifier>
@@ -30,7 +30,7 @@ input_file: src/compiler/tests/inputs/11/Square/Square.jack
     <keyword> int </keyword>
     <identifier>
       <identifierName> size </identifierName>
-      <identifierCategory> field </identifierCategory>
+      <identifierCategory> this </identifierCategory>
       <identifierIndex> 2 </identifierIndex>
       <identifierIsUsed> false </identifierIsUsed>
     </identifier>
@@ -74,7 +74,7 @@ input_file: src/compiler/tests/inputs/11/Square/Square.jack
           <keyword> let </keyword>
           <identifier>
             <identifierName> x </identifierName>
-            <identifierCategory> field </identifierCategory>
+            <identifierCategory> this </identifierCategory>
             <identifierIndex> 0 </identifierIndex>
             <identifierIsUsed> true </identifierIsUsed>
           </identifier>
@@ -95,7 +95,7 @@ input_file: src/compiler/tests/inputs/11/Square/Square.jack
           <keyword> let </keyword>
           <identifier>
             <identifierName> y </identifierName>
-            <identifierCategory> field </identifierCategory>
+            <identifierCategory> this </identifierCategory>
             <identifierIndex> 1 </identifierIndex>
             <identifierIsUsed> true </identifierIsUsed>
           </identifier>
@@ -116,7 +116,7 @@ input_file: src/compiler/tests/inputs/11/Square/Square.jack
           <keyword> let </keyword>
           <identifier>
             <identifierName> size </identifierName>
-            <identifierCategory> field </identifierCategory>
+            <identifierCategory> this </identifierCategory>
             <identifierIndex> 2 </identifierIndex>
             <identifierIsUsed> true </identifierIsUsed>
           </identifier>
@@ -228,7 +228,7 @@ input_file: src/compiler/tests/inputs/11/Square/Square.jack
               <term>
                 <identifier>
                   <identifierName> x </identifierName>
-                  <identifierCategory> field </identifierCategory>
+                  <identifierCategory> this </identifierCategory>
                   <identifierIndex> 0 </identifierIndex>
                   <identifierIsUsed> true </identifierIsUsed>
                 </identifier>
@@ -239,7 +239,7 @@ input_file: src/compiler/tests/inputs/11/Square/Square.jack
               <term>
                 <identifier>
                   <identifierName> y </identifierName>
-                  <identifierCategory> field </identifierCategory>
+                  <identifierCategory> this </identifierCategory>
                   <identifierIndex> 1 </identifierIndex>
                   <identifierIsUsed> true </identifierIsUsed>
                 </identifier>
@@ -250,7 +250,7 @@ input_file: src/compiler/tests/inputs/11/Square/Square.jack
               <term>
                 <identifier>
                   <identifierName> x </identifierName>
-                  <identifierCategory> field </identifierCategory>
+                  <identifierCategory> this </identifierCategory>
                   <identifierIndex> 0 </identifierIndex>
                   <identifierIsUsed> true </identifierIsUsed>
                 </identifier>
@@ -259,7 +259,7 @@ input_file: src/compiler/tests/inputs/11/Square/Square.jack
               <term>
                 <identifier>
                   <identifierName> size </identifierName>
-                  <identifierCategory> field </identifierCategory>
+                  <identifierCategory> this </identifierCategory>
                   <identifierIndex> 2 </identifierIndex>
                   <identifierIsUsed> true </identifierIsUsed>
                 </identifier>
@@ -270,7 +270,7 @@ input_file: src/compiler/tests/inputs/11/Square/Square.jack
               <term>
                 <identifier>
                   <identifierName> y </identifierName>
-                  <identifierCategory> field </identifierCategory>
+                  <identifierCategory> this </identifierCategory>
                   <identifierIndex> 1 </identifierIndex>
                   <identifierIsUsed> true </identifierIsUsed>
                 </identifier>
@@ -279,7 +279,7 @@ input_file: src/compiler/tests/inputs/11/Square/Square.jack
               <term>
                 <identifier>
                   <identifierName> size </identifierName>
-                  <identifierCategory> field </identifierCategory>
+                  <identifierCategory> this </identifierCategory>
                   <identifierIndex> 2 </identifierIndex>
                   <identifierIsUsed> true </identifierIsUsed>
                 </identifier>
@@ -335,7 +335,7 @@ input_file: src/compiler/tests/inputs/11/Square/Square.jack
               <term>
                 <identifier>
                   <identifierName> x </identifierName>
-                  <identifierCategory> field </identifierCategory>
+                  <identifierCategory> this </identifierCategory>
                   <identifierIndex> 0 </identifierIndex>
                   <identifierIsUsed> true </identifierIsUsed>
                 </identifier>
@@ -346,7 +346,7 @@ input_file: src/compiler/tests/inputs/11/Square/Square.jack
               <term>
                 <identifier>
                   <identifierName> y </identifierName>
-                  <identifierCategory> field </identifierCategory>
+                  <identifierCategory> this </identifierCategory>
                   <identifierIndex> 1 </identifierIndex>
                   <identifierIsUsed> true </identifierIsUsed>
                 </identifier>
@@ -357,7 +357,7 @@ input_file: src/compiler/tests/inputs/11/Square/Square.jack
               <term>
                 <identifier>
                   <identifierName> x </identifierName>
-                  <identifierCategory> field </identifierCategory>
+                  <identifierCategory> this </identifierCategory>
                   <identifierIndex> 0 </identifierIndex>
                   <identifierIsUsed> true </identifierIsUsed>
                 </identifier>
@@ -366,7 +366,7 @@ input_file: src/compiler/tests/inputs/11/Square/Square.jack
               <term>
                 <identifier>
                   <identifierName> size </identifierName>
-                  <identifierCategory> field </identifierCategory>
+                  <identifierCategory> this </identifierCategory>
                   <identifierIndex> 2 </identifierIndex>
                   <identifierIsUsed> true </identifierIsUsed>
                 </identifier>
@@ -377,7 +377,7 @@ input_file: src/compiler/tests/inputs/11/Square/Square.jack
               <term>
                 <identifier>
                   <identifierName> y </identifierName>
-                  <identifierCategory> field </identifierCategory>
+                  <identifierCategory> this </identifierCategory>
                   <identifierIndex> 1 </identifierIndex>
                   <identifierIsUsed> true </identifierIsUsed>
                 </identifier>
@@ -386,7 +386,7 @@ input_file: src/compiler/tests/inputs/11/Square/Square.jack
               <term>
                 <identifier>
                   <identifierName> size </identifierName>
-                  <identifierCategory> field </identifierCategory>
+                  <identifierCategory> this </identifierCategory>
                   <identifierIndex> 2 </identifierIndex>
                   <identifierIsUsed> true </identifierIsUsed>
                 </identifier>
@@ -428,7 +428,7 @@ input_file: src/compiler/tests/inputs/11/Square/Square.jack
                     <term>
                       <identifier>
                         <identifierName> y </identifierName>
-                        <identifierCategory> field </identifierCategory>
+                        <identifierCategory> this </identifierCategory>
                         <identifierIndex> 1 </identifierIndex>
                         <identifierIsUsed> true </identifierIsUsed>
                       </identifier>
@@ -437,7 +437,7 @@ input_file: src/compiler/tests/inputs/11/Square/Square.jack
                     <term>
                       <identifier>
                         <identifierName> size </identifierName>
-                        <identifierCategory> field </identifierCategory>
+                        <identifierCategory> this </identifierCategory>
                         <identifierIndex> 2 </identifierIndex>
                         <identifierIsUsed> true </identifierIsUsed>
                       </identifier>
@@ -462,7 +462,7 @@ input_file: src/compiler/tests/inputs/11/Square/Square.jack
                     <term>
                       <identifier>
                         <identifierName> x </identifierName>
-                        <identifierCategory> field </identifierCategory>
+                        <identifierCategory> this </identifierCategory>
                         <identifierIndex> 0 </identifierIndex>
                         <identifierIsUsed> true </identifierIsUsed>
                       </identifier>
@@ -471,7 +471,7 @@ input_file: src/compiler/tests/inputs/11/Square/Square.jack
                     <term>
                       <identifier>
                         <identifierName> size </identifierName>
-                        <identifierCategory> field </identifierCategory>
+                        <identifierCategory> this </identifierCategory>
                         <identifierIndex> 2 </identifierIndex>
                         <identifierIsUsed> true </identifierIsUsed>
                       </identifier>
@@ -503,7 +503,7 @@ input_file: src/compiler/tests/inputs/11/Square/Square.jack
               <keyword> let </keyword>
               <identifier>
                 <identifierName> size </identifierName>
-                <identifierCategory> field </identifierCategory>
+                <identifierCategory> this </identifierCategory>
                 <identifierIndex> 2 </identifierIndex>
                 <identifierIsUsed> true </identifierIsUsed>
               </identifier>
@@ -512,7 +512,7 @@ input_file: src/compiler/tests/inputs/11/Square/Square.jack
                 <term>
                   <identifier>
                     <identifierName> size </identifierName>
-                    <identifierCategory> field </identifierCategory>
+                    <identifierCategory> this </identifierCategory>
                     <identifierIndex> 2 </identifierIndex>
                     <identifierIsUsed> true </identifierIsUsed>
                   </identifier>
@@ -562,7 +562,7 @@ input_file: src/compiler/tests/inputs/11/Square/Square.jack
             <term>
               <identifier>
                 <identifierName> size </identifierName>
-                <identifierCategory> field </identifierCategory>
+                <identifierCategory> this </identifierCategory>
                 <identifierIndex> 2 </identifierIndex>
                 <identifierIsUsed> true </identifierIsUsed>
               </identifier>
@@ -588,7 +588,7 @@ input_file: src/compiler/tests/inputs/11/Square/Square.jack
               <keyword> let </keyword>
               <identifier>
                 <identifierName> size </identifierName>
-                <identifierCategory> field </identifierCategory>
+                <identifierCategory> this </identifierCategory>
                 <identifierIndex> 2 </identifierIndex>
                 <identifierIsUsed> true </identifierIsUsed>
               </identifier>
@@ -597,7 +597,7 @@ input_file: src/compiler/tests/inputs/11/Square/Square.jack
                 <term>
                   <identifier>
                     <identifierName> size </identifierName>
-                    <identifierCategory> field </identifierCategory>
+                    <identifierCategory> this </identifierCategory>
                     <identifierIndex> 2 </identifierIndex>
                     <identifierIsUsed> true </identifierIsUsed>
                   </identifier>
@@ -647,7 +647,7 @@ input_file: src/compiler/tests/inputs/11/Square/Square.jack
             <term>
               <identifier>
                 <identifierName> y </identifierName>
-                <identifierCategory> field </identifierCategory>
+                <identifierCategory> this </identifierCategory>
                 <identifierIndex> 1 </identifierIndex>
                 <identifierIsUsed> true </identifierIsUsed>
               </identifier>
@@ -687,7 +687,7 @@ input_file: src/compiler/tests/inputs/11/Square/Square.jack
                   <term>
                     <identifier>
                       <identifierName> x </identifierName>
-                      <identifierCategory> field </identifierCategory>
+                      <identifierCategory> this </identifierCategory>
                       <identifierIndex> 0 </identifierIndex>
                       <identifierIsUsed> true </identifierIsUsed>
                     </identifier>
@@ -701,7 +701,7 @@ input_file: src/compiler/tests/inputs/11/Square/Square.jack
                       <term>
                         <identifier>
                           <identifierName> y </identifierName>
-                          <identifierCategory> field </identifierCategory>
+                          <identifierCategory> this </identifierCategory>
                           <identifierIndex> 1 </identifierIndex>
                           <identifierIsUsed> true </identifierIsUsed>
                         </identifier>
@@ -710,7 +710,7 @@ input_file: src/compiler/tests/inputs/11/Square/Square.jack
                       <term>
                         <identifier>
                           <identifierName> size </identifierName>
-                          <identifierCategory> field </identifierCategory>
+                          <identifierCategory> this </identifierCategory>
                           <identifierIndex> 2 </identifierIndex>
                           <identifierIsUsed> true </identifierIsUsed>
                         </identifier>
@@ -728,7 +728,7 @@ input_file: src/compiler/tests/inputs/11/Square/Square.jack
                   <term>
                     <identifier>
                       <identifierName> x </identifierName>
-                      <identifierCategory> field </identifierCategory>
+                      <identifierCategory> this </identifierCategory>
                       <identifierIndex> 0 </identifierIndex>
                       <identifierIsUsed> true </identifierIsUsed>
                     </identifier>
@@ -737,7 +737,7 @@ input_file: src/compiler/tests/inputs/11/Square/Square.jack
                   <term>
                     <identifier>
                       <identifierName> size </identifierName>
-                      <identifierCategory> field </identifierCategory>
+                      <identifierCategory> this </identifierCategory>
                       <identifierIndex> 2 </identifierIndex>
                       <identifierIsUsed> true </identifierIsUsed>
                     </identifier>
@@ -748,7 +748,7 @@ input_file: src/compiler/tests/inputs/11/Square/Square.jack
                   <term>
                     <identifier>
                       <identifierName> y </identifierName>
-                      <identifierCategory> field </identifierCategory>
+                      <identifierCategory> this </identifierCategory>
                       <identifierIndex> 1 </identifierIndex>
                       <identifierIsUsed> true </identifierIsUsed>
                     </identifier>
@@ -757,7 +757,7 @@ input_file: src/compiler/tests/inputs/11/Square/Square.jack
                   <term>
                     <identifier>
                       <identifierName> size </identifierName>
-                      <identifierCategory> field </identifierCategory>
+                      <identifierCategory> this </identifierCategory>
                       <identifierIndex> 2 </identifierIndex>
                       <identifierIsUsed> true </identifierIsUsed>
                     </identifier>
@@ -771,7 +771,7 @@ input_file: src/compiler/tests/inputs/11/Square/Square.jack
               <keyword> let </keyword>
               <identifier>
                 <identifierName> y </identifierName>
-                <identifierCategory> field </identifierCategory>
+                <identifierCategory> this </identifierCategory>
                 <identifierIndex> 1 </identifierIndex>
                 <identifierIsUsed> true </identifierIsUsed>
               </identifier>
@@ -780,7 +780,7 @@ input_file: src/compiler/tests/inputs/11/Square/Square.jack
                 <term>
                   <identifier>
                     <identifierName> y </identifierName>
-                    <identifierCategory> field </identifierCategory>
+                    <identifierCategory> this </identifierCategory>
                     <identifierIndex> 1 </identifierIndex>
                     <identifierIsUsed> true </identifierIsUsed>
                   </identifier>
@@ -819,7 +819,7 @@ input_file: src/compiler/tests/inputs/11/Square/Square.jack
                   <term>
                     <identifier>
                       <identifierName> x </identifierName>
-                      <identifierCategory> field </identifierCategory>
+                      <identifierCategory> this </identifierCategory>
                       <identifierIndex> 0 </identifierIndex>
                       <identifierIsUsed> true </identifierIsUsed>
                     </identifier>
@@ -830,7 +830,7 @@ input_file: src/compiler/tests/inputs/11/Square/Square.jack
                   <term>
                     <identifier>
                       <identifierName> y </identifierName>
-                      <identifierCategory> field </identifierCategory>
+                      <identifierCategory> this </identifierCategory>
                       <identifierIndex> 1 </identifierIndex>
                       <identifierIsUsed> true </identifierIsUsed>
                     </identifier>
@@ -841,7 +841,7 @@ input_file: src/compiler/tests/inputs/11/Square/Square.jack
                   <term>
                     <identifier>
                       <identifierName> x </identifierName>
-                      <identifierCategory> field </identifierCategory>
+                      <identifierCategory> this </identifierCategory>
                       <identifierIndex> 0 </identifierIndex>
                       <identifierIsUsed> true </identifierIsUsed>
                     </identifier>
@@ -850,7 +850,7 @@ input_file: src/compiler/tests/inputs/11/Square/Square.jack
                   <term>
                     <identifier>
                       <identifierName> size </identifierName>
-                      <identifierCategory> field </identifierCategory>
+                      <identifierCategory> this </identifierCategory>
                       <identifierIndex> 2 </identifierIndex>
                       <identifierIsUsed> true </identifierIsUsed>
                     </identifier>
@@ -861,7 +861,7 @@ input_file: src/compiler/tests/inputs/11/Square/Square.jack
                   <term>
                     <identifier>
                       <identifierName> y </identifierName>
-                      <identifierCategory> field </identifierCategory>
+                      <identifierCategory> this </identifierCategory>
                       <identifierIndex> 1 </identifierIndex>
                       <identifierIsUsed> true </identifierIsUsed>
                     </identifier>
@@ -907,7 +907,7 @@ input_file: src/compiler/tests/inputs/11/Square/Square.jack
                 <term>
                   <identifier>
                     <identifierName> y </identifierName>
-                    <identifierCategory> field </identifierCategory>
+                    <identifierCategory> this </identifierCategory>
                     <identifierIndex> 1 </identifierIndex>
                     <identifierIsUsed> true </identifierIsUsed>
                   </identifier>
@@ -916,7 +916,7 @@ input_file: src/compiler/tests/inputs/11/Square/Square.jack
                 <term>
                   <identifier>
                     <identifierName> size </identifierName>
-                    <identifierCategory> field </identifierCategory>
+                    <identifierCategory> this </identifierCategory>
                     <identifierIndex> 2 </identifierIndex>
                     <identifierIsUsed> true </identifierIsUsed>
                   </identifier>
@@ -959,7 +959,7 @@ input_file: src/compiler/tests/inputs/11/Square/Square.jack
                   <term>
                     <identifier>
                       <identifierName> x </identifierName>
-                      <identifierCategory> field </identifierCategory>
+                      <identifierCategory> this </identifierCategory>
                       <identifierIndex> 0 </identifierIndex>
                       <identifierIsUsed> true </identifierIsUsed>
                     </identifier>
@@ -970,7 +970,7 @@ input_file: src/compiler/tests/inputs/11/Square/Square.jack
                   <term>
                     <identifier>
                       <identifierName> y </identifierName>
-                      <identifierCategory> field </identifierCategory>
+                      <identifierCategory> this </identifierCategory>
                       <identifierIndex> 1 </identifierIndex>
                       <identifierIsUsed> true </identifierIsUsed>
                     </identifier>
@@ -981,7 +981,7 @@ input_file: src/compiler/tests/inputs/11/Square/Square.jack
                   <term>
                     <identifier>
                       <identifierName> x </identifierName>
-                      <identifierCategory> field </identifierCategory>
+                      <identifierCategory> this </identifierCategory>
                       <identifierIndex> 0 </identifierIndex>
                       <identifierIsUsed> true </identifierIsUsed>
                     </identifier>
@@ -990,7 +990,7 @@ input_file: src/compiler/tests/inputs/11/Square/Square.jack
                   <term>
                     <identifier>
                       <identifierName> size </identifierName>
-                      <identifierCategory> field </identifierCategory>
+                      <identifierCategory> this </identifierCategory>
                       <identifierIndex> 2 </identifierIndex>
                       <identifierIsUsed> true </identifierIsUsed>
                     </identifier>
@@ -1001,7 +1001,7 @@ input_file: src/compiler/tests/inputs/11/Square/Square.jack
                   <term>
                     <identifier>
                       <identifierName> y </identifierName>
-                      <identifierCategory> field </identifierCategory>
+                      <identifierCategory> this </identifierCategory>
                       <identifierIndex> 1 </identifierIndex>
                       <identifierIsUsed> true </identifierIsUsed>
                     </identifier>
@@ -1019,7 +1019,7 @@ input_file: src/compiler/tests/inputs/11/Square/Square.jack
               <keyword> let </keyword>
               <identifier>
                 <identifierName> y </identifierName>
-                <identifierCategory> field </identifierCategory>
+                <identifierCategory> this </identifierCategory>
                 <identifierIndex> 1 </identifierIndex>
                 <identifierIsUsed> true </identifierIsUsed>
               </identifier>
@@ -1028,7 +1028,7 @@ input_file: src/compiler/tests/inputs/11/Square/Square.jack
                 <term>
                   <identifier>
                     <identifierName> y </identifierName>
-                    <identifierCategory> field </identifierCategory>
+                    <identifierCategory> this </identifierCategory>
                     <identifierIndex> 1 </identifierIndex>
                     <identifierIsUsed> true </identifierIsUsed>
                   </identifier>
@@ -1067,7 +1067,7 @@ input_file: src/compiler/tests/inputs/11/Square/Square.jack
                   <term>
                     <identifier>
                       <identifierName> x </identifierName>
-                      <identifierCategory> field </identifierCategory>
+                      <identifierCategory> this </identifierCategory>
                       <identifierIndex> 0 </identifierIndex>
                       <identifierIsUsed> true </identifierIsUsed>
                     </identifier>
@@ -1081,7 +1081,7 @@ input_file: src/compiler/tests/inputs/11/Square/Square.jack
                       <term>
                         <identifier>
                           <identifierName> y </identifierName>
-                          <identifierCategory> field </identifierCategory>
+                          <identifierCategory> this </identifierCategory>
                           <identifierIndex> 1 </identifierIndex>
                           <identifierIsUsed> true </identifierIsUsed>
                         </identifier>
@@ -1090,7 +1090,7 @@ input_file: src/compiler/tests/inputs/11/Square/Square.jack
                       <term>
                         <identifier>
                           <identifierName> size </identifierName>
-                          <identifierCategory> field </identifierCategory>
+                          <identifierCategory> this </identifierCategory>
                           <identifierIndex> 2 </identifierIndex>
                           <identifierIsUsed> true </identifierIsUsed>
                         </identifier>
@@ -1108,7 +1108,7 @@ input_file: src/compiler/tests/inputs/11/Square/Square.jack
                   <term>
                     <identifier>
                       <identifierName> x </identifierName>
-                      <identifierCategory> field </identifierCategory>
+                      <identifierCategory> this </identifierCategory>
                       <identifierIndex> 0 </identifierIndex>
                       <identifierIsUsed> true </identifierIsUsed>
                     </identifier>
@@ -1117,7 +1117,7 @@ input_file: src/compiler/tests/inputs/11/Square/Square.jack
                   <term>
                     <identifier>
                       <identifierName> size </identifierName>
-                      <identifierCategory> field </identifierCategory>
+                      <identifierCategory> this </identifierCategory>
                       <identifierIndex> 2 </identifierIndex>
                       <identifierIsUsed> true </identifierIsUsed>
                     </identifier>
@@ -1128,7 +1128,7 @@ input_file: src/compiler/tests/inputs/11/Square/Square.jack
                   <term>
                     <identifier>
                       <identifierName> y </identifierName>
-                      <identifierCategory> field </identifierCategory>
+                      <identifierCategory> this </identifierCategory>
                       <identifierIndex> 1 </identifierIndex>
                       <identifierIsUsed> true </identifierIsUsed>
                     </identifier>
@@ -1137,7 +1137,7 @@ input_file: src/compiler/tests/inputs/11/Square/Square.jack
                   <term>
                     <identifier>
                       <identifierName> size </identifierName>
-                      <identifierCategory> field </identifierCategory>
+                      <identifierCategory> this </identifierCategory>
                       <identifierIndex> 2 </identifierIndex>
                       <identifierIsUsed> true </identifierIsUsed>
                     </identifier>
@@ -1176,7 +1176,7 @@ input_file: src/compiler/tests/inputs/11/Square/Square.jack
             <term>
               <identifier>
                 <identifierName> x </identifierName>
-                <identifierCategory> field </identifierCategory>
+                <identifierCategory> this </identifierCategory>
                 <identifierIndex> 0 </identifierIndex>
                 <identifierIsUsed> true </identifierIsUsed>
               </identifier>
@@ -1219,7 +1219,7 @@ input_file: src/compiler/tests/inputs/11/Square/Square.jack
                       <term>
                         <identifier>
                           <identifierName> x </identifierName>
-                          <identifierCategory> field </identifierCategory>
+                          <identifierCategory> this </identifierCategory>
                           <identifierIndex> 0 </identifierIndex>
                           <identifierIsUsed> true </identifierIsUsed>
                         </identifier>
@@ -1228,7 +1228,7 @@ input_file: src/compiler/tests/inputs/11/Square/Square.jack
                       <term>
                         <identifier>
                           <identifierName> size </identifierName>
-                          <identifierCategory> field </identifierCategory>
+                          <identifierCategory> this </identifierCategory>
                           <identifierIndex> 2 </identifierIndex>
                           <identifierIsUsed> true </identifierIsUsed>
                         </identifier>
@@ -1246,7 +1246,7 @@ input_file: src/compiler/tests/inputs/11/Square/Square.jack
                   <term>
                     <identifier>
                       <identifierName> y </identifierName>
-                      <identifierCategory> field </identifierCategory>
+                      <identifierCategory> this </identifierCategory>
                       <identifierIndex> 1 </identifierIndex>
                       <identifierIsUsed> true </identifierIsUsed>
                     </identifier>
@@ -1257,7 +1257,7 @@ input_file: src/compiler/tests/inputs/11/Square/Square.jack
                   <term>
                     <identifier>
                       <identifierName> x </identifierName>
-                      <identifierCategory> field </identifierCategory>
+                      <identifierCategory> this </identifierCategory>
                       <identifierIndex> 0 </identifierIndex>
                       <identifierIsUsed> true </identifierIsUsed>
                     </identifier>
@@ -1266,7 +1266,7 @@ input_file: src/compiler/tests/inputs/11/Square/Square.jack
                   <term>
                     <identifier>
                       <identifierName> size </identifierName>
-                      <identifierCategory> field </identifierCategory>
+                      <identifierCategory> this </identifierCategory>
                       <identifierIndex> 2 </identifierIndex>
                       <identifierIsUsed> true </identifierIsUsed>
                     </identifier>
@@ -1277,7 +1277,7 @@ input_file: src/compiler/tests/inputs/11/Square/Square.jack
                   <term>
                     <identifier>
                       <identifierName> y </identifierName>
-                      <identifierCategory> field </identifierCategory>
+                      <identifierCategory> this </identifierCategory>
                       <identifierIndex> 1 </identifierIndex>
                       <identifierIsUsed> true </identifierIsUsed>
                     </identifier>
@@ -1286,7 +1286,7 @@ input_file: src/compiler/tests/inputs/11/Square/Square.jack
                   <term>
                     <identifier>
                       <identifierName> size </identifierName>
-                      <identifierCategory> field </identifierCategory>
+                      <identifierCategory> this </identifierCategory>
                       <identifierIndex> 2 </identifierIndex>
                       <identifierIsUsed> true </identifierIsUsed>
                     </identifier>
@@ -1300,7 +1300,7 @@ input_file: src/compiler/tests/inputs/11/Square/Square.jack
               <keyword> let </keyword>
               <identifier>
                 <identifierName> x </identifierName>
-                <identifierCategory> field </identifierCategory>
+                <identifierCategory> this </identifierCategory>
                 <identifierIndex> 0 </identifierIndex>
                 <identifierIsUsed> true </identifierIsUsed>
               </identifier>
@@ -1309,7 +1309,7 @@ input_file: src/compiler/tests/inputs/11/Square/Square.jack
                 <term>
                   <identifier>
                     <identifierName> x </identifierName>
-                    <identifierCategory> field </identifierCategory>
+                    <identifierCategory> this </identifierCategory>
                     <identifierIndex> 0 </identifierIndex>
                     <identifierIsUsed> true </identifierIsUsed>
                   </identifier>
@@ -1348,7 +1348,7 @@ input_file: src/compiler/tests/inputs/11/Square/Square.jack
                   <term>
                     <identifier>
                       <identifierName> x </identifierName>
-                      <identifierCategory> field </identifierCategory>
+                      <identifierCategory> this </identifierCategory>
                       <identifierIndex> 0 </identifierIndex>
                       <identifierIsUsed> true </identifierIsUsed>
                     </identifier>
@@ -1359,7 +1359,7 @@ input_file: src/compiler/tests/inputs/11/Square/Square.jack
                   <term>
                     <identifier>
                       <identifierName> y </identifierName>
-                      <identifierCategory> field </identifierCategory>
+                      <identifierCategory> this </identifierCategory>
                       <identifierIndex> 1 </identifierIndex>
                       <identifierIsUsed> true </identifierIsUsed>
                     </identifier>
@@ -1370,7 +1370,7 @@ input_file: src/compiler/tests/inputs/11/Square/Square.jack
                   <term>
                     <identifier>
                       <identifierName> x </identifierName>
-                      <identifierCategory> field </identifierCategory>
+                      <identifierCategory> this </identifierCategory>
                       <identifierIndex> 0 </identifierIndex>
                       <identifierIsUsed> true </identifierIsUsed>
                     </identifier>
@@ -1385,7 +1385,7 @@ input_file: src/compiler/tests/inputs/11/Square/Square.jack
                   <term>
                     <identifier>
                       <identifierName> y </identifierName>
-                      <identifierCategory> field </identifierCategory>
+                      <identifierCategory> this </identifierCategory>
                       <identifierIndex> 1 </identifierIndex>
                       <identifierIsUsed> true </identifierIsUsed>
                     </identifier>
@@ -1394,7 +1394,7 @@ input_file: src/compiler/tests/inputs/11/Square/Square.jack
                   <term>
                     <identifier>
                       <identifierName> size </identifierName>
-                      <identifierCategory> field </identifierCategory>
+                      <identifierCategory> this </identifierCategory>
                       <identifierIndex> 2 </identifierIndex>
                       <identifierIsUsed> true </identifierIsUsed>
                     </identifier>
@@ -1436,7 +1436,7 @@ input_file: src/compiler/tests/inputs/11/Square/Square.jack
                 <term>
                   <identifier>
                     <identifierName> x </identifierName>
-                    <identifierCategory> field </identifierCategory>
+                    <identifierCategory> this </identifierCategory>
                     <identifierIndex> 0 </identifierIndex>
                     <identifierIsUsed> true </identifierIsUsed>
                   </identifier>
@@ -1445,7 +1445,7 @@ input_file: src/compiler/tests/inputs/11/Square/Square.jack
                 <term>
                   <identifier>
                     <identifierName> size </identifierName>
-                    <identifierCategory> field </identifierCategory>
+                    <identifierCategory> this </identifierCategory>
                     <identifierIndex> 2 </identifierIndex>
                     <identifierIsUsed> true </identifierIsUsed>
                   </identifier>
@@ -1488,7 +1488,7 @@ input_file: src/compiler/tests/inputs/11/Square/Square.jack
                   <term>
                     <identifier>
                       <identifierName> x </identifierName>
-                      <identifierCategory> field </identifierCategory>
+                      <identifierCategory> this </identifierCategory>
                       <identifierIndex> 0 </identifierIndex>
                       <identifierIsUsed> true </identifierIsUsed>
                     </identifier>
@@ -1499,7 +1499,7 @@ input_file: src/compiler/tests/inputs/11/Square/Square.jack
                   <term>
                     <identifier>
                       <identifierName> y </identifierName>
-                      <identifierCategory> field </identifierCategory>
+                      <identifierCategory> this </identifierCategory>
                       <identifierIndex> 1 </identifierIndex>
                       <identifierIsUsed> true </identifierIsUsed>
                     </identifier>
@@ -1510,7 +1510,7 @@ input_file: src/compiler/tests/inputs/11/Square/Square.jack
                   <term>
                     <identifier>
                       <identifierName> x </identifierName>
-                      <identifierCategory> field </identifierCategory>
+                      <identifierCategory> this </identifierCategory>
                       <identifierIndex> 0 </identifierIndex>
                       <identifierIsUsed> true </identifierIsUsed>
                     </identifier>
@@ -1525,7 +1525,7 @@ input_file: src/compiler/tests/inputs/11/Square/Square.jack
                   <term>
                     <identifier>
                       <identifierName> y </identifierName>
-                      <identifierCategory> field </identifierCategory>
+                      <identifierCategory> this </identifierCategory>
                       <identifierIndex> 1 </identifierIndex>
                       <identifierIsUsed> true </identifierIsUsed>
                     </identifier>
@@ -1534,7 +1534,7 @@ input_file: src/compiler/tests/inputs/11/Square/Square.jack
                   <term>
                     <identifier>
                       <identifierName> size </identifierName>
-                      <identifierCategory> field </identifierCategory>
+                      <identifierCategory> this </identifierCategory>
                       <identifierIndex> 2 </identifierIndex>
                       <identifierIsUsed> true </identifierIsUsed>
                     </identifier>
@@ -1548,7 +1548,7 @@ input_file: src/compiler/tests/inputs/11/Square/Square.jack
               <keyword> let </keyword>
               <identifier>
                 <identifierName> x </identifierName>
-                <identifierCategory> field </identifierCategory>
+                <identifierCategory> this </identifierCategory>
                 <identifierIndex> 0 </identifierIndex>
                 <identifierIsUsed> true </identifierIsUsed>
               </identifier>
@@ -1557,7 +1557,7 @@ input_file: src/compiler/tests/inputs/11/Square/Square.jack
                 <term>
                   <identifier>
                     <identifierName> x </identifierName>
-                    <identifierCategory> field </identifierCategory>
+                    <identifierCategory> this </identifierCategory>
                     <identifierIndex> 0 </identifierIndex>
                     <identifierIsUsed> true </identifierIsUsed>
                   </identifier>
@@ -1599,7 +1599,7 @@ input_file: src/compiler/tests/inputs/11/Square/Square.jack
                       <term>
                         <identifier>
                           <identifierName> x </identifierName>
-                          <identifierCategory> field </identifierCategory>
+                          <identifierCategory> this </identifierCategory>
                           <identifierIndex> 0 </identifierIndex>
                           <identifierIsUsed> true </identifierIsUsed>
                         </identifier>
@@ -1608,7 +1608,7 @@ input_file: src/compiler/tests/inputs/11/Square/Square.jack
                       <term>
                         <identifier>
                           <identifierName> size </identifierName>
-                          <identifierCategory> field </identifierCategory>
+                          <identifierCategory> this </identifierCategory>
                           <identifierIndex> 2 </identifierIndex>
                           <identifierIsUsed> true </identifierIsUsed>
                         </identifier>
@@ -1626,7 +1626,7 @@ input_file: src/compiler/tests/inputs/11/Square/Square.jack
                   <term>
                     <identifier>
                       <identifierName> y </identifierName>
-                      <identifierCategory> field </identifierCategory>
+                      <identifierCategory> this </identifierCategory>
                       <identifierIndex> 1 </identifierIndex>
                       <identifierIsUsed> true </identifierIsUsed>
                     </identifier>
@@ -1637,7 +1637,7 @@ input_file: src/compiler/tests/inputs/11/Square/Square.jack
                   <term>
                     <identifier>
                       <identifierName> x </identifierName>
-                      <identifierCategory> field </identifierCategory>
+                      <identifierCategory> this </identifierCategory>
                       <identifierIndex> 0 </identifierIndex>
                       <identifierIsUsed> true </identifierIsUsed>
                     </identifier>
@@ -1646,7 +1646,7 @@ input_file: src/compiler/tests/inputs/11/Square/Square.jack
                   <term>
                     <identifier>
                       <identifierName> size </identifierName>
-                      <identifierCategory> field </identifierCategory>
+                      <identifierCategory> this </identifierCategory>
                       <identifierIndex> 2 </identifierIndex>
                       <identifierIsUsed> true </identifierIsUsed>
                     </identifier>
@@ -1657,7 +1657,7 @@ input_file: src/compiler/tests/inputs/11/Square/Square.jack
                   <term>
                     <identifier>
                       <identifierName> y </identifierName>
-                      <identifierCategory> field </identifierCategory>
+                      <identifierCategory> this </identifierCategory>
                       <identifierIndex> 1 </identifierIndex>
                       <identifierIsUsed> true </identifierIsUsed>
                     </identifier>
@@ -1666,7 +1666,7 @@ input_file: src/compiler/tests/inputs/11/Square/Square.jack
                   <term>
                     <identifier>
                       <identifierName> size </identifierName>
-                      <identifierCategory> field </identifierCategory>
+                      <identifierCategory> this </identifierCategory>
                       <identifierIndex> 2 </identifierIndex>
                       <identifierIsUsed> true </identifierIsUsed>
                     </identifier>

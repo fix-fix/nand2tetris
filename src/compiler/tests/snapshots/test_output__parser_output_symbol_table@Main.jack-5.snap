@@ -22,21 +22,21 @@ input_file: src/compiler/tests/inputs/11/ComplexArrays/Main.jack
         <identifier> Array </identifier>
         <identifier>
           <identifierName> a </identifierName>
-          <identifierCategory> var </identifierCategory>
+          <identifierCategory> local </identifierCategory>
           <identifierIndex> 0 </identifierIndex>
           <identifierIsUsed> false </identifierIsUsed>
         </identifier>
         <symbol> , </symbol>
         <identifier>
           <identifierName> b </identifierName>
-          <identifierCategory> var </identifierCategory>
+          <identifierCategory> local </identifierCategory>
           <identifierIndex> 1 </identifierIndex>
           <identifierIsUsed> false </identifierIsUsed>
         </identifier>
         <symbol> , </symbol>
         <identifier>
           <identifierName> c </identifierName>
-          <identifierCategory> var </identifierCategory>
+          <identifierCategory> local </identifierCategory>
           <identifierIndex> 2 </identifierIndex>
           <identifierIsUsed> false </identifierIsUsed>
         </identifier>
@@ -47,7 +47,7 @@ input_file: src/compiler/tests/inputs/11/ComplexArrays/Main.jack
           <keyword> let </keyword>
           <identifier>
             <identifierName> a </identifierName>
-            <identifierCategory> var </identifierCategory>
+            <identifierCategory> local </identifierCategory>
             <identifierIndex> 0 </identifierIndex>
             <identifierIsUsed> true </identifierIsUsed>
           </identifier>
@@ -74,7 +74,7 @@ input_file: src/compiler/tests/inputs/11/ComplexArrays/Main.jack
           <keyword> let </keyword>
           <identifier>
             <identifierName> b </identifierName>
-            <identifierCategory> var </identifierCategory>
+            <identifierCategory> local </identifierCategory>
             <identifierIndex> 1 </identifierIndex>
             <identifierIsUsed> true </identifierIsUsed>
           </identifier>
@@ -101,7 +101,7 @@ input_file: src/compiler/tests/inputs/11/ComplexArrays/Main.jack
           <keyword> let </keyword>
           <identifier>
             <identifierName> c </identifierName>
-            <identifierCategory> var </identifierCategory>
+            <identifierCategory> local </identifierCategory>
             <identifierIndex> 2 </identifierIndex>
             <identifierIsUsed> true </identifierIsUsed>
           </identifier>
@@ -128,7 +128,7 @@ input_file: src/compiler/tests/inputs/11/ComplexArrays/Main.jack
           <keyword> let </keyword>
           <identifier>
             <identifierName> a </identifierName>
-            <identifierCategory> var </identifierCategory>
+            <identifierCategory> local </identifierCategory>
             <identifierIndex> 0 </identifierIndex>
             <identifierIsUsed> true </identifierIsUsed>
           </identifier>
@@ -151,7 +151,7 @@ input_file: src/compiler/tests/inputs/11/ComplexArrays/Main.jack
           <keyword> let </keyword>
           <identifier>
             <identifierName> a </identifierName>
-            <identifierCategory> var </identifierCategory>
+            <identifierCategory> local </identifierCategory>
             <identifierIndex> 0 </identifierIndex>
             <identifierIsUsed> true </identifierIsUsed>
           </identifier>
@@ -174,7 +174,7 @@ input_file: src/compiler/tests/inputs/11/ComplexArrays/Main.jack
           <keyword> let </keyword>
           <identifier>
             <identifierName> a </identifierName>
-            <identifierCategory> var </identifierCategory>
+            <identifierCategory> local </identifierCategory>
             <identifierIndex> 0 </identifierIndex>
             <identifierIsUsed> true </identifierIsUsed>
           </identifier>
@@ -197,7 +197,7 @@ input_file: src/compiler/tests/inputs/11/ComplexArrays/Main.jack
           <keyword> let </keyword>
           <identifier>
             <identifierName> b </identifierName>
-            <identifierCategory> var </identifierCategory>
+            <identifierCategory> local </identifierCategory>
             <identifierIndex> 1 </identifierIndex>
             <identifierIsUsed> true </identifierIsUsed>
           </identifier>
@@ -206,7 +206,7 @@ input_file: src/compiler/tests/inputs/11/ComplexArrays/Main.jack
             <term>
               <identifier>
                 <identifierName> a </identifierName>
-                <identifierCategory> var </identifierCategory>
+                <identifierCategory> local </identifierCategory>
                 <identifierIndex> 0 </identifierIndex>
                 <identifierIsUsed> true </identifierIsUsed>
               </identifier>
@@ -225,7 +225,7 @@ input_file: src/compiler/tests/inputs/11/ComplexArrays/Main.jack
             <term>
               <identifier>
                 <identifierName> a </identifierName>
-                <identifierCategory> var </identifierCategory>
+                <identifierCategory> local </identifierCategory>
                 <identifierIndex> 0 </identifierIndex>
                 <identifierIsUsed> true </identifierIsUsed>
               </identifier>
@@ -248,7 +248,7 @@ input_file: src/compiler/tests/inputs/11/ComplexArrays/Main.jack
           <keyword> let </keyword>
           <identifier>
             <identifierName> a </identifierName>
-            <identifierCategory> var </identifierCategory>
+            <identifierCategory> local </identifierCategory>
             <identifierIndex> 0 </identifierIndex>
             <identifierIsUsed> true </identifierIsUsed>
           </identifier>
@@ -257,7 +257,7 @@ input_file: src/compiler/tests/inputs/11/ComplexArrays/Main.jack
             <term>
               <identifier>
                 <identifierName> b </identifierName>
-                <identifierCategory> var </identifierCategory>
+                <identifierCategory> local </identifierCategory>
                 <identifierIndex> 1 </identifierIndex>
                 <identifierIsUsed> true </identifierIsUsed>
               </identifier>
@@ -266,7 +266,7 @@ input_file: src/compiler/tests/inputs/11/ComplexArrays/Main.jack
                 <term>
                   <identifier>
                     <identifierName> a </identifierName>
-                    <identifierCategory> var </identifierCategory>
+                    <identifierCategory> local </identifierCategory>
                     <identifierIndex> 0 </identifierIndex>
                     <identifierIsUsed> true </identifierIsUsed>
                   </identifier>
@@ -288,7 +288,7 @@ input_file: src/compiler/tests/inputs/11/ComplexArrays/Main.jack
             <term>
               <identifier>
                 <identifierName> a </identifierName>
-                <identifierCategory> var </identifierCategory>
+                <identifierCategory> local </identifierCategory>
                 <identifierIndex> 0 </identifierIndex>
                 <identifierIsUsed> true </identifierIsUsed>
               </identifier>
@@ -297,7 +297,7 @@ input_file: src/compiler/tests/inputs/11/ComplexArrays/Main.jack
                 <term>
                   <identifier>
                     <identifierName> a </identifierName>
-                    <identifierCategory> var </identifierCategory>
+                    <identifierCategory> local </identifierCategory>
                     <identifierIndex> 0 </identifierIndex>
                     <identifierIsUsed> true </identifierIsUsed>
                   </identifier>
@@ -316,7 +316,7 @@ input_file: src/compiler/tests/inputs/11/ComplexArrays/Main.jack
             <term>
               <identifier>
                 <identifierName> b </identifierName>
-                <identifierCategory> var </identifierCategory>
+                <identifierCategory> local </identifierCategory>
                 <identifierIndex> 1 </identifierIndex>
                 <identifierIsUsed> true </identifierIsUsed>
               </identifier>
@@ -335,7 +335,7 @@ input_file: src/compiler/tests/inputs/11/ComplexArrays/Main.jack
                         <term>
                           <identifier>
                             <identifierName> a </identifierName>
-                            <identifierCategory> var </identifierCategory>
+                            <identifierCategory> local </identifierCategory>
                             <identifierIndex> 0 </identifierIndex>
                             <identifierIsUsed> true </identifierIsUsed>
                           </identifier>
@@ -382,7 +382,7 @@ input_file: src/compiler/tests/inputs/11/ComplexArrays/Main.jack
           <keyword> let </keyword>
           <identifier>
             <identifierName> c </identifierName>
-            <identifierCategory> var </identifierCategory>
+            <identifierCategory> local </identifierCategory>
             <identifierIndex> 2 </identifierIndex>
             <identifierIsUsed> true </identifierIsUsed>
           </identifier>
@@ -405,7 +405,7 @@ input_file: src/compiler/tests/inputs/11/ComplexArrays/Main.jack
           <keyword> let </keyword>
           <identifier>
             <identifierName> c </identifierName>
-            <identifierCategory> var </identifierCategory>
+            <identifierCategory> local </identifierCategory>
             <identifierIndex> 2 </identifierIndex>
             <identifierIsUsed> true </identifierIsUsed>
           </identifier>
@@ -414,7 +414,7 @@ input_file: src/compiler/tests/inputs/11/ComplexArrays/Main.jack
             <term>
               <identifier>
                 <identifierName> c </identifierName>
-                <identifierCategory> var </identifierCategory>
+                <identifierCategory> local </identifierCategory>
                 <identifierIndex> 2 </identifierIndex>
                 <identifierIsUsed> true </identifierIsUsed>
               </identifier>
@@ -456,7 +456,7 @@ input_file: src/compiler/tests/inputs/11/ComplexArrays/Main.jack
               <term>
                 <identifier>
                   <identifierName> b </identifierName>
-                  <identifierCategory> var </identifierCategory>
+                  <identifierCategory> local </identifierCategory>
                   <identifierIndex> 1 </identifierIndex>
                   <identifierIsUsed> true </identifierIsUsed>
                 </identifier>
@@ -511,7 +511,7 @@ input_file: src/compiler/tests/inputs/11/ComplexArrays/Main.jack
               <term>
                 <identifier>
                   <identifierName> a </identifierName>
-                  <identifierCategory> var </identifierCategory>
+                  <identifierCategory> local </identifierCategory>
                   <identifierIndex> 0 </identifierIndex>
                   <identifierIsUsed> true </identifierIsUsed>
                 </identifier>
@@ -566,7 +566,7 @@ input_file: src/compiler/tests/inputs/11/ComplexArrays/Main.jack
               <term>
                 <identifier>
                   <identifierName> c </identifierName>
-                  <identifierCategory> var </identifierCategory>
+                  <identifierCategory> local </identifierCategory>
                   <identifierIndex> 2 </identifierIndex>
                   <identifierIsUsed> true </identifierIsUsed>
                 </identifier>
@@ -591,7 +591,7 @@ input_file: src/compiler/tests/inputs/11/ComplexArrays/Main.jack
           <keyword> let </keyword>
           <identifier>
             <identifierName> c </identifierName>
-            <identifierCategory> var </identifierCategory>
+            <identifierCategory> local </identifierCategory>
             <identifierIndex> 2 </identifierIndex>
             <identifierIsUsed> true </identifierIsUsed>
           </identifier>
@@ -610,7 +610,7 @@ input_file: src/compiler/tests/inputs/11/ComplexArrays/Main.jack
             <term>
               <identifier>
                 <identifierName> c </identifierName>
-                <identifierCategory> var </identifierCategory>
+                <identifierCategory> local </identifierCategory>
                 <identifierIndex> 2 </identifierIndex>
                 <identifierIsUsed> true </identifierIsUsed>
               </identifier>
@@ -634,7 +634,7 @@ input_file: src/compiler/tests/inputs/11/ComplexArrays/Main.jack
                   <term>
                     <identifier>
                       <identifierName> a </identifierName>
-                      <identifierCategory> var </identifierCategory>
+                      <identifierCategory> local </identifierCategory>
                       <identifierIndex> 0 </identifierIndex>
                       <identifierIsUsed> true </identifierIsUsed>
                     </identifier>
@@ -654,7 +654,7 @@ input_file: src/compiler/tests/inputs/11/ComplexArrays/Main.jack
               <keyword> let </keyword>
               <identifier>
                 <identifierName> c </identifierName>
-                <identifierCategory> var </identifierCategory>
+                <identifierCategory> local </identifierCategory>
                 <identifierIndex> 2 </identifierIndex>
                 <identifierIsUsed> true </identifierIsUsed>
               </identifier>
@@ -663,7 +663,7 @@ input_file: src/compiler/tests/inputs/11/ComplexArrays/Main.jack
                 <term>
                   <identifier>
                     <identifierName> a </identifierName>
-                    <identifierCategory> var </identifierCategory>
+                    <identifierCategory> local </identifierCategory>
                     <identifierIndex> 0 </identifierIndex>
                     <identifierIsUsed> true </identifierIsUsed>
                   </identifier>
@@ -682,7 +682,7 @@ input_file: src/compiler/tests/inputs/11/ComplexArrays/Main.jack
               <keyword> let </keyword>
               <identifier>
                 <identifierName> c </identifierName>
-                <identifierCategory> var </identifierCategory>
+                <identifierCategory> local </identifierCategory>
                 <identifierIndex> 2 </identifierIndex>
                 <identifierIsUsed> true </identifierIsUsed>
               </identifier>
@@ -705,7 +705,7 @@ input_file: src/compiler/tests/inputs/11/ComplexArrays/Main.jack
               <keyword> let </keyword>
               <identifier>
                 <identifierName> c </identifierName>
-                <identifierCategory> var </identifierCategory>
+                <identifierCategory> local </identifierCategory>
                 <identifierIndex> 2 </identifierIndex>
                 <identifierIsUsed> true </identifierIsUsed>
               </identifier>
@@ -714,7 +714,7 @@ input_file: src/compiler/tests/inputs/11/ComplexArrays/Main.jack
                 <term>
                   <identifier>
                     <identifierName> a </identifierName>
-                    <identifierCategory> var </identifierCategory>
+                    <identifierCategory> local </identifierCategory>
                     <identifierIndex> 0 </identifierIndex>
                     <identifierIsUsed> true </identifierIsUsed>
                   </identifier>
@@ -733,7 +733,7 @@ input_file: src/compiler/tests/inputs/11/ComplexArrays/Main.jack
               <keyword> let </keyword>
               <identifier>
                 <identifierName> c </identifierName>
-                <identifierCategory> var </identifierCategory>
+                <identifierCategory> local </identifierCategory>
                 <identifierIndex> 2 </identifierIndex>
                 <identifierIsUsed> true </identifierIsUsed>
               </identifier>
@@ -756,7 +756,7 @@ input_file: src/compiler/tests/inputs/11/ComplexArrays/Main.jack
               <keyword> let </keyword>
               <identifier>
                 <identifierName> b </identifierName>
-                <identifierCategory> var </identifierCategory>
+                <identifierCategory> local </identifierCategory>
                 <identifierIndex> 1 </identifierIndex>
                 <identifierIsUsed> true </identifierIsUsed>
               </identifier>
@@ -765,7 +765,7 @@ input_file: src/compiler/tests/inputs/11/ComplexArrays/Main.jack
                 <term>
                   <identifier>
                     <identifierName> a </identifierName>
-                    <identifierCategory> var </identifierCategory>
+                    <identifierCategory> local </identifierCategory>
                     <identifierIndex> 0 </identifierIndex>
                     <identifierIsUsed> true </identifierIsUsed>
                   </identifier>
@@ -784,7 +784,7 @@ input_file: src/compiler/tests/inputs/11/ComplexArrays/Main.jack
               <keyword> let </keyword>
               <identifier>
                 <identifierName> b </identifierName>
-                <identifierCategory> var </identifierCategory>
+                <identifierCategory> local </identifierCategory>
                 <identifierIndex> 1 </identifierIndex>
                 <identifierIsUsed> true </identifierIsUsed>
               </identifier>
@@ -800,7 +800,7 @@ input_file: src/compiler/tests/inputs/11/ComplexArrays/Main.jack
                 <term>
                   <identifier>
                     <identifierName> b </identifierName>
-                    <identifierCategory> var </identifierCategory>
+                    <identifierCategory> local </identifierCategory>
                     <identifierIndex> 1 </identifierIndex>
                     <identifierIsUsed> true </identifierIsUsed>
                   </identifier>
@@ -816,7 +816,7 @@ input_file: src/compiler/tests/inputs/11/ComplexArrays/Main.jack
                 <term>
                   <identifier>
                     <identifierName> c </identifierName>
-                    <identifierCategory> var </identifierCategory>
+                    <identifierCategory> local </identifierCategory>
                     <identifierIndex> 2 </identifierIndex>
                     <identifierIsUsed> true </identifierIsUsed>
                   </identifier>
@@ -861,7 +861,7 @@ input_file: src/compiler/tests/inputs/11/ComplexArrays/Main.jack
               <term>
                 <identifier>
                   <identifierName> c </identifierName>
-                  <identifierCategory> var </identifierCategory>
+                  <identifierCategory> local </identifierCategory>
                   <identifierIndex> 2 </identifierIndex>
                   <identifierIsUsed> true </identifierIsUsed>
                 </identifier>
@@ -916,7 +916,7 @@ input_file: src/compiler/tests/inputs/11/ComplexArrays/Main.jack
               <term>
                 <identifier>
                   <identifierName> b </identifierName>
-                  <identifierCategory> var </identifierCategory>
+                  <identifierCategory> local </identifierCategory>
                   <identifierIndex> 1 </identifierIndex>
                   <identifierIsUsed> true </identifierIsUsed>
                 </identifier>

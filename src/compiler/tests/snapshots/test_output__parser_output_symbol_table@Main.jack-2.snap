@@ -22,7 +22,7 @@ input_file: src/compiler/tests/inputs/11/Square/Main.jack
         <identifier> SquareGame </identifier>
         <identifier>
           <identifierName> game </identifierName>
-          <identifierCategory> var </identifierCategory>
+          <identifierCategory> local </identifierCategory>
           <identifierIndex> 0 </identifierIndex>
           <identifierIsUsed> false </identifierIsUsed>
         </identifier>
@@ -33,7 +33,7 @@ input_file: src/compiler/tests/inputs/11/Square/Main.jack
           <keyword> let </keyword>
           <identifier>
             <identifierName> game </identifierName>
-            <identifierCategory> var </identifierCategory>
+            <identifierCategory> local </identifierCategory>
             <identifierIndex> 0 </identifierIndex>
             <identifierIsUsed> true </identifierIsUsed>
           </identifier>
@@ -55,7 +55,7 @@ input_file: src/compiler/tests/inputs/11/Square/Main.jack
           <keyword> do </keyword>
           <identifier>
             <identifierName> game </identifierName>
-            <identifierCategory> var </identifierCategory>
+            <identifierCategory> local </identifierCategory>
             <identifierIndex> 0 </identifierIndex>
             <identifierIsUsed> true </identifierIsUsed>
           </identifier>
@@ -71,7 +71,7 @@ input_file: src/compiler/tests/inputs/11/Square/Main.jack
           <keyword> do </keyword>
           <identifier>
             <identifierName> game </identifierName>
-            <identifierCategory> var </identifierCategory>
+            <identifierCategory> local </identifierCategory>
             <identifierIndex> 0 </identifierIndex>
             <identifierIsUsed> true </identifierIsUsed>
           </identifier>
