@@ -351,6 +351,5 @@ pub fn result_to_xml(result: ParseResult, mut sym_table: Option<&mut SymbolTable
     use crate::node_printer::*;
     let mut out = String::new();
     print_to_xml(&mut out, Node::Class(result.root), None, &mut sym_table);
-    dbg!(sym_table);
     out
 }

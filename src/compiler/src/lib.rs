@@ -1,4 +1,6 @@
+pub mod codegen;
 pub mod config;
+pub mod compiler;
 pub mod input;
 pub mod line_chars;
 pub mod node;

@@ -2,7 +2,7 @@ use crate::token::{Keyword, Token};
 
 pub type Identifier = String;
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, PartialEq)]
 pub enum GrammarItemType {
     Int,
     Char,
@@ -37,13 +37,13 @@ pub fn class_var_type_from_token(t: Token) -> Option<GrammarClassVarType> {
     })
 }
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, PartialEq)]
 pub enum GrammarSubroutineReturnType {
     Void,
     Type(GrammarItemType),
 }
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, PartialEq)]
 pub enum GrammarSubroutineVariant {
     Constructor,
     Function,
