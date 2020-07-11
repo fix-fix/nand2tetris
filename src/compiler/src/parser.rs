@@ -300,7 +300,7 @@ impl<'a> Parser<'a> {
                     return Err("Invalid unary op")?;
                 }
                 self.next();
-                Term::UnaryOp(op, Box::new(self.parse_term()?))
+                Term::UnaryOp(Op(op), Box::new(self.parse_term()?))
             }
             Token::Identifier(ident) => {
                 self.next();

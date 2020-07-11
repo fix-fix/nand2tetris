@@ -299,7 +299,7 @@ pub fn print_to_xml(
                 Term::KeywordConstant(kw) => w!(xwd("keyword", keyword_to_string(&kw))),
                 Term::IntegerConstant(i) => w!(xwd("integerConstant", i.to_string().as_str())),
                 Term::StringConst(s) => w!(xwd("stringConstant", s.as_str())),
-                Term::UnaryOp(op, term) => {
+                Term::UnaryOp(Op(op), term) => {
                     w!(xwd("symbol", op.as_str()));
                     print_child!(Node::Term(*term));
                 }

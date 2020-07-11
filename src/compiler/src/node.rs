@@ -143,7 +143,7 @@ pub enum Term {
     KeywordConstant(Keyword),
     IntegerConstant(u16),
     StringConst(String),
-    UnaryOp(String, Box<Term>),
+    UnaryOp(Op, Box<Term>),
     ParenExpr(Box<Expr>),
     IndexExpr(Identifier, Box<Expr>),
     SubroutineCall(SubroutineCall),

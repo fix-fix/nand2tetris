@@ -3,7 +3,7 @@ use std::collections::HashMap;
 
 type SymbolName = String;
 
-#[derive(Debug)]
+#[derive(Debug, Eq, PartialEq, Hash)]
 enum ClassVarKind {
     Field,
     Static,
@@ -22,7 +22,7 @@ impl From<&GrammarClassVarType> for ClassVarKind {
 struct EntryClass {
     typ: String,
     kind: ClassVarKind,
-    index: usize,
+    index: u16,
 }
 
 impl From<&EntryClass> for Entry {
@@ -38,7 +38,7 @@ impl From<&EntryClass> for Entry {
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, Eq, PartialEq, Hash, Clone)]
 pub enum SubVarKind {
     Argument,
     Var,
@@ -48,7 +48,7 @@ pub enum SubVarKind {
 struct EntrySub {
     typ: String,
     kind: SubVarKind,
-    index: usize,
+    index: u16,
 }
 
 impl From<&EntrySub> for Entry {
@@ -58,14 +58,20 @@ impl From<&EntrySub> for Entry {
             typ: other.typ.clone(),
             kind: match other.kind {
                 SubVarKind::Argument => "argument".to_string(),
-                SubVarKind::Var => "var".to_string(),
+                SubVarKind::Var => "local".to_string(),
             },
         }
     }
 }
 
-type DictClass = HashMap<SymbolName, EntryClass>;
-type DictSub = HashMap<SymbolName, EntrySub>;
+#[derive(Debug, Default)]
+struct DictWithIndex<TEntryMap, TIndexMap> {
+    entry_dict: TEntryMap,
+    index_dict: TIndexMap,
+}
+
+type DictClass = DictWithIndex<HashMap<SymbolName, EntryClass>, HashMap<ClassVarKind, u16>>;
+type DictSub = DictWithIndex<HashMap<SymbolName, EntrySub>, HashMap<SubVarKind, u16>>;
 
 #[derive(Debug, Default)]
 pub struct SymbolTable {
@@ -77,8 +83,9 @@ pub struct SymbolTable {
 #[derive(Debug, Default, Clone)]
 pub struct Entry {
     pub typ: String,
+    // What kind of memory segment
     pub kind: String,
-    pub index: usize,
+    pub index: u16,
 }
 
 impl SymbolTable {
@@ -87,10 +94,10 @@ impl SymbolTable {
     }
 
     pub fn lookup(&self, name: &SymbolName) -> Option<Entry> {
-        if let Some(e) = self.sub.get(name) {
+        if let Some(e) = self.sub.entry_dict.get(name) {
             return Some(e.into());
         }
-        if let Some(e) = self.class.get(name) {
+        if let Some(e) = self.class.entry_dict.get(name) {
             return Some(e.into());
         }
         None
@@ -103,13 +110,14 @@ impl SymbolTable {
         typ: &GrammarItemType,
     ) {
         let dict = &mut self.class;
-        let index = dict.len();
+        let index = dict.index_dict.entry(kind.into()).or_insert(0);
         let entry = EntryClass {
             typ: type_as_string(typ),
             kind: kind.into(),
-            index,
+            index: index.clone(),
         };
-        dict.insert(name.clone(), entry);
+        *index += 1;
+        dict.entry_dict.insert(name.clone(), entry);
     }
 
     pub fn define_subroutine_var(
@@ -119,13 +127,14 @@ impl SymbolTable {
         typ: &GrammarItemType,
     ) {
         let dict = &mut self.sub;
-        let index = dict.len();
+        let index = dict.index_dict.entry(kind.clone().into()).or_insert(0);
         let entry = EntrySub {
             typ: type_as_string(typ),
             kind: kind.into(),
-            index,
+            index: index.clone(),
         };
-        dict.insert(name.clone(), entry);
+        *index += 1;
+        dict.entry_dict.insert(name.clone(), entry);
     }
 
     pub fn reset_subroutine_table(&mut self) {
