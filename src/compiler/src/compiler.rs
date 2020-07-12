@@ -42,7 +42,7 @@ pub fn compile_program(parse_result: ParseResult) -> Res<String> {
     let sym_table = SymbolTable::new();
     let mut state = CompilerState::new(Default::default(), sym_table, &mut out);
     compile_class(&mut state, parse_result.root).map_err(|e| {
-        dbg!(state.class_name, state.sym_table);
+        // dbg!(state.class_name, state.sym_table);
         e
     })?;
     Ok(out)

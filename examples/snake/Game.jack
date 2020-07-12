@@ -7,8 +7,8 @@ class Game {
   field UI ui;
 
   constructor Game new() {
-    let FPS = 30;
-    let FRAMES_PER_TICK = FPS / 30;
+    let FPS = 60;
+    let FRAMES_PER_TICK = FPS / 10;
     let msg_game_over = "=== Game Over! ===";
     let GAME_STATE = 0;
     let ui = UI.new();
@@ -46,7 +46,6 @@ class Game {
     var char key;  // the key currently pressed by the user
     var boolean exit;
     var boolean is_over;
-    var int direction;
     let exit = false;
     let is_over = false;
 
@@ -54,16 +53,7 @@ class Game {
 
     while (~exit) {
       let key = Keyboard.keyPressed();
-
-      if (key = 81)  { let exit = true; let GAME_STATE = 0; }     // q key
-      if (key = 131) { let direction = 1; }   // up arrow
-      if (key = 133) { let direction = 2; }   // down arrow
-      if (key = 130) { let direction = 3; }   // left arrow
-      if (key = 132) { let direction = 4; }   // right arrow
-
-      if (~(direction = 0)) {
-        do snake.setDirection(direction);
-      }
+      if (key = 81)  { let exit = true; let GAME_STATE = 0; return GAME_STATE; }     // q key
 
       let is_over = tickGame();
       let exit = exit | is_over;
@@ -75,10 +65,24 @@ class Game {
   }
 
   method boolean tickGame() {
+    var char key;  // the key currently pressed by the user
     var boolean is_over;
+    var int direction;
     let tick = tick + 1;
     if ((Utils.modulo(tick, FRAMES_PER_TICK) = 0)) {
       let game_counter = game_counter + 1;
+
+      let key = Keyboard.keyPressed();
+
+      if (key = 131) { let direction = 1; }   // up arrow
+      if (key = 133) { let direction = 2; }   // down arrow
+      if (key = 130) { let direction = 3; }   // left arrow
+      if (key = 132) { let direction = 4; }   // right arrow
+
+      if (~(direction = 0)) {
+        do snake.setDirection(direction);
+      }
+
       let is_over = snake.advance(apple_coords);
       let apple_coords = placeApple(snake);
       do drawApple();
