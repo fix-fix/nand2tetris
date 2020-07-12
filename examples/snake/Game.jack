@@ -2,15 +2,16 @@ class Game {
   static int FPS, FRAMES_PER_TICK;
   static String msg_game_over;
 
-  field int tick, game_counter, GAME_STATE, apple_coords;
+  field int tick, game_counter, GAME_STATE, apple_coords, score;
   field Snake snake;
   field UI ui;
 
   constructor Game new() {
     let FPS = 60;
-    let FRAMES_PER_TICK = FPS / 10;
+    let FRAMES_PER_TICK = FPS / 20;
     let msg_game_over = "=== Game Over! ===";
     let GAME_STATE = 0;
+    let score = 0;
     let ui = UI.new();
     let apple_coords = 42;
     let game_counter = 0;
@@ -27,8 +28,10 @@ class Game {
       do Screen.clearScreen();
       do ui.init();
       let tick = 0;
+      let score = 0;
       let snake = Snake.new(30, 20);
       let apple_coords = placeApple(snake);
+      do UI.drawIngameMenu(score);
       do run();
     }
     return;
@@ -56,6 +59,8 @@ class Game {
       if (key = 81)  { let exit = true; let GAME_STATE = 0; return GAME_STATE; }     // q key
 
       let is_over = tickGame();
+      do UI.updateIngameMenu(score);
+
       let exit = exit | is_over;
       if (is_over) {
         do endGameLoop();
@@ -66,8 +71,9 @@ class Game {
 
   method boolean tickGame() {
     var char key;  // the key currently pressed by the user
-    var boolean is_over;
+    var boolean is_over, is_eaten;
     var int direction;
+    var Array result;
     let tick = tick + 1;
     if ((Utils.modulo(tick, FRAMES_PER_TICK) = 0)) {
       let game_counter = game_counter + 1;
@@ -83,7 +89,12 @@ class Game {
         do snake.setDirection(direction);
       }
 
-      let is_over = snake.advance(apple_coords);
+      let result = snake.advance(apple_coords);
+      let is_over = result[0];
+      let is_eaten = result[1];
+      if (is_eaten) {
+        let score = score + 1;
+      }
       let apple_coords = placeApple(snake);
       do drawApple();
     }

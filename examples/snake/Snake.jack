@@ -3,11 +3,13 @@ class Snake {
 	field List parts;
 	field int direction; // current direction: 1=up, 2=down, 3=left, 4=right
 	field int prevLast;
+  field Array advanceResult;
 
 	constructor Snake new(int startX, int startY) {
 		let direction = 4;
     let block_size = 8;
 		let parts = Snake.initSnakeParts(startX, startY);
+		let advanceResult = Array.new(2);
 		return this;
 	}
 
@@ -45,10 +47,12 @@ class Snake {
 		return;
 	}
 
-	method boolean advance(int apple_coords) {
+	method Array advance(int apple_coords) {
     var int head, newHead, xDelta, yDelta;
     var boolean is_collided, is_eaten;
     var Array prevHeadCoords;
+    let advanceResult[0] = false;
+    let advanceResult[1] = false;
     let prevHeadCoords = UI.fromIndexToGameCoords(parts.getData());
     let parts = parts.cycleLastToHead();
     let prevLast = parts.getData();
@@ -62,9 +66,11 @@ class Snake {
     );
     let is_collided = isCollided(newHead);
     if (is_collided) {
-      return true;
+      let advanceResult[0] = true;
+      return advanceResult;
     }
     let is_eaten = apple_coords = newHead;
+    let advanceResult[1] = is_eaten;
     if (is_eaten) {
       do grow();
     }
@@ -72,7 +78,7 @@ class Snake {
     do clearPart(prevLast);
     do drawAdvance();
     do prevHeadCoords.dispose();
-    return false;
+    return advanceResult;
 	}
 
 	method void dispose() {

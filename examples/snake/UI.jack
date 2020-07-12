@@ -1,9 +1,12 @@
 class UI {
-  static int block_size;
-  static int border;
-  static int field_width;
-  static int field_height;
+  static int
+    block_size
+    , border
+    , field_width
+    , field_height
+    , last_score;
 
+  // Every Jack class is required to have at least 1 field
   field int _dummy;
 
   constructor UI new() {
@@ -11,6 +14,7 @@ class UI {
     let border = 4;
     let field_width = (512 / block_size) - (2 * border);
     let field_height = (256 / block_size) - (2 * border);
+    let last_score = -1;
     return this;
   }
 
@@ -104,6 +108,30 @@ class UI {
     let screenCoords[1] = (block_size) * (border + gameCoords[1]);
     do gameCoords.dispose();
 		return screenCoords;
+	}
+
+	function void updateScore(int score) {
+    var String s;
+    if (score = last_score) {
+      return;
+    }
+    let s = "SCORE: ";
+    do Output.moveCursor(0, 0);
+    do Output.printString(s);
+    do Output.printInt(score);
+    do Memory.deAlloc(s);
+    let last_score = score;
+		return;
+	}
+
+	function void drawIngameMenu(int score) {
+    do UI.updateScore(score);
+		return;
+	}
+
+	function void updateIngameMenu(int score) {
+    do UI.updateScore(score);
+		return;
 	}
 }
 
