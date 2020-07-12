@@ -5,7 +5,7 @@ use crate::{
     symbol_table::{SubVarKind, SymbolTable},
     token::Keyword,
 };
-use std::fmt::Write;
+use std::{collections::HashSet, fmt::Write};
 
 type CompilerError = Box<dyn std::error::Error>;
 type Res<T = ()> = Result<T, CompilerError>;
@@ -13,6 +13,7 @@ type Res<T = ()> = Result<T, CompilerError>;
 struct CompilerState<'a> {
     class_name: String,
     label_id: usize,
+    methods: HashSet<String>,
     sym_table: SymbolTable,
     out: &'a mut (dyn Write),
 }
@@ -22,6 +23,7 @@ impl<'a> CompilerState<'a> {
         Self {
             class_name,
             label_id: 0,
+            methods: Default::default(),
             sym_table,
             out,
         }
@@ -34,6 +36,19 @@ impl<'a> CompilerState<'a> {
     pub fn get_label(&mut self) -> String {
         self.label_id += 1;
         format!("__VM_LABEL_{}", self.label_id)
+    }
+
+    fn register_method(&mut self, sub_dec: &SubroutineDec) {
+        match sub_dec {
+            SubroutineDec(GrammarSubroutineVariant::Method , _, ident, ..) => {
+                self.methods.insert(ident.into());
+            }
+            _ => {}
+        };
+    }
+
+    fn has_method(&self, method: &String) -> bool {
+        self.methods.contains(method)
     }
 }
 
@@ -56,6 +71,9 @@ fn compile_class(state: &mut CompilerState, Class(ident, var_decs, sub_decs): Cl
                 .sym_table
                 .define_class_var(name, &var_type, &item_type);
         }
+    }
+    for sub_dec in sub_decs.iter() {
+        state.register_method(sub_dec);
     }
     for sub_dec in sub_decs {
         compile_subroutine_dec(state, sub_dec)?;
@@ -235,12 +253,18 @@ fn compile_statement_return(state: &mut CompilerState, stmt: ReturnStatement) ->
 
 fn compile_call(state: &mut CompilerState, call: SubroutineCall) -> Res {
     let (func_name, args) = match call {
-        SubroutineCall::SimpleCall(method, args) => get_method_call(
-            Term::KeywordConstant(Keyword::This),
-            state.class_name.clone(),
-            method,
-            args,
-        ),
+        // FIXME: Disallow method calls in functions
+        SubroutineCall::SimpleCall(method, args) => {
+            if !state.has_method(&method) {
+                return Err(format!("Can't call non-method as method: {}", method))?;
+            };
+            get_method_call(
+                Term::KeywordConstant(Keyword::This),
+                state.class_name.clone(),
+                method,
+                args,
+            )
+        }
         SubroutineCall::MethodCall(this_, method, args) => {
             let var = state.sym_table.lookup(&this_);
             match var {
