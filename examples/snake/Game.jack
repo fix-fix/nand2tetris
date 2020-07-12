@@ -1,6 +1,7 @@
 class Game {
   static int FPS, FRAMES_PER_TICK;
   static String msg_game_over;
+  static int some_prime_num;
 
   field int tick, game_counter, GAME_STATE, apple_coords, score;
   field Snake snake;
@@ -15,6 +16,7 @@ class Game {
     let ui = UI.new();
     let apple_coords = 42;
     let game_counter = 0;
+    let some_prime_num = 2341;
     return this;
   }
 
@@ -121,9 +123,9 @@ class Game {
       return apple_coords;
     }
     let oldPlace = apple_coords;
-    let oldPlace = Utils.modulo(oldPlace + 2341, UI.getBoardIndexSize() - 1);
+    let oldPlace = Utils.modulo(oldPlace + some_prime_num, UI.getBoardIndexSize() - 1);
     while (snake.isCollided(oldPlace)) {
-      let oldPlace = Utils.modulo(oldPlace + 2341, UI.getBoardIndexSize() - 1);
+      let oldPlace = Utils.modulo(oldPlace + some_prime_num, UI.getBoardIndexSize() - 1);
     }
     return oldPlace;
   }

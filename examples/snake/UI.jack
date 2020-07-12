@@ -80,6 +80,48 @@ class UI {
     return;
   }
 
+  function void drawSnakeHead(int index, int direction) {
+    var Array coords;
+    var int eye_l_x, eye_l_y, eye_r_x, eye_r_y;
+    do UI.drawSnakePartBase(index);
+    let coords = UI.fromGameToScreen(index);
+    if (direction = 1) { let eye_l_x = 2; let eye_l_y = 2; let eye_r_x = 6; let eye_r_y = 2; }   // up
+    if (direction = 2) { let eye_l_x = 6; let eye_l_y = 6; let eye_r_x = 2; let eye_r_y = 6; }   // down
+    if (direction = 3) { let eye_l_x = 2; let eye_l_y = 6; let eye_r_x = 2; let eye_r_y = 2; }   // left
+    if (direction = 4) { let eye_l_x = 6; let eye_l_y = 2; let eye_r_x = 6; let eye_r_y = 6; }   // right
+    // Left eye
+    do Screen.drawPixel(coords[0] + eye_l_x, coords[1] + eye_l_y);
+    // Right eye
+    do Screen.drawPixel(coords[0] + eye_r_x, coords[1] + eye_r_y);
+    return;
+  }
+
+  function void drawSnakePartBase(int index) {
+    var int width;
+    var Array coords;
+    do UI.drawBlockIndex(true, index);
+    do Screen.setColor(false);
+    let coords = UI.fromGameToScreen(index);
+    let width = block_size;
+    do Screen.drawPixel(coords[0], coords[1]);
+    do Screen.drawPixel(coords[0] + width, coords[1]);
+    do Screen.drawPixel(coords[0], coords[1] + width);
+    do Screen.drawPixel(coords[0] + width, coords[1] + width);
+    do coords.dispose();
+    return;
+  }
+
+  function void drawSnakePart(int index) {
+    var Array coords;
+    do UI.drawSnakePartBase(index);
+    do Screen.setColor(false);
+    let coords = UI.fromGameToScreen(index);
+    do Screen.drawPixel(coords[0] + 3, coords[1] + 2);
+    do Screen.drawPixel(coords[0] + 2, coords[1] + 3);
+    do coords.dispose();
+    return;
+  }
+
   function void drawBlockIndex(boolean color, int index) {
     var Array coords;
     let coords = UI.fromGameToScreen(index);

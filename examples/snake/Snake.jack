@@ -76,7 +76,7 @@ class Snake {
     }
     do parts.setData(newHead);
     do clearPart(prevLast);
-    do drawAdvance();
+    do drawHeadAdvance();
     do prevHeadCoords.dispose();
     return advanceResult;
 	}
@@ -97,17 +97,20 @@ class Snake {
       return;
 	}
 
-	method void drawAdvance() {
+	method void drawHeadAdvance() {
       var List current;
+      var Array coords;
       let current = parts;
       if (~(current = null)) {
-          do drawPart(current.getData());
+          do UI.drawSnakeHead(current.getData(), direction);
       }
+      let current = current.getNext();
+      do drawPart(current.getData());
       return;
 	}
 
   method void drawPart(int index) {
-      do UI.drawBlockIndex(true, index);
+      do UI.drawSnakePart(index);
       return;
   }
 
