@@ -2,7 +2,7 @@ use crate::{
     codegen::*,
     node::*,
     parser::ParseResult,
-    symbol_table::{SubVarKind, SymbolTable},
+    symbol_table::{Entry, SubVarKind, SymbolTable},
     token::Keyword,
 };
 use std::{collections::HashSet, fmt::Write};
@@ -40,7 +40,7 @@ impl<'a> CompilerState<'a> {
 
     fn register_method(&mut self, sub_dec: &SubroutineDec) {
         match sub_dec {
-            SubroutineDec(GrammarSubroutineVariant::Method , _, ident, ..) => {
+            SubroutineDec(GrammarSubroutineVariant::Method, _, ident, ..) => {
                 self.methods.insert(ident.into());
             }
             _ => {}
@@ -52,18 +52,56 @@ impl<'a> CompilerState<'a> {
     }
 }
 
+#[derive(Debug, Default)]
+struct CompilerContext {
+    function_variant: Option<GrammarSubroutineVariant>,
+}
+
+impl CompilerContext {
+    fn new(function_variant: Option<GrammarSubroutineVariant>) -> Self {
+        Self { function_variant }
+    }
+}
+
+fn lookup_var(
+    state: &mut CompilerState,
+    context: &Option<CompilerContext>,
+    name: String,
+) -> Res<Entry> {
+    let entry = state
+        .sym_table
+        .lookup(&name)
+        .ok_or(format!("Unknown var: {}", &name))?;
+
+    if let (
+        Some(CompilerContext {
+            function_variant: Some(GrammarSubroutineVariant::Function),
+            ..
+        }),
+        "this",
+    ) = (context, entry.kind.as_str())
+    {
+        Err(format!("Can't use field var in function: {}", name))?;
+    };
+    Ok(entry)
+}
+
 pub fn compile_program(parse_result: ParseResult) -> Res<String> {
     let mut out = String::new();
     let sym_table = SymbolTable::new();
     let mut state = CompilerState::new(Default::default(), sym_table, &mut out);
-    compile_class(&mut state, parse_result.root).map_err(|e| {
+    compile_class(&mut state, &None, parse_result.root).map_err(|e| {
         // dbg!(state.class_name, state.sym_table);
         e
     })?;
     Ok(out)
 }
 
-fn compile_class(state: &mut CompilerState, Class(ident, var_decs, sub_decs): Class) -> Res {
+fn compile_class(
+    state: &mut CompilerState,
+    context: &Option<CompilerContext>,
+    Class(ident, var_decs, sub_decs): Class,
+) -> Res {
     state.class_name = ident;
     for ClassVarDec(var_type, item_type, names) in var_decs {
         for name in names.iter() {
@@ -76,13 +114,14 @@ fn compile_class(state: &mut CompilerState, Class(ident, var_decs, sub_decs): Cl
         state.register_method(sub_dec);
     }
     for sub_dec in sub_decs {
-        compile_subroutine_dec(state, sub_dec)?;
+        compile_subroutine_dec(state, context, sub_dec)?;
     }
     Ok(())
 }
 
 fn compile_subroutine_dec(
     state: &mut CompilerState,
+    _context: &Option<CompilerContext>,
     SubroutineDec(variant, item_type, ident, params, sub): SubroutineDec,
 ) -> Res {
     state.sym_table.reset_subroutine_table();
@@ -91,6 +130,7 @@ fn compile_subroutine_dec(
         format!("{}.{}", state.class_name, ident),
         n_locals,
     ));
+    let subroutine_context = Some(CompilerContext::new(Some(variant.clone())));
     match variant {
         GrammarSubroutineVariant::Constructor => {
             let object_size = state.sym_table.count_instance_fields();
@@ -117,16 +157,18 @@ fn compile_subroutine_dec(
             .define_subroutine_var(&param.ident, SubVarKind::Argument, &param.type_);
     }
 
-    compile_subroutine(state, sub, item_type)?;
+    compile_subroutine(state, &subroutine_context, sub, item_type)?;
     Ok(())
 }
 
 fn compile_subroutine(
     state: &mut CompilerState,
+    context: &Option<CompilerContext>,
     Subroutine(var_decs, stmts): Subroutine,
     typ: GrammarSubroutineReturnType,
 ) -> Res {
-    // `return` statement validity check
+    // `return` statement validity check.
+    // TODO: actually walk all statements, and not only check top level ones
     for return_stmt in stmts.iter().filter_map(|s| match s {
         Statement::ReturnStatement(rs) => Some(rs),
         _ => None,
@@ -152,29 +194,41 @@ fn compile_subroutine(
                 .define_subroutine_var(name, SubVarKind::Var, &type_);
         }
     }
-    compile_statements(state, stmts)?;
+    compile_statements(state, context, stmts)?;
     Ok(())
 }
 
-fn compile_statements(state: &mut CompilerState, statements: Vec<Statement>) -> Res {
+fn compile_statements(
+    state: &mut CompilerState,
+    context: &Option<CompilerContext>,
+    statements: Vec<Statement>,
+) -> Res {
     for stmt in statements {
-        compile_statement(state, stmt)?;
+        compile_statement(state, context, stmt)?;
     }
     Ok(())
 }
 
-fn compile_statement(state: &mut CompilerState, stmt: Statement) -> Res {
+fn compile_statement(
+    state: &mut CompilerState,
+    context: &Option<CompilerContext>,
+    stmt: Statement,
+) -> Res {
     match stmt {
-        Statement::LetStatement(s) => compile_statement_let(state, s)?,
-        Statement::IfStatement(s) => compile_statement_if(state, s)?,
-        Statement::WhileStatement(s) => compile_statement_while(state, s)?,
-        Statement::DoStatement(s) => compile_statement_do(state, s)?,
-        Statement::ReturnStatement(s) => compile_statement_return(state, s)?,
+        Statement::LetStatement(s) => compile_statement_let(state, context, s)?,
+        Statement::IfStatement(s) => compile_statement_if(state, context, s)?,
+        Statement::WhileStatement(s) => compile_statement_while(state, context, s)?,
+        Statement::DoStatement(s) => compile_statement_do(state, context, s)?,
+        Statement::ReturnStatement(s) => compile_statement_return(state, context, s)?,
     };
     Ok(())
 }
 
-fn compile_statement_let(state: &mut CompilerState, stmt: LetStatement) -> Res {
+fn compile_statement_let(
+    state: &mut CompilerState,
+    context: &Option<CompilerContext>,
+    stmt: LetStatement,
+) -> Res {
     let var = state
         .sym_table
         .lookup(&stmt.name)
@@ -182,66 +236,82 @@ fn compile_statement_let(state: &mut CompilerState, stmt: LetStatement) -> Res {
     match stmt.index_expr {
         Some(expr) => {
             state.write(write_push(var.kind.as_str(), var.index));
-            compile_expression(state, expr)?;
+            compile_expression(state, context, expr)?;
             state.write("add");
-            compile_expression(state, stmt.value_expr)?;
+            compile_expression(state, context, stmt.value_expr)?;
             state.write(write_pop("temp", 0));
             state.write(write_pop("pointer", 1));
             state.write(write_push("temp", 0));
             state.write(write_pop("that", 0));
         }
         _ => {
-            compile_expression(state, stmt.value_expr)?;
+            compile_expression(state, context, stmt.value_expr)?;
             state.write(write_pop(var.kind.as_str(), var.index));
         }
     };
     Ok(())
 }
 
-fn compile_statement_if(state: &mut CompilerState, stmt: IfStatement) -> Res {
+fn compile_statement_if(
+    state: &mut CompilerState,
+    context: &Option<CompilerContext>,
+    stmt: IfStatement,
+) -> Res {
     let end_label = state.get_label();
     let else_label = if stmt.else_statements.is_some() {
         state.get_label()
     } else {
         end_label.clone()
     };
-    compile_expression(state, stmt.if_expr)?;
+    compile_expression(state, context, stmt.if_expr)?;
     state.write("not");
     state.write(write_if(&else_label));
-    compile_statements(state, stmt.if_statements)?;
+    compile_statements(state, context, stmt.if_statements)?;
     state.write(write_goto(&end_label));
     if let Some(else_statements) = stmt.else_statements {
         state.write(write_label(&else_label));
-        compile_statements(state, else_statements)?;
+        compile_statements(state, context, else_statements)?;
     }
     state.write(write_label(&end_label));
     Ok(())
 }
 
-fn compile_statement_while(state: &mut CompilerState, stmt: WhileStatement) -> Res {
+fn compile_statement_while(
+    state: &mut CompilerState,
+    context: &Option<CompilerContext>,
+    stmt: WhileStatement,
+) -> Res {
     let start_label = state.get_label();
     let end_label = state.get_label();
     state.write(write_label(&start_label));
-    compile_expression(state, stmt.cond_expr)?;
+    compile_expression(state, context, stmt.cond_expr)?;
     state.write("not");
     state.write(write_if(&end_label));
-    compile_statements(state, stmt.statements)?;
+    compile_statements(state, context, stmt.statements)?;
     state.write(write_goto(&start_label));
     state.write(write_label(&end_label));
     Ok(())
 }
 
-fn compile_statement_do(state: &mut CompilerState, stmt: DoStatement) -> Res {
-    compile_call(state, stmt.call)?;
+fn compile_statement_do(
+    state: &mut CompilerState,
+    context: &Option<CompilerContext>,
+    stmt: DoStatement,
+) -> Res {
+    compile_call(state, context, stmt.call)?;
     // Pop return value, not used
     state.write(write_pop("temp", 0));
     Ok(())
 }
 
-fn compile_statement_return(state: &mut CompilerState, stmt: ReturnStatement) -> Res {
+fn compile_statement_return(
+    state: &mut CompilerState,
+    context: &Option<CompilerContext>,
+    stmt: ReturnStatement,
+) -> Res {
     match stmt.result {
         Some(expr) => {
-            compile_expression(state, expr)?;
+            compile_expression(state, context, expr)?;
         }
         None => {
             state.write(write_push("constant", 0));
@@ -251,9 +321,12 @@ fn compile_statement_return(state: &mut CompilerState, stmt: ReturnStatement) ->
     Ok(())
 }
 
-fn compile_call(state: &mut CompilerState, call: SubroutineCall) -> Res {
+fn compile_call(
+    state: &mut CompilerState,
+    context: &Option<CompilerContext>,
+    call: SubroutineCall,
+) -> Res {
     let (func_name, args) = match call {
-        // FIXME: Disallow method calls in functions
         SubroutineCall::SimpleCall(method, args) => {
             if !state.has_method(&method) {
                 return Err(format!("Can't call non-method as method: {}", method))?;
@@ -274,7 +347,7 @@ fn compile_call(state: &mut CompilerState, call: SubroutineCall) -> Res {
         }
     };
     let n_args = args.len();
-    compile_expression_list(state, args)?;
+    compile_expression_list(state, context, args)?;
     state.write(write_call(func_name, n_args));
     Ok(())
 }
@@ -298,29 +371,34 @@ fn get_method_call(
     )
 }
 
-fn compile_expression_list(state: &mut CompilerState, exprs: Vec<Expr>) -> Res {
+fn compile_expression_list(
+    state: &mut CompilerState,
+    context: &Option<CompilerContext>,
+    exprs: Vec<Expr>,
+) -> Res {
     for expr in exprs {
-        compile_expression(state, expr)?;
+        compile_expression(state, context, expr)?;
     }
     Ok(())
 }
 
-fn compile_expression(state: &mut CompilerState, Expr(term, extra_terms): Expr) -> Res {
-    compile_term(state, term)?;
+fn compile_expression(
+    state: &mut CompilerState,
+    context: &Option<CompilerContext>,
+    Expr(term, extra_terms): Expr,
+) -> Res {
+    compile_term(state, context, term)?;
     for (op, extra_term) in extra_terms {
-        compile_term(state, extra_term)?;
-        compile_op(state, op)?;
+        compile_term(state, context, extra_term)?;
+        compile_op(state, context, op)?;
     }
     Ok(())
 }
 
-fn compile_term(state: &mut CompilerState, term: Term) -> Res {
+fn compile_term(state: &mut CompilerState, context: &Option<CompilerContext>, term: Term) -> Res {
     match term {
         Term::VarName(name) => {
-            let var = state
-                .sym_table
-                .lookup(&name)
-                .ok_or(format!("Unknown var: {}", &name))?;
+            let var = lookup_var(state, context, name)?;
             state.write(write_push(var.kind.as_str(), var.index));
         }
         Term::KeywordConstant(kw) => {
@@ -350,31 +428,28 @@ fn compile_term(state: &mut CompilerState, term: Term) -> Res {
             }
         }
         Term::UnaryOp(op, term) => {
-            compile_term(state, *term)?;
-            compile_unary_op(state, op)?;
+            compile_term(state, context, *term)?;
+            compile_unary_op(state, context, op)?;
         }
         Term::ParenExpr(expr) => {
-            compile_expression(state, *expr)?;
+            compile_expression(state, context, *expr)?;
         }
         Term::IndexExpr(name, expr) => {
-            let var = state
-                .sym_table
-                .lookup(&name)
-                .ok_or(format!("Unknown var: {}", &name))?;
+            let var = lookup_var(state, context, name)?;
             state.write(write_push(var.kind.as_str(), var.index));
-            compile_expression(state, *expr)?;
+            compile_expression(state, context, *expr)?;
             state.write("add");
             state.write(write_pop("pointer", 1));
             state.write(write_push("that", 0));
         }
         Term::SubroutineCall(call) => {
-            compile_call(state, call)?;
+            compile_call(state, context, call)?;
         } // _t => todo!("Support term: {:?}", _t),
     }
     Ok(())
 }
 
-fn compile_op(state: &mut CompilerState, Op(op): Op) -> Res {
+fn compile_op(state: &mut CompilerState, _context: &Option<CompilerContext>, Op(op): Op) -> Res {
     state.write(match op.as_str() {
         "+" => "add".to_string(),
         "-" => "sub".to_string(),
@@ -390,7 +465,11 @@ fn compile_op(state: &mut CompilerState, Op(op): Op) -> Res {
     Ok(())
 }
 
-fn compile_unary_op(state: &mut CompilerState, Op(op): Op) -> Res {
+fn compile_unary_op(
+    state: &mut CompilerState,
+    _context: &Option<CompilerContext>,
+    Op(op): Op,
+) -> Res {
     state.write(match op.as_str() {
         "-" => "neg".to_string(),
         "~" => "not".to_string(),
