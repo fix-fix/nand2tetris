@@ -52,34 +52,26 @@ impl<'a> CompilerState<'a> {
     }
 }
 
-#[derive(Debug, Default)]
+#[derive(Debug, Default, Clone)]
 struct CompilerContext {
     function_variant: Option<GrammarSubroutineVariant>,
+    return_type: Option<GrammarSubroutineReturnType>,
 }
 
 impl CompilerContext {
-    fn new(function_variant: Option<GrammarSubroutineVariant>) -> Self {
-        Self { function_variant }
+    fn new() -> Self {
+        Default::default()
     }
 }
 
-fn lookup_var(
-    state: &mut CompilerState,
-    context: &Option<CompilerContext>,
-    name: String,
-) -> Res<Entry> {
+fn lookup_var(state: &mut CompilerState, context: &CompilerContext, name: String) -> Res<Entry> {
     let entry = state
         .sym_table
         .lookup(&name)
         .ok_or(format!("Unknown var: {}", &name))?;
 
-    if let (
-        Some(CompilerContext {
-            function_variant: Some(GrammarSubroutineVariant::Function),
-            ..
-        }),
-        "this",
-    ) = (context, entry.kind.as_str())
+    if let (Some(GrammarSubroutineVariant::Function), "this") =
+        (&context.function_variant, entry.kind.as_str())
     {
         Err(format!("Can't use field var in function: {}", name))?;
     };
@@ -90,7 +82,8 @@ pub fn compile_program(parse_result: ParseResult) -> Res<String> {
     let mut out = String::new();
     let sym_table = SymbolTable::new();
     let mut state = CompilerState::new(Default::default(), sym_table, &mut out);
-    compile_class(&mut state, &None, parse_result.root).map_err(|e| {
+    let context = CompilerContext::new();
+    compile_class(&mut state, &context, parse_result.root).map_err(|e| {
         // dbg!(state.class_name, state.sym_table);
         e
     })?;
@@ -99,7 +92,7 @@ pub fn compile_program(parse_result: ParseResult) -> Res<String> {
 
 fn compile_class(
     state: &mut CompilerState,
-    context: &Option<CompilerContext>,
+    context: &CompilerContext,
     Class(ident, var_decs, sub_decs): Class,
 ) -> Res {
     state.class_name = ident;
@@ -121,7 +114,7 @@ fn compile_class(
 
 fn compile_subroutine_dec(
     state: &mut CompilerState,
-    _context: &Option<CompilerContext>,
+    context: &CompilerContext,
     SubroutineDec(variant, item_type, ident, params, sub): SubroutineDec,
 ) -> Res {
     state.sym_table.reset_subroutine_table();
@@ -130,7 +123,9 @@ fn compile_subroutine_dec(
         format!("{}.{}", state.class_name, ident),
         n_locals,
     ));
-    let subroutine_context = Some(CompilerContext::new(Some(variant.clone())));
+    let mut sub_context = context.clone();
+    sub_context.function_variant = Some(variant.clone());
+    sub_context.return_type = Some(item_type.clone());
     match variant {
         GrammarSubroutineVariant::Constructor => {
             let object_size = state.sym_table.count_instance_fields();
@@ -157,36 +152,16 @@ fn compile_subroutine_dec(
             .define_subroutine_var(&param.ident, SubVarKind::Argument, &param.type_);
     }
 
-    compile_subroutine(state, &subroutine_context, sub, item_type)?;
+    compile_subroutine(state, &sub_context, sub, item_type)?;
     Ok(())
 }
 
 fn compile_subroutine(
     state: &mut CompilerState,
-    context: &Option<CompilerContext>,
+    context: &CompilerContext,
     Subroutine(var_decs, stmts): Subroutine,
-    typ: GrammarSubroutineReturnType,
+    _typ: GrammarSubroutineReturnType,
 ) -> Res {
-    // `return` statement validity check.
-    // TODO: actually walk all statements, and not only check top level ones
-    for return_stmt in stmts.iter().filter_map(|s| match s {
-        Statement::ReturnStatement(rs) => Some(rs),
-        _ => None,
-    }) {
-        match (&return_stmt.result, &typ) {
-            (Some(e), GrammarSubroutineReturnType::Void) => {
-                return Err(format!("Expected void return, got: {:?}", e))?;
-            }
-            (None, GrammarSubroutineReturnType::Type(t)) => {
-                return Err(format!(
-                    "Expected value return, got void. Expected type: {:?}",
-                    t
-                ))?;
-            }
-            _ => {}
-        }
-    }
-
     for VarDec(type_, names) in var_decs {
         for name in names.iter() {
             state
@@ -200,7 +175,7 @@ fn compile_subroutine(
 
 fn compile_statements(
     state: &mut CompilerState,
-    context: &Option<CompilerContext>,
+    context: &CompilerContext,
     statements: Vec<Statement>,
 ) -> Res {
     for stmt in statements {
@@ -209,11 +184,7 @@ fn compile_statements(
     Ok(())
 }
 
-fn compile_statement(
-    state: &mut CompilerState,
-    context: &Option<CompilerContext>,
-    stmt: Statement,
-) -> Res {
+fn compile_statement(state: &mut CompilerState, context: &CompilerContext, stmt: Statement) -> Res {
     match stmt {
         Statement::LetStatement(s) => compile_statement_let(state, context, s)?,
         Statement::IfStatement(s) => compile_statement_if(state, context, s)?,
@@ -226,7 +197,7 @@ fn compile_statement(
 
 fn compile_statement_let(
     state: &mut CompilerState,
-    context: &Option<CompilerContext>,
+    context: &CompilerContext,
     stmt: LetStatement,
 ) -> Res {
     let var = state
@@ -254,7 +225,7 @@ fn compile_statement_let(
 
 fn compile_statement_if(
     state: &mut CompilerState,
-    context: &Option<CompilerContext>,
+    context: &CompilerContext,
     stmt: IfStatement,
 ) -> Res {
     let end_label = state.get_label();
@@ -278,7 +249,7 @@ fn compile_statement_if(
 
 fn compile_statement_while(
     state: &mut CompilerState,
-    context: &Option<CompilerContext>,
+    context: &CompilerContext,
     stmt: WhileStatement,
 ) -> Res {
     let start_label = state.get_label();
@@ -295,7 +266,7 @@ fn compile_statement_while(
 
 fn compile_statement_do(
     state: &mut CompilerState,
-    context: &Option<CompilerContext>,
+    context: &CompilerContext,
     stmt: DoStatement,
 ) -> Res {
     compile_call(state, context, stmt.call)?;
@@ -306,9 +277,22 @@ fn compile_statement_do(
 
 fn compile_statement_return(
     state: &mut CompilerState,
-    context: &Option<CompilerContext>,
+    context: &CompilerContext,
     stmt: ReturnStatement,
 ) -> Res {
+    // `return` statement validity check.
+    match (&stmt.result, &context.return_type) {
+        (Some(e), Some(GrammarSubroutineReturnType::Void)) => {
+            return Err(format!("Expected void return, got: {:?}", e))?;
+        }
+        (None, Some(GrammarSubroutineReturnType::Type(t))) => {
+            return Err(format!(
+                "Expected value return, got void. Expected type: {:?}",
+                t
+            ))?;
+        }
+        _ => {}
+    }
     match stmt.result {
         Some(expr) => {
             compile_expression(state, context, expr)?;
@@ -321,11 +305,7 @@ fn compile_statement_return(
     Ok(())
 }
 
-fn compile_call(
-    state: &mut CompilerState,
-    context: &Option<CompilerContext>,
-    call: SubroutineCall,
-) -> Res {
+fn compile_call(state: &mut CompilerState, context: &CompilerContext, call: SubroutineCall) -> Res {
     let (func_name, args) = match call {
         SubroutineCall::SimpleCall(method, args) => {
             if !state.has_method(&method) {
@@ -373,7 +353,7 @@ fn get_method_call(
 
 fn compile_expression_list(
     state: &mut CompilerState,
-    context: &Option<CompilerContext>,
+    context: &CompilerContext,
     exprs: Vec<Expr>,
 ) -> Res {
     for expr in exprs {
@@ -384,7 +364,7 @@ fn compile_expression_list(
 
 fn compile_expression(
     state: &mut CompilerState,
-    context: &Option<CompilerContext>,
+    context: &CompilerContext,
     Expr(term, extra_terms): Expr,
 ) -> Res {
     compile_term(state, context, term)?;
@@ -395,7 +375,7 @@ fn compile_expression(
     Ok(())
 }
 
-fn compile_term(state: &mut CompilerState, context: &Option<CompilerContext>, term: Term) -> Res {
+fn compile_term(state: &mut CompilerState, context: &CompilerContext, term: Term) -> Res {
     match term {
         Term::VarName(name) => {
             let var = lookup_var(state, context, name)?;
@@ -449,7 +429,7 @@ fn compile_term(state: &mut CompilerState, context: &Option<CompilerContext>, te
     Ok(())
 }
 
-fn compile_op(state: &mut CompilerState, _context: &Option<CompilerContext>, Op(op): Op) -> Res {
+fn compile_op(state: &mut CompilerState, _context: &CompilerContext, Op(op): Op) -> Res {
     state.write(match op.as_str() {
         "+" => "add".to_string(),
         "-" => "sub".to_string(),
@@ -465,11 +445,7 @@ fn compile_op(state: &mut CompilerState, _context: &Option<CompilerContext>, Op(
     Ok(())
 }
 
-fn compile_unary_op(
-    state: &mut CompilerState,
-    _context: &Option<CompilerContext>,
-    Op(op): Op,
-) -> Res {
+fn compile_unary_op(state: &mut CompilerState, _context: &CompilerContext, Op(op): Op) -> Res {
     state.write(match op.as_str() {
         "-" => "neg".to_string(),
         "~" => "not".to_string(),
