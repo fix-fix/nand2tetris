@@ -3,7 +3,7 @@ class Game {
   static String msg_game_over;
   static int some_prime_num;
 
-  field int tick, game_counter, GAME_STATE, apple_coords, score;
+  field int key, tick, game_counter, GAME_STATE, apple_coords, score;
   field Snake snake;
   field UI ui;
 
@@ -48,7 +48,7 @@ class Game {
   }
 
   method int run() {
-    var char key;  // the key currently pressed by the user
+    var char tempKey;  // the key currently pressed by the user
     var boolean exit;
     var boolean is_over;
     let exit = false;
@@ -57,7 +57,10 @@ class Game {
     do snake.drawFull();
 
     while (~exit) {
-      let key = Keyboard.keyPressed();
+      let tempKey = Keyboard.keyPressed();
+      if (~(tempKey = 0)) {
+        let key = tempKey;
+      }
       if (key = 81)  { let exit = true; let GAME_STATE = 0; return GAME_STATE; }     // q key
 
       let is_over = tickGame();
@@ -72,15 +75,12 @@ class Game {
   }
 
   method boolean tickGame() {
-    var char key;  // the key currently pressed by the user
     var boolean is_over, is_eaten;
     var int direction;
     var Array result;
     let tick = tick + 1;
     if ((Utils.modulo(tick, FRAMES_PER_TICK) = 0)) {
       let game_counter = game_counter + 1;
-
-      let key = Keyboard.keyPressed();
 
       if (key = 131) { let direction = 1; }   // up arrow
       if (key = 133) { let direction = 2; }   // down arrow
@@ -101,6 +101,7 @@ class Game {
       do drawApple();
     }
 		do Sys.wait(1000 / FPS);
+    let key = Keyboard.keyPressed();
     return is_over;
   }
 
