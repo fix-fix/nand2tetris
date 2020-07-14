@@ -9,7 +9,7 @@ class Game {
 
   constructor Game new() {
     let FPS = 60;
-    let FRAMES_PER_TICK = FPS / 20;
+    let FRAMES_PER_TICK = FPS / 30;
     let msg_game_over = "=== Game Over! ===";
     let GAME_STATE = 0;
     let score = 0;
@@ -79,7 +79,7 @@ class Game {
     var int direction;
     var Array result;
     let tick = tick + 1;
-    if ((Utils.modulo(tick, FRAMES_PER_TICK) = 0)) {
+    if (Utils.modulo(tick, FRAMES_PER_TICK) = 0) {
       let game_counter = game_counter + 1;
 
       if (key = 131) { let direction = 1; }   // up arrow

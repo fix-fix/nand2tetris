@@ -93,6 +93,7 @@ class UI {
     do Screen.drawPixel(coords[0] + eye_l_x, coords[1] + eye_l_y);
     // Right eye
     do Screen.drawPixel(coords[0] + eye_r_x, coords[1] + eye_r_y);
+    do coords.dispose();
     return;
   }
 

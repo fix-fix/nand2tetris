@@ -99,7 +99,6 @@ class Snake {
 
 	method void drawHeadAdvance() {
       var List current;
-      var Array coords;
       let current = parts;
       if (~(current = null)) {
           do UI.drawSnakeHead(current.getData(), direction);

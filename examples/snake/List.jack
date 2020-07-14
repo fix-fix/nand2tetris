@@ -69,7 +69,7 @@ class List {
   }
 
   method void extendLast(int data) {
-    var List tailNode, last;
+    var List last;
     let last = this;
     while (~(last.getNext() = null)) {
       let last = last.getNext();
@@ -80,9 +80,7 @@ class List {
 
   method List cycleLastToHead() {
     var int newHead;
-    var List tail;
-    let tail = this;
     let newHead = popLast();
-    return List.new(newHead, tail);
+    return List.new(newHead, this);
   }
 }
