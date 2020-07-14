@@ -7,3 +7,8 @@ test_compiler_watch:
 examples_watch:
 	cargo watch -q -c -x 'run --package compiler examples/snake'
 
+
+.PHONY: os_watch
+os_watch:
+	cargo watch -q -c -s 'cp src/os/{,MemoryTest/}Memory.jack && cargo run --package compiler src/os/MemoryTest'
+

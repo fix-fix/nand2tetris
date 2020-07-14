@@ -7,28 +7,97 @@
  * This library provides two services: direct access to the computer's main
  * memory (RAM), and allocation and recycling of memory blocks. The Hack RAM
  * consists of 32,768 words, each holding a 16-bit binary number.
- */ 
+ */
 class Memory {
+    static Array ram;
+    static Array heap;
+    static Array freeList;
+    static Array lastNode;
+    // static Array debug;
 
     /** Initializes the class. */
     function void init() {
+        let ram = 0;
+        let heap = 2048;
+        let freeList = heap;
+        let freeList[0] = 0; // next pointer
+        let freeList[1] = 14334; // length of heap freeList
+        let lastNode = freeList;
+        // let debug = 2050;
+        // let debug[0] = 0;
+        return;
     }
 
     /** Returns the RAM value at the given address. */
     function int peek(int address) {
+        return ram[address];
     }
 
     /** Sets the RAM value at the given address to the given value. */
     function void poke(int address, int value) {
+        let ram[address] = value;
+        return;
     }
 
     /** Finds an available RAM block of the given size and returns
      *  a reference to its base address. */
     function int alloc(int size) {
+        var int block_size, fit_diff, fit_diff_temp;
+        var Array current_block, chosen_block;
+        var bool traversed;
+        let block_size = size + 2;
+        let fit_diff = -1;
+        let current_block = freeList;
+        while (~(fit_diff = 0) & (traversed = false)) {
+            let fit_diff_temp = current_block[1] - block_size;
+            if (~(fit_diff_temp < 0)) {
+                if ((fit_diff = -1) | (fit_diff_temp < fit_diff)) {
+                    let fit_diff = fit_diff_temp;
+                    let chosen_block = current_block;
+                }
+            }
+            // Add condition last, akin to `do while`
+            if (current_block[0] = 0) {
+                let traversed = true;
+            } else {
+                let current_block = current_block[0];
+            }
+        }
+        if (fit_diff > -1) {
+            let fit_diff_temp = chosen_block;
+            let chosen_block[1] = chosen_block[1] - block_size;
+            let chosen_block = chosen_block + chosen_block[1];
+            let chosen_block[0] = fit_diff_temp;
+            let chosen_block[1] = size;
+            // // let debug[0] = debug[0] + 1;
+            return chosen_block + 2;
+        }
+        do Sys.halt(); // Crash
+        return -1;
     }
 
     /** De-allocates the given object (cast as an array) by making
      *  it available for future allocations. */
     function void deAlloc(Array o) {
-    }    
+        var int block_addr;
+        var Array prevNode;
+        let block_addr = o - 2;
+
+        // If continuous with the current last or original one, merge them to a single one
+        let prevNode = block_addr[0];
+        if ((prevNode + prevNode[1]) = o) {
+            let prevNode[1] = prevNode + block_addr[1] + 2;
+            return;
+        }
+        if ((lastNode + lastNode[1]) = o) {
+            let lastNode[1] = lastNode + block_addr[1] + 2;
+            return;
+        }
+        // Append to the end of freeList
+        let lastNode[0] = block_addr;
+        let lastNode = block_addr;
+        let block_addr[0] = 0;
+        // let debug[0] = debug[0] - 1;
+        return;
+    }
 }
