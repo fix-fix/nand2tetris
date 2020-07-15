@@ -10,5 +10,5 @@ examples_watch:
 
 .PHONY: os_watch
 os_watch:
-	cargo watch -q -c -s 'cp src/os/{,MemoryTest/}Memory.jack && cargo run --package compiler src/os/MemoryTest'
+	cargo watch -q -c -s 'cp src/os/{,MathTest/}Math.jack && cargo run --package compiler src/os/MathTest'
 
