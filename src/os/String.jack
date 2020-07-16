@@ -11,54 +11,127 @@
  * string-oriented operations.
  */
 class String {
+    field int length;
+    field int capacity;
+    field Array str;
 
     /** constructs a new empty string with a maximum length of maxLength
      *  and initial length of 0. */
     constructor String new(int maxLength) {
+        let length = 0;
+        if (maxLength > 0) {
+            let str = Array.new(maxLength);
+        }
+        return this;
     }
 
     /** Disposes this string. */
     method void dispose() {
+        do Memory.deAlloc(this);
+        return;
     }
 
     /** Returns the current length of this string. */
     method int length() {
+        return length;
     }
 
     /** Returns the character at the j-th location of this string. */
     method char charAt(int j) {
+        return str[j];
     }
 
     /** Sets the character at the j-th location of this string to c. */
     method void setCharAt(int j, char c) {
+        let str[j] = c;
+        return;
     }
 
     /** Appends c to this string's end and returns this string. */
     method String appendChar(char c) {
+        // TODO: Check overflow over capacity;
+        let str[length] = c;
+        let length = length + 1;
+        return this;
     }
 
     /** Erases the last character from this string. */
     method void eraseLastChar() {
+        let str[length] = 0;
+        let length = length - 1;
+        return;
     }
 
-    /** Returns the integer value of this string, 
+    /** Returns the integer value of this string,
      *  until a non-digit character is detected. */
     method int intValue() {
+        var int i, val;
+        var bool sign;
+        let val = 0;
+        let i = 0;
+        if (str[i] = 45) {
+            let sign = true;
+            let i = i + 1;
+        }
+        while (isDigit(str[i])) {
+            let val = (val * 10) + (str[i] - 48);
+            let i = i + 1;
+        }
+        if (sign) {
+            return -val;
+        }
+        return val;
+    }
+
+    method bool isDigit(char c) {
+        return (c > 47) & (c < 58);
     }
 
     /** Sets this string to hold a representation of the given value. */
     method void setInt(int val) {
+        let length = 0;
+        if (val < 0) {
+            let val = -val;
+            do appendChar(45); // minus sign
+        }
+        do int2String(val);
+        return;
     }
+
+    method void int2String(int val) {
+        var int c, digit;
+        let digit = String.modulo(val, 10);
+        let c = digit + 48;
+        if (val < 10) {
+            do appendChar(c);
+            return;
+        }
+        do int2String(val / 10);
+        do appendChar(c);
+        return;
+    }
+
+	function int modulo(int x, int y) {
+		var int mod;
+		let mod = (x-((x/y)*y));
+		if (mod < 0) {
+			let mod = mod + y;
+		}
+		return mod;
+	}
 
     /** Returns the new line character. */
     function char newLine() {
+        return 128;
     }
 
     /** Returns the backspace character. */
     function char backSpace() {
+        return 129;
     }
 
     /** Returns the double quote (") character. */
     function char doubleQuote() {
+        return 34;
     }
 }
