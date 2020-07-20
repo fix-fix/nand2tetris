@@ -7,10 +7,13 @@
  * A library for handling user input from the keyboard.
  */
 class Keyboard {
+    static Array kbdAddr;
 
     /** Initializes the keyboard. */
     function void init() {
-    } 
+        let kbdAddr = 24576;
+        return;
+    }
 
     /**
      * Returns the character of the currently pressed key on the keyboard;
@@ -33,30 +36,82 @@ class Keyboard {
      * F1 - F12 = 141 - 152
      */
     function char keyPressed() {
+        var int key;
+        let key = kbdAddr[0];
+        if (((key > 31) & (key < 127)) | ((key > 127) & (key < 153))) {
+            return key;
+        }
+        return 0;
     }
 
-    /**								
+    /**
      * Waits until a key is pressed on the keyboard and released,
-     * then echoes the key to the screen, and returns the character 
+     * then echoes the key to the screen, and returns the character
      * of the pressed key.
      */
     function char readChar() {
+        var int key, key2;
+        var String s;
+        while (key = 0) {
+            let key = Keyboard.keyPressed();
+        }
+        let key2 = key;
+        while (~(key2 = 0)) {
+            let key2 = Keyboard.keyPressed();
+            if (~(key2 = 0)) {
+                let key = key2;
+            }
+        }
+        do Output.printChar(key);
+        return key;
     }
 
-    /**								
+    /**
      * Displays the message on the screen, reads from the keyboard the entered
      * text until a newline character is detected, echoes the text to the screen,
      * and returns its value. Also handles user backspaces.
      */
     function String readLine(String message) {
-    }   
+        var String input;
+        var char c;
+        var int length;
+        let length = 0;
+        let input = String.new(32);
+        do Output.printString(message);
+        do Output.printChar(0);
+        let c = Keyboard.readChar();
+        while (~(c = String.newLine())) {
+            if ((length > 0) & (c = String.backSpace())) {
+                do input.eraseLastChar();
+                do Output.backSpace();
+                do Output.printChar(0);
+                let length = length - 1;
+            }
+            if ((c > 31) & (c < 127)) {
+                do input.appendChar(c);
+                do Output.backSpace();
+                do Output.backSpace();
+                do Output.printChar(c);
+                do Output.printChar(0);
+                let length = length + 1;
+            }
+            let c = Keyboard.readChar();
+        }
+        return input;
+    }
 
-    /**								
+    /**
      * Displays the message on the screen, reads from the keyboard the entered
      * text until a newline character is detected, echoes the text to the screen,
      * and returns its integer value (until the first non-digit character in the
-     * entered text is detected). Also handles user backspaces. 
+     * entered text is detected). Also handles user backspaces.
      */
     function int readInt(String message) {
+        var String input;
+        var int i;
+        let input = Keyboard.readLine(message);
+        let i = input.intValue();
+        do input.dispose();
+        return i;
     }
 }
