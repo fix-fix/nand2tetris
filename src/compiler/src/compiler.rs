@@ -39,15 +39,12 @@ impl<'a> CompilerState<'a> {
     }
 
     fn register_method(&mut self, sub_dec: &SubroutineDec) {
-        match sub_dec {
-            SubroutineDec(GrammarSubroutineVariant::Method, _, ident, ..) => {
-                self.methods.insert(ident.into());
-            }
-            _ => {}
+        if let SubroutineDec(GrammarSubroutineVariant::Method, _, ident, ..) = sub_dec {
+            self.methods.insert(ident.into());
         };
     }
 
-    fn has_method(&self, method: &String) -> bool {
+    fn has_method(&self, method: &str) -> bool {
         self.methods.contains(method)
     }
 }
@@ -73,7 +70,7 @@ fn lookup_var(state: &mut CompilerState, context: &CompilerContext, name: String
     if let (Some(GrammarSubroutineVariant::Function), "this") =
         (&context.function_variant, entry.kind.as_str())
     {
-        Err(format!("Can't use field var in function: {}", name))?;
+        return Err(format!("Can't use field var in function: {}", name).into());
     };
     Ok(entry)
 }
@@ -283,13 +280,10 @@ fn compile_statement_return(
     // `return` statement validity check.
     match (&stmt.result, &context.return_type) {
         (Some(e), Some(GrammarSubroutineReturnType::Void)) => {
-            return Err(format!("Expected void return, got: {:?}", e))?;
+            return Err(format!("Expected void return, got: {:?}", e).into());
         }
         (None, Some(GrammarSubroutineReturnType::Type(t))) => {
-            return Err(format!(
-                "Expected value return, got void. Expected type: {:?}",
-                t
-            ))?;
+            return Err(format!("Expected value return, got void. Expected type: {:?}", t).into());
         }
         _ => {}
     }
@@ -309,7 +303,7 @@ fn compile_call(state: &mut CompilerState, context: &CompilerContext, call: Subr
     let (func_name, args) = match call {
         SubroutineCall::SimpleCall(method, args) => {
             if !state.has_method(&method) {
-                return Err(format!("Can't call non-method as method: {}", method))?;
+                return Err(format!("Can't call non-method as method: {}", method).into());
             };
             get_method_call(
                 Term::KeywordConstant(Keyword::This),
@@ -393,7 +387,7 @@ fn compile_term(state: &mut CompilerState, context: &CompilerContext, term: Term
                 Keyword::This => {
                     state.write(write_push("pointer", 0));
                 }
-                _ => Err(format!("Unexpected constant used as term: {:?}", kw))?,
+                _ => return Err(format!("Unexpected constant used as term: {:?}", kw).into()),
             };
         }
         Term::IntegerConstant(i) => {

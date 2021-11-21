@@ -41,20 +41,20 @@ impl<'a> Parser<'a> {
         for line in self.input.lines() {
             if let Some(inst) = self.parse_line(line) {
                 commands.push(Command {
-                    inst: inst,
+                    inst,
                     raw: line.into(),
                     module_name: self.filename,
                 })
             }
         }
         ParseResult {
-            commands: commands,
+            commands,
             module: self.filename.into(),
         }
     }
 
     fn parse_line(&mut self, line: &str) -> Option<Instruction> {
-        let cleaned = line.split("//").nth(0).unwrap_or_default().trim();
+        let cleaned = line.split("//").next().unwrap_or_default().trim();
         let cmds: Vec<&str> = cleaned.split_whitespace().collect();
         let result = match cmds[..] {
             ["call", label, n_args] => Some(Instruction::Call(
@@ -91,7 +91,7 @@ impl<'a> Parser<'a> {
                     };
                     Some(Instruction::PushPop(PushPopInstruction {
                         segment: cmd2.into(),
-                        addr: str::parse::<u16>(&cmd3).ok()?,
+                        addr: str::parse::<u16>(cmd3).ok()?,
                         inst_type,
                     }))
                 }
@@ -107,6 +107,5 @@ impl<'a> Parser<'a> {
 }
 
 pub fn create<'a>(content: &'a str, filename: &'a str) -> Parser<'a> {
-    let parser = Parser::new(content, filename);
-    parser
+    Parser::new(content, filename)
 }

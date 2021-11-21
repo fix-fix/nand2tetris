@@ -32,7 +32,7 @@ fn wi<S>(out: &mut dyn Write, s: S, indent: usize)
 where
     S: std::fmt::Display,
 {
-    write!(out, "{:indent$}{}\n", "", s, indent = indent).unwrap();
+    writeln!(out, "{:indent$}{}", "", s, indent = indent).unwrap();
 }
 
 pub fn print_to_xml(
@@ -113,11 +113,11 @@ pub fn print_to_xml(
             let mut params = params_.into_iter();
             if let Some(param) = params.next() {
                 w!(print_type_to_xml(&param.type_));
-                print_child!(Node::VarIdentifier(param.ident.into(), false));
+                print_child!(Node::VarIdentifier(param.ident, false));
                 for param in params {
                     w!(xwd("symbol", ","));
                     w!(print_type_to_xml(&param.type_));
-                    print_child!(Node::VarIdentifier(param.ident.into(), false));
+                    print_child!(Node::VarIdentifier(param.ident, false));
                 }
             }
             w!("</parameterList>", indent);

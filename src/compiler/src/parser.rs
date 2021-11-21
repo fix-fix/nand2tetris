@@ -18,10 +18,10 @@ pub struct Parser<'a> {
 }
 
 impl<'a> Parser<'a> {
-    pub fn new(tokens: &'a Vec<Token>) -> Self {
+    pub fn new(tokens: &'a[Token]) -> Self {
         Self {
             tokens: tokens.iter().enumerate().peekable(),
-            tokens_seq: &tokens[..],
+            tokens_seq: tokens,
             pos: 0,
         }
     }
@@ -95,7 +95,7 @@ impl<'a> Parser<'a> {
             self.next();
             let return_type = match expect::something(self.next())? {
                 Token::Keyword(Keyword::Void) => GrammarSubroutineReturnType::Void,
-                token @ Token::Identifier(..) | token @ Token::Keyword(..) => {
+                token @ (Token::Identifier(..) | Token::Keyword(..)) => {
                     GrammarSubroutineReturnType::Type(item_type_from_token(token).unwrap())
                 }
                 token => unreachable!("Unexpected subroutine type: {:?}", token),
@@ -135,7 +135,7 @@ impl<'a> Parser<'a> {
                 break;
             }
         }
-        return Ok(params);
+        Ok(params)
     }
 
     fn parse_subroutine_body(&mut self) -> Res<Subroutine> {
@@ -150,7 +150,7 @@ impl<'a> Parser<'a> {
         let statements = self.parse_statements()?;
 
         self.expect(t::symbol("}"))?;
-        return Ok(Subroutine(var_decs, statements));
+        Ok(Subroutine(var_decs, statements))
     }
 
     fn parse_statements(&mut self) -> Res<Vec<Statement>> {
@@ -167,7 +167,7 @@ impl<'a> Parser<'a> {
         ) {
             statements.push(self.parse_statement()?);
         }
-        return Ok(statements);
+        Ok(statements)
     }
 
     fn parse_statement(&mut self) -> Res<Statement> {
@@ -297,7 +297,7 @@ impl<'a> Parser<'a> {
             }
             Token::Symbol(op) => {
                 if !Token::is_unary_op(op.as_str()) {
-                    return Err("Invalid unary op")?;
+                    return Err("Invalid unary op".into());
                 }
                 self.next();
                 Term::UnaryOp(Op(op), Box::new(self.parse_term()?))
@@ -357,13 +357,13 @@ impl<'a> Parser<'a> {
                 self.expect(t::symbol(")"))?;
                 Ok(SubroutineCall::SimpleCall(name, expr_list))
             }
-            _ => Err("Can't parse subroutine call")?,
+            _ => Err("Can't parse subroutine call".into()),
         }
     }
 
     fn parse_identifier(&mut self) -> Res<String> {
         // dbg!(self.tokens.peek());
-        Ok(expect::identifier(self.next())?)
+        expect::identifier(self.next())
     }
 
     fn next(&mut self) -> Option<Token> {
@@ -386,18 +386,15 @@ impl<'a> Parser<'a> {
     fn parsing_error(&self, err: ParseError) -> ParseError {
         let last_n_size = 5;
         let pos = self.pos;
-        let last_tokens: Vec<_> = self
-            .tokens_seq
-            .iter()
-            .skip(pos - last_n_size)
-            .take(last_n_size)
-            .collect();
+
         format!(
             "{}\n\
             Last tokens:\n{}",
             err,
-            last_tokens
-                .into_iter()
+            self.tokens_seq
+                .iter()
+                .skip(pos - last_n_size)
+                .take(last_n_size)
                 .enumerate()
                 .map(|(i, t)| format!("{}: {:?}", i + pos - last_n_size, t))
                 .collect::<Vec<_>>()

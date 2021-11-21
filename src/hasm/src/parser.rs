@@ -29,9 +29,9 @@ impl<'a> Parser<'a> {
         let mut symbols = self.build_symbols();
         self.parse_input(&mut symbols, true); // Build symbols table
                                               // println!("symbols: {:?}", symbols);
-        let result = self.parse_input(&mut symbols, false);
+
         // println!("symbols final: {:?}", symbols);
-        result
+        self.parse_input(&mut symbols, false)
     }
 
     pub fn parse_input(&mut self, symbols: &mut SymbolTable, first_pass: bool) -> ParseResult {
@@ -74,11 +74,11 @@ impl<'a> Parser<'a> {
     }
 
     fn parse_line(line: &str, symbols: &mut SymbolTable) -> Option<Command> {
-        let stmt = line.split("//").nth(0).unwrap_or_default().trim();
+        let stmt = line.split("//").next().unwrap_or_default().trim();
         // println!("parse_line: {:?}, {:?}", &line, &stmt);
         match stmt {
             "" => None,
-            x if x.starts_with("@") => {
+            x if x.starts_with('@') => {
                 let label: String = x.chars().skip(1).collect();
                 let address = str::parse::<u16>(&label).ok();
                 Some(Command {
@@ -99,7 +99,7 @@ impl<'a> Parser<'a> {
                     },
                 })
             }
-            x if x.starts_with("(") => {
+            x if x.starts_with('(') => {
                 let label = x[1..x.len() - 1].into();
                 Some(Command {
                     raw: x.into(),
@@ -107,8 +107,8 @@ impl<'a> Parser<'a> {
                 })
             }
             x => {
-                let dest = x.split("=").nth(0);
-                let jump = x.split(";").nth(1);
+                let dest = x.split('=').next();
+                let jump = x.split(';').nth(1);
                 let comp = x
                     .replace(&format!("{}{}", dest.unwrap_or_default(), "="), "")
                     .replace(&format!("{}{}", ";", jump.unwrap_or_default()), "");

@@ -19,9 +19,9 @@ fn process_files(config: &config::Config) -> Result<(path::PathBuf, String), Box
                 .and_then(|s| s.to_str())
                 .ok_or("Invalid filename")?;
             let generated = code::generate_code(parser::create(&contents, filename_stem).parse());
-            let mut target = source_path.clone();
+            let mut target = source_path;
             target.set_extension("asm");
-            let bootstrap = code::generate_bootstrap(filename_stem.into());
+            let bootstrap = code::generate_bootstrap(filename_stem);
             Ok((target, format!("{}\n{}", bootstrap, generated)))
         }
         m if m.is_dir() => {
@@ -31,7 +31,7 @@ fn process_files(config: &config::Config) -> Result<(path::PathBuf, String), Box
                 .filter(|f| f.file_name().into_string().unwrap().ends_with(".vm"))
                 .map(|f| -> Result<_, Box<dyn Error>> {
                     let module_source = fs::read_to_string(f.path())?;
-                    let filename = f.path().clone();
+                    let filename = f.path();
                     let filename_stem = filename
                         .file_stem()
                         .and_then(|s| s.to_str())
@@ -50,7 +50,7 @@ fn process_files(config: &config::Config) -> Result<(path::PathBuf, String), Box
                 .ok_or("Invalid filename")?;
             target.push(path::Path::new(filename));
             target.set_extension("asm");
-            let bootstrap = code::generate_bootstrap(filename.into());
+            let bootstrap = code::generate_bootstrap(filename);
             Ok((target, format!("{}\n{}", bootstrap, generated)))
         }
         _ => Err(format!("Invalid source: {}", source_path.to_string_lossy())),

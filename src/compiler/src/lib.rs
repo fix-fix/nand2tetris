@@ -1,11 +1,11 @@
 pub mod codegen;
-pub mod compiler_cli;
 pub mod compiler;
+pub mod compiler_cli;
 pub mod config;
 pub mod input;
 pub mod line_chars;
-pub mod node_printer;
 pub mod node;
+pub mod node_printer;
 pub mod parser;
 pub mod symbol_table;
 pub mod token;

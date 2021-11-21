@@ -93,7 +93,7 @@ impl<'a> Tokenizer<'a> {
     fn parse_numeric(chars: &mut LineChars) -> Result<Token, Box<dyn std::error::Error>> {
         let num = Self::consume_while(chars, |ch| ch.is_numeric());
         str::parse::<u16>(num.as_str())
-            .or_else(|_| Err(format!("Can't parse num: {}", num).into()))
+            .map_err(|_| format!("Can't parse num: {}", num).into())
             .map(Token::IntegerConst)
     }
 

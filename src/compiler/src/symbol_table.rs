@@ -93,7 +93,7 @@ impl SymbolTable {
         Default::default()
     }
 
-    pub fn lookup(&self, name: &SymbolName) -> Option<Entry> {
+    pub fn lookup(&self, name: &str) -> Option<Entry> {
         if let Some(e) = self.sub.entry_dict.get(name) {
             return Some(e.into());
         }
@@ -113,7 +113,7 @@ impl SymbolTable {
 
     pub fn define_class_var(
         &mut self,
-        name: &SymbolName,
+        name: &str,
         kind: &GrammarClassVarType,
         typ: &GrammarItemType,
     ) {
@@ -122,27 +122,27 @@ impl SymbolTable {
         let entry = EntryClass {
             typ: type_as_string(typ),
             kind: kind.into(),
-            index: index.clone(),
+            index: *index,
         };
         *index += 1;
-        dict.entry_dict.insert(name.clone(), entry);
+        dict.entry_dict.insert(name.into(), entry);
     }
 
     pub fn define_subroutine_var(
         &mut self,
-        name: &SymbolName,
+        name: &str,
         kind: SubVarKind,
         typ: &GrammarItemType,
     ) {
         let dict = &mut self.sub;
-        let index = dict.index_dict.entry(kind.clone().into()).or_insert(0);
+        let index = dict.index_dict.entry(kind.clone()).or_insert(0);
         let entry = EntrySub {
             typ: type_as_string(typ),
-            kind: kind.into(),
-            index: index.clone(),
+            kind,
+            index: *index,
         };
         *index += 1;
-        dict.entry_dict.insert(name.clone(), entry);
+        dict.entry_dict.insert(name.into(), entry);
     }
 
     pub fn reset_subroutine_table(&mut self) {
