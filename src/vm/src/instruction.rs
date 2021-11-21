@@ -11,6 +11,16 @@ pub struct PushPopInstruction {
     pub inst_type: PushPop,
 }
 
+impl PushPopInstruction {
+    pub fn new(inst_type: PushPop, segment: String, addr: u16) -> Self {
+        Self {
+            segment,
+            addr,
+            inst_type,
+        }
+    }
+}
+
 #[derive(Debug, Clone)]
 pub enum Instruction {
     PushPop(PushPopInstruction),

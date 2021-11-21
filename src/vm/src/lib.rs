@@ -1,6 +1,6 @@
 mod code;
 pub mod config;
-mod instruction;
+pub mod instruction;
 mod parser;
 
 use std::error::Error;

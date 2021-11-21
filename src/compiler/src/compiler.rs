@@ -4,6 +4,7 @@ use crate::{
     parser::ParseResult,
     symbol_table::{Entry, SubVarKind, SymbolTable},
     token::Keyword,
+    utils::LimitedVecDeque,
 };
 use std::{collections::HashSet, fmt::Write};
 
@@ -13,30 +14,78 @@ type Res<T = ()> = Result<T, CompilerError>;
 struct CompilerState<'a> {
     class_name: String,
     label_id: usize,
+    last_written_instructions: LimitedVecDeque<Option<WriteResult>>,
     methods: HashSet<String>,
     sym_table: SymbolTable,
     out: &'a mut (dyn Write),
 }
+/*
+struct LabelRef<'a> {
+    label_id: &'a mut usize,
+    last_written_instruction_type: &'a mut Option<Instruction>,
+}
+
+impl<'a> LabelRef<'a> {
+    fn new(
+        label_id: &'a mut usize,
+        last_written_instruction_type: &'a mut Option<Instruction>,
+    ) -> Self {
+        Self {
+            label_id,
+            last_written_instruction_type,
+        }
+    }
+
+    pub fn label_value(&mut self) -> String {
+        *self.label_id += if CompilerState::is_at_label(self.last_written_instruction_type.as_ref())
+        {
+            0
+        } else {
+            1
+        };
+        return CompilerState::get_label_id(*self.label_id);
+    }
+}
+ */
 
 impl<'a> CompilerState<'a> {
     fn new(class_name: String, sym_table: SymbolTable, out: &'a mut (dyn Write)) -> Self {
         Self {
             class_name,
             label_id: 0,
+            last_written_instructions: LimitedVecDeque::new(16),
             methods: Default::default(),
             sym_table,
             out,
         }
     }
 
-    pub fn write<S: std::fmt::Display>(&mut self, s: S) {
+    fn write_inner<S: std::fmt::Display>(&mut self, s: S) {
         writeln!(self.out, "{}", s).expect("Error writing");
+    }
+
+    pub fn write_result(&mut self, res: WriteResult) {
+        self.write_inner(res.code());
+        self.remember_write_meta(Some(res));
     }
 
     pub fn get_label(&mut self) -> String {
         self.label_id += 1;
-        format!("__VM_LABEL_{}", self.label_id)
+        Self::get_label_id(self.label_id)
     }
+
+    fn get_label_id(label_id: usize) -> String {
+        format!("__VM_LABEL_{}", label_id)
+    }
+
+    // fn is_at_label(last_written_instruction_type: Option<&CompilerInstruction>) -> bool {
+    //     matches!(
+    //         last_written_instruction_type,
+    //         Some(CompilerInstruction {
+    //             instruction: Instruction::Label(..)
+    //         })
+    //     )
+    // }
 
     fn register_method(&mut self, sub_dec: &SubroutineDec) {
         if let SubroutineDec(GrammarSubroutineVariant::Method, _, ident, ..) = sub_dec {
@@ -46,6 +95,10 @@ impl<'a> CompilerState<'a> {
 
     fn has_method(&self, method: &str) -> bool {
         self.methods.contains(method)
+    }
+
+    fn remember_write_meta(&mut self, res: Option<WriteResult>) {
+        self.last_written_instructions.push(res);
     }
 }
 
@@ -84,6 +137,7 @@ pub fn compile_program(parse_result: ParseResult) -> Res<String> {
         // dbg!(state.class_name, state.sym_table);
         e
     })?;
+    dbg!(state.last_written_instructions);
     Ok(out)
 }
 
@@ -116,7 +170,7 @@ fn compile_subroutine_dec(
 ) -> Res {
     state.sym_table.reset_subroutine_table();
     let n_locals: u16 = sub.0.iter().map(|var_dec| var_dec.1.len() as u16).sum();
-    state.write(write_function(
+    state.write_result(write_function(
         format!("{}.{}", state.class_name, ident),
         n_locals,
     ));
@@ -126,13 +180,13 @@ fn compile_subroutine_dec(
     match variant {
         GrammarSubroutineVariant::Constructor => {
             let object_size = state.sym_table.count_instance_fields();
-            state.write(write_push("constant", object_size));
-            state.write(write_call("Memory.alloc", 1));
-            state.write(write_pop("pointer", 0));
+            state.write_result(write_push("constant", object_size));
+            state.write_result(write_call("Memory.alloc", 1));
+            state.write_result(write_pop("pointer", 0));
         }
         GrammarSubroutineVariant::Method => {
-            state.write(write_push("argument", 0));
-            state.write(write_pop("pointer", 0));
+            state.write_result(write_push("argument", 0));
+            state.write_result(write_pop("pointer", 0));
 
             // Offset arguments in methods by setting fake value, since we also pass 'this'
             state.sym_table.define_subroutine_var(
@@ -203,18 +257,18 @@ fn compile_statement_let(
         .ok_or(format!("Unknown var: {}", &stmt.name))?;
     match stmt.index_expr {
         Some(expr) => {
-            state.write(write_push(var.kind.as_str(), var.index));
+            state.write_result(write_push(var.kind.as_str(), var.index));
             compile_expression(state, context, expr)?;
-            state.write("add");
+            state.write_result(write_arith("add"));
             compile_expression(state, context, stmt.value_expr)?;
-            state.write(write_pop("temp", 0));
-            state.write(write_pop("pointer", 1));
-            state.write(write_push("temp", 0));
-            state.write(write_pop("that", 0));
+            state.write_result(write_pop("temp", 0));
+            state.write_result(write_pop("pointer", 1));
+            state.write_result(write_push("temp", 0));
+            state.write_result(write_pop("that", 0));
         }
         _ => {
             compile_expression(state, context, stmt.value_expr)?;
-            state.write(write_pop(var.kind.as_str(), var.index));
+            state.write_result(write_pop(var.kind.as_str(), var.index));
         }
     };
     Ok(())
@@ -232,15 +286,15 @@ fn compile_statement_if(
         end_label.clone()
     };
     compile_expression(state, context, stmt.if_expr)?;
-    state.write("not");
-    state.write(write_if(&else_label));
+    state.write_result(write_not());
+    state.write_result(write_if(&else_label));
     compile_statements(state, context, stmt.if_statements)?;
-    state.write(write_goto(&end_label));
+    state.write_result(write_goto(&end_label));
     if let Some(else_statements) = stmt.else_statements {
-        state.write(write_label(&else_label));
+        state.write_result(write_label(&else_label));
         compile_statements(state, context, else_statements)?;
     }
-    state.write(write_label(&end_label));
+    state.write_result(write_label(&end_label));
     Ok(())
 }
 
@@ -251,13 +305,13 @@ fn compile_statement_while(
 ) -> Res {
     let start_label = state.get_label();
     let end_label = state.get_label();
-    state.write(write_label(&start_label));
+    state.write_result(write_label(&start_label));
     compile_expression(state, context, stmt.cond_expr)?;
-    state.write("not");
-    state.write(write_if(&end_label));
+    state.write_result(write_not());
+    state.write_result(write_if(&end_label));
     compile_statements(state, context, stmt.statements)?;
-    state.write(write_goto(&start_label));
-    state.write(write_label(&end_label));
+    state.write_result(write_goto(&start_label));
+    state.write_result(write_label(&end_label));
     Ok(())
 }
 
@@ -268,7 +322,7 @@ fn compile_statement_do(
 ) -> Res {
     compile_call(state, context, stmt.call)?;
     // Pop return value, not used
-    state.write(write_pop("temp", 0));
+    state.write_result(write_pop("temp", 0));
     Ok(())
 }
 
@@ -292,10 +346,10 @@ fn compile_statement_return(
             compile_expression(state, context, expr)?;
         }
         None => {
-            state.write(write_push("constant", 0));
+            state.write_result(write_push("constant", 0));
         }
     }
-    state.write(write_return());
+    state.write_result(write_return());
     Ok(())
 }
 
@@ -322,7 +376,7 @@ fn compile_call(state: &mut CompilerState, context: &CompilerContext, call: Subr
     };
     let n_args = args.len();
     compile_expression_list(state, context, args)?;
-    state.write(write_call(func_name, n_args));
+    state.write_result(write_call(func_name, n_args));
     Ok(())
 }
 
@@ -373,32 +427,32 @@ fn compile_term(state: &mut CompilerState, context: &CompilerContext, term: Term
     match term {
         Term::VarName(name) => {
             let var = lookup_var(state, context, name)?;
-            state.write(write_push(var.kind.as_str(), var.index));
+            state.write_result(write_push(var.kind.as_str(), var.index));
         }
         Term::KeywordConstant(kw) => {
             match kw {
                 Keyword::True => {
-                    state.write(write_push("constant", 0));
-                    state.write("not");
+                    state.write_result(write_push("constant", 0));
+                    state.write_result(write_not());
                 }
                 Keyword::False | Keyword::Null => {
-                    state.write(write_push("constant", 0));
+                    state.write_result(write_push("constant", 0));
                 }
                 Keyword::This => {
-                    state.write(write_push("pointer", 0));
+                    state.write_result(write_push("pointer", 0));
                 }
                 _ => return Err(format!("Unexpected constant used as term: {:?}", kw).into()),
             };
         }
         Term::IntegerConstant(i) => {
-            state.write(write_push("constant", i));
+            state.write_result(write_push("constant", i));
         }
         Term::StringConst(s) => {
-            state.write(write_push("constant", s.len() as u16));
-            state.write(write_call("String.new", 1));
+            state.write_result(write_push("constant", s.len() as u16));
+            state.write_result(write_call("String.new", 1));
             for c in s.chars() {
-                state.write(write_push("constant", (c as u8).into()));
-                state.write(write_call("String.appendChar", 2));
+                state.write_result(write_push("constant", (c as u8).into()));
+                state.write_result(write_call("String.appendChar", 2));
             }
         }
         Term::UnaryOp(op, term) => {
@@ -410,11 +464,11 @@ fn compile_term(state: &mut CompilerState, context: &CompilerContext, term: Term
         }
         Term::IndexExpr(name, expr) => {
             let var = lookup_var(state, context, name)?;
-            state.write(write_push(var.kind.as_str(), var.index));
+            state.write_result(write_push(var.kind.as_str(), var.index));
             compile_expression(state, context, *expr)?;
-            state.write("add");
-            state.write(write_pop("pointer", 1));
-            state.write(write_push("that", 0));
+            state.write_result(write_arith("add"));
+            state.write_result(write_pop("pointer", 1));
+            state.write_result(write_push("that", 0));
         }
         Term::SubroutineCall(call) => {
             compile_call(state, context, call)?;
@@ -424,14 +478,14 @@ fn compile_term(state: &mut CompilerState, context: &CompilerContext, term: Term
 }
 
 fn compile_op(state: &mut CompilerState, _context: &CompilerContext, Op(op): Op) -> Res {
-    state.write(match op.as_str() {
-        "+" => "add".to_string(),
-        "-" => "sub".to_string(),
-        "=" => "eq".to_string(),
-        ">" => "gt".to_string(),
-        "<" => "lt".to_string(),
-        "&" => "and".to_string(),
-        "|" => "or".to_string(),
+    state.write_result(match op.as_str() {
+        "+" => write_arith("add"),
+        "-" => write_arith("sub"),
+        "=" => write_arith("eq"),
+        ">" => write_arith("gt"),
+        "<" => write_arith("lt"),
+        "&" => write_arith("and"),
+        "|" => write_arith("or"),
         "*" => write_call("Math.multiply", 2),
         "/" => write_call("Math.divide", 2),
         other => unreachable!("Unsupported op: {:?}", other),
@@ -440,9 +494,9 @@ fn compile_op(state: &mut CompilerState, _context: &CompilerContext, Op(op): Op)
 }
 
 fn compile_unary_op(state: &mut CompilerState, _context: &CompilerContext, Op(op): Op) -> Res {
-    state.write(match op.as_str() {
-        "-" => "neg".to_string(),
-        "~" => "not".to_string(),
+    state.write_result(match op.as_str() {
+        "-" => write_arith("neg"),
+        "~" => write_not(),
         other => unreachable!("Unsupported unary op: {:?}", other),
     });
     Ok(())
