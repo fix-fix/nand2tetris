@@ -15,4 +15,11 @@ impl Config {
             source_path,
         })
     }
+
+    pub fn for_path(source_path: String) -> Result<Self, Box<dyn std::error::Error>> {
+        Ok(Config {
+            output_tokens: false,
+            source_path,
+        })
+    }
 }

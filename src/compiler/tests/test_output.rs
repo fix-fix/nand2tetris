@@ -1,7 +1,8 @@
 use insta::*;
-use std::fs;
+use std::{fs, ops::Deref};
 
 use compiler::{
+    compiler_cli::{self, CompileResultSuccess},
     node_printer, parser,
     symbol_table::SymbolTable,
     tokenizer::{tokenize, tokens_to_xml},
@@ -73,6 +74,26 @@ fn test_parser_output_symbol_table() -> Result<(), Box<dyn std::error::Error>> {
         let mut sym_table = Some(SymbolTable::new());
         let result_xml = node_printer::result_to_xml(result.unwrap(), sym_table.as_mut());
         assert_snapshot!(result_xml);
+    });
+    Ok(())
+}
+
+#[test]
+fn test_compiler_output() -> Result<(), Box<dyn std::error::Error>> {
+    let base_path_ref = _macro_support::get_cargo_workspace(env!("CARGO_MANIFEST_DIR"));
+    let base_path = base_path_ref.deref();
+
+    glob!("inputs/**/*.jack", |path| {
+        let result =
+            compiler_cli::compile_file(path).map_err(|e| format!("Compiling error:\n{e}", e = e));
+        let CompileResultSuccess { vm_code } = result.unwrap();
+        assert_snapshot!(
+            format!(
+                "Compiler vm code: {path}",
+                path = path.strip_prefix(base_path).unwrap().display()
+            ),
+            vm_code
+        );
     });
     Ok(())
 }

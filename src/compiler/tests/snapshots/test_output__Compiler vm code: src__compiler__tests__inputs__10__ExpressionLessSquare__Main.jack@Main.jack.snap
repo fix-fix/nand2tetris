@@ -1,0 +1,47 @@
+---
+source: src/compiler/tests/test_output.rs
+expression: vm_code
+input_file: src/compiler/tests/inputs/10/ExpressionLessSquare/Main.jack
+
+---
+function Main.main 1
+push local 0
+pop local 0
+push local 0
+call SquareGame.run 1
+pop temp 0
+push local 0
+call SquareGame.dispose 1
+pop temp 0
+push constant 0
+return
+function Main.test 4
+push local 0
+not
+if-goto __VM_LABEL_2
+push local 0
+pop local 2
+push local 1
+pop local 2
+push local 3
+push local 0
+add
+push local 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+goto __VM_LABEL_1
+label __VM_LABEL_2
+push local 0
+pop local 0
+push local 1
+pop local 1
+push local 0
+push local 1
+or
+pop local 0
+label __VM_LABEL_1
+push constant 0
+return
+

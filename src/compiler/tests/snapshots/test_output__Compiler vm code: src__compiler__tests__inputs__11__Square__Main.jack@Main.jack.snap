@@ -1,0 +1,18 @@
+---
+source: src/compiler/tests/test_output.rs
+expression: vm_code
+input_file: src/compiler/tests/inputs/11/Square/Main.jack
+
+---
+function Main.main 1
+call SquareGame.new 0
+pop local 0
+push local 0
+call SquareGame.run 1
+pop temp 0
+push local 0
+call SquareGame.dispose 1
+pop temp 0
+push constant 0
+return
+
