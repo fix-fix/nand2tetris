@@ -97,3 +97,24 @@ fn test_compiler_output() -> Result<(), Box<dyn std::error::Error>> {
     });
     Ok(())
 }
+
+#[test]
+fn test_compiler_examples() -> Result<(), Box<dyn std::error::Error>> {
+    let path_workspace = _macro_support::get_cargo_workspace(env!("CARGO_MANIFEST_DIR"));
+    let base_pathbuf = path_workspace.join("examples");
+    let base_path = base_pathbuf.as_path();
+
+    _macro_support::glob_exec(base_path, "**/*.jack", |path| {
+        let result =
+            compiler_cli::compile_file(path).map_err(|e| format!("Compiling error:\n{e}", e = e));
+        let CompileResultSuccess { vm_code } = result.unwrap();
+        assert_snapshot!(
+            format!(
+                "Compiler vm code example: {path}",
+                path = path.strip_prefix(base_path).unwrap().display()
+            ),
+            vm_code
+        );
+    });
+    Ok(())
+}

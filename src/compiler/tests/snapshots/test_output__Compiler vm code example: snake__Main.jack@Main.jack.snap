@@ -1,0 +1,18 @@
+---
+source: src/compiler/tests/test_output.rs
+expression: vm_code
+input_file: examples/snake/Main.jack
+
+---
+function Main.main 1
+call Game.new 0
+pop local 0
+push local 0
+call Game.start 1
+pop temp 0
+push local 0
+call Game.dispose 1
+pop temp 0
+push constant 0
+return
+

@@ -1,0 +1,581 @@
+---
+source: src/compiler/tests/test_output.rs
+expression: vm_code
+input_file: examples/snake/UI.jack
+
+---
+function UI.new 0
+push constant 1
+call Memory.alloc 1
+pop pointer 0
+push constant 8
+pop static 0
+push constant 4
+pop static 1
+push constant 512
+push static 0
+call Math.divide 2
+push constant 2
+push static 1
+call Math.multiply 2
+sub
+pop static 2
+push constant 256
+push static 0
+call Math.divide 2
+push constant 2
+push static 1
+call Math.multiply 2
+sub
+pop static 3
+push constant 1
+neg
+pop static 4
+push pointer 0
+return
+function UI.init 1
+push argument 0
+pop pointer 0
+push static 1
+push static 0
+call Math.multiply 2
+pop local 0
+push constant 0
+not
+call Screen.setColor 1
+pop temp 0
+push local 0
+push constant 1
+sub
+push local 0
+push constant 1
+sub
+push constant 512
+push local 0
+push constant 1
+sub
+sub
+push constant 256
+push local 0
+push constant 1
+sub
+sub
+call Screen.drawRectangle 4
+pop temp 0
+push constant 0
+call Screen.setColor 1
+pop temp 0
+push local 0
+push local 0
+push constant 512
+push local 0
+sub
+push constant 256
+push local 0
+sub
+call Screen.drawRectangle 4
+pop temp 0
+push constant 0
+return
+function UI.drawPanel 4
+push constant 5
+pop local 1
+push constant 512
+push argument 0
+sub
+push constant 2
+call Math.divide 2
+pop local 2
+push constant 256
+push argument 1
+sub
+push constant 2
+call Math.divide 2
+pop local 3
+label __VM_LABEL_1
+push local 1
+push constant 0
+lt
+not
+not
+if-goto __VM_LABEL_2
+push constant 0
+not
+call Screen.setColor 1
+pop temp 0
+push local 2
+push local 1
+add
+push local 3
+push local 1
+add
+push constant 512
+push local 2
+sub
+push local 1
+add
+push constant 256
+push local 3
+sub
+push local 1
+add
+call Screen.drawRectangle 4
+pop temp 0
+push local 1
+push constant 1
+sub
+pop local 1
+goto __VM_LABEL_1
+label __VM_LABEL_2
+push constant 0
+call Screen.setColor 1
+pop temp 0
+push local 2
+push constant 1
+add
+push local 3
+push constant 1
+add
+push constant 512
+push local 2
+sub
+push constant 1
+sub
+push constant 256
+push local 3
+sub
+push constant 1
+sub
+call Screen.drawRectangle 4
+pop temp 0
+push constant 11
+push constant 65
+push argument 2
+call String.length 1
+sub
+push constant 2
+call Math.divide 2
+call Output.moveCursor 2
+pop temp 0
+push argument 2
+call Output.printString 1
+pop temp 0
+push constant 0
+return
+function UI.dispose 0
+push argument 0
+pop pointer 0
+push pointer 0
+call Memory.deAlloc 1
+pop temp 0
+push constant 0
+return
+function UI.getFieldWidth 0
+push static 2
+return
+function UI.getFieldHeight 0
+push static 3
+return
+function UI.getBoardIndexSize 0
+push static 2
+push static 3
+call Math.multiply 2
+return
+function UI.drawBlock 0
+push argument 0
+call Screen.setColor 1
+pop temp 0
+push argument 1
+push argument 2
+push argument 1
+push static 0
+add
+push argument 2
+push static 0
+add
+call Screen.drawRectangle 4
+pop temp 0
+push constant 0
+return
+function UI.drawSnakeHead 5
+push argument 0
+call UI.drawSnakePartBase 1
+pop temp 0
+push argument 0
+call UI.fromGameToScreen 1
+pop local 0
+push argument 1
+push constant 1
+eq
+not
+if-goto __VM_LABEL_3
+push constant 2
+pop local 1
+push constant 2
+pop local 2
+push constant 6
+pop local 3
+push constant 2
+pop local 4
+goto __VM_LABEL_3
+label __VM_LABEL_3
+push argument 1
+push constant 2
+eq
+not
+if-goto __VM_LABEL_4
+push constant 6
+pop local 1
+push constant 6
+pop local 2
+push constant 2
+pop local 3
+push constant 6
+pop local 4
+goto __VM_LABEL_4
+label __VM_LABEL_4
+push argument 1
+push constant 3
+eq
+not
+if-goto __VM_LABEL_5
+push constant 2
+pop local 1
+push constant 6
+pop local 2
+push constant 2
+pop local 3
+push constant 2
+pop local 4
+goto __VM_LABEL_5
+label __VM_LABEL_5
+push argument 1
+push constant 4
+eq
+not
+if-goto __VM_LABEL_6
+push constant 6
+pop local 1
+push constant 2
+pop local 2
+push constant 6
+pop local 3
+push constant 6
+pop local 4
+goto __VM_LABEL_6
+label __VM_LABEL_6
+push local 0
+push constant 0
+add
+pop pointer 1
+push that 0
+push local 1
+add
+push local 0
+push constant 1
+add
+pop pointer 1
+push that 0
+push local 2
+add
+call Screen.drawPixel 2
+pop temp 0
+push local 0
+push constant 0
+add
+pop pointer 1
+push that 0
+push local 3
+add
+push local 0
+push constant 1
+add
+pop pointer 1
+push that 0
+push local 4
+add
+call Screen.drawPixel 2
+pop temp 0
+push local 0
+call Array.dispose 1
+pop temp 0
+push constant 0
+return
+function UI.drawSnakePartBase 2
+push constant 0
+not
+push argument 0
+call UI.drawBlockIndex 2
+pop temp 0
+push constant 0
+call Screen.setColor 1
+pop temp 0
+push argument 0
+call UI.fromGameToScreen 1
+pop local 1
+push static 0
+pop local 0
+push local 1
+push constant 0
+add
+pop pointer 1
+push that 0
+push local 1
+push constant 1
+add
+pop pointer 1
+push that 0
+call Screen.drawPixel 2
+pop temp 0
+push local 1
+push constant 0
+add
+pop pointer 1
+push that 0
+push local 0
+add
+push local 1
+push constant 1
+add
+pop pointer 1
+push that 0
+call Screen.drawPixel 2
+pop temp 0
+push local 1
+push constant 0
+add
+pop pointer 1
+push that 0
+push local 1
+push constant 1
+add
+pop pointer 1
+push that 0
+push local 0
+add
+call Screen.drawPixel 2
+pop temp 0
+push local 1
+push constant 0
+add
+pop pointer 1
+push that 0
+push local 0
+add
+push local 1
+push constant 1
+add
+pop pointer 1
+push that 0
+push local 0
+add
+call Screen.drawPixel 2
+pop temp 0
+push local 1
+call Array.dispose 1
+pop temp 0
+push constant 0
+return
+function UI.drawSnakePart 1
+push argument 0
+call UI.drawSnakePartBase 1
+pop temp 0
+push constant 0
+call Screen.setColor 1
+pop temp 0
+push argument 0
+call UI.fromGameToScreen 1
+pop local 0
+push local 0
+push constant 0
+add
+pop pointer 1
+push that 0
+push constant 3
+add
+push local 0
+push constant 1
+add
+pop pointer 1
+push that 0
+push constant 2
+add
+call Screen.drawPixel 2
+pop temp 0
+push local 0
+push constant 0
+add
+pop pointer 1
+push that 0
+push constant 2
+add
+push local 0
+push constant 1
+add
+pop pointer 1
+push that 0
+push constant 3
+add
+call Screen.drawPixel 2
+pop temp 0
+push local 0
+call Array.dispose 1
+pop temp 0
+push constant 0
+return
+function UI.drawBlockIndex 1
+push argument 1
+call UI.fromGameToScreen 1
+pop local 0
+push argument 0
+push local 0
+push constant 0
+add
+pop pointer 1
+push that 0
+push local 0
+push constant 1
+add
+pop pointer 1
+push that 0
+call UI.drawBlock 3
+pop temp 0
+push local 0
+call Array.dispose 1
+pop temp 0
+push constant 0
+return
+function UI.fromGameCoordstoIndex 0
+push argument 1
+push static 2
+call Math.multiply 2
+push argument 0
+add
+return
+function UI.fromIndexToGameCoords 1
+push constant 2
+call Array.new 1
+pop local 0
+push local 0
+push constant 0
+add
+push argument 0
+push static 2
+call Utils.modulo 2
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push local 0
+push constant 1
+add
+push argument 0
+push static 2
+call Math.divide 2
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push local 0
+return
+function UI.fromGameToScreen 2
+push argument 0
+call UI.fromIndexToGameCoords 1
+pop local 0
+push constant 2
+call Array.new 1
+pop local 1
+push local 1
+push constant 0
+add
+push static 0
+push static 1
+push local 0
+push constant 0
+add
+pop pointer 1
+push that 0
+add
+call Math.multiply 2
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push local 1
+push constant 1
+add
+push static 0
+push static 1
+push local 0
+push constant 1
+add
+pop pointer 1
+push that 0
+add
+call Math.multiply 2
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push local 0
+call Array.dispose 1
+pop temp 0
+push local 1
+return
+function UI.updateScore 1
+push argument 0
+push static 4
+eq
+not
+if-goto __VM_LABEL_7
+push constant 0
+return
+goto __VM_LABEL_7
+label __VM_LABEL_7
+push constant 7
+call String.new 1
+push constant 83
+call String.appendChar 2
+push constant 67
+call String.appendChar 2
+push constant 79
+call String.appendChar 2
+push constant 82
+call String.appendChar 2
+push constant 69
+call String.appendChar 2
+push constant 58
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+pop local 0
+push constant 0
+push constant 0
+call Output.moveCursor 2
+pop temp 0
+push local 0
+call Output.printString 1
+pop temp 0
+push argument 0
+call Output.printInt 1
+pop temp 0
+push local 0
+call Memory.deAlloc 1
+pop temp 0
+push argument 0
+pop static 4
+push constant 0
+return
+function UI.drawIngameMenu 0
+push argument 0
+call UI.updateScore 1
+pop temp 0
+push constant 0
+return
+function UI.updateIngameMenu 0
+push argument 0
+call UI.updateScore 1
+pop temp 0
+push constant 0
+return
+

@@ -1,0 +1,363 @@
+---
+source: src/compiler/tests/test_output.rs
+expression: vm_code
+input_file: examples/snake/Snake.jack
+
+---
+function Snake.new 0
+push constant 4
+call Memory.alloc 1
+pop pointer 0
+push constant 4
+pop this 1
+push constant 8
+pop static 0
+push argument 0
+push argument 1
+call Snake.initSnakeParts 2
+pop this 0
+push constant 2
+call Array.new 1
+pop this 3
+push pointer 0
+return
+function Snake.initSnakeParts 3
+push constant 4
+pop local 1
+push local 1
+pop local 2
+push argument 0
+push local 2
+sub
+push argument 1
+call UI.fromGameCoordstoIndex 2
+push constant 0
+call List.new 2
+pop local 0
+push local 2
+push constant 1
+sub
+pop local 2
+label __VM_LABEL_1
+push local 2
+push constant 0
+gt
+not
+if-goto __VM_LABEL_2
+push local 0
+push argument 0
+push local 2
+sub
+push argument 1
+call UI.fromGameCoordstoIndex 2
+call List.append 2
+pop local 0
+push local 2
+push constant 1
+sub
+pop local 2
+goto __VM_LABEL_1
+label __VM_LABEL_2
+push local 0
+return
+function Snake.getDirection 0
+push argument 0
+pop pointer 0
+push this 1
+return
+function Snake.getHead 0
+push argument 0
+pop pointer 0
+push this 0
+call List.getData 1
+return
+function Snake.setDirection 2
+push argument 0
+pop pointer 0
+push this 1
+push constant 1
+add
+push constant 2
+call Math.divide 2
+pop local 0
+push argument 1
+push constant 1
+add
+push constant 2
+call Math.divide 2
+pop local 1
+push local 1
+push local 0
+eq
+not
+not
+if-goto __VM_LABEL_3
+push argument 1
+pop this 1
+goto __VM_LABEL_3
+label __VM_LABEL_3
+push constant 0
+return
+function Snake.advance 7
+push argument 0
+pop pointer 0
+push this 3
+push constant 0
+add
+push constant 0
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push this 3
+push constant 1
+add
+push constant 0
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push this 0
+call List.getData 1
+call UI.fromIndexToGameCoords 1
+pop local 6
+push this 0
+call List.cycleLastToHead 1
+pop this 0
+push this 0
+call List.getData 1
+pop this 2
+push this 1
+push constant 1
+eq
+not
+if-goto __VM_LABEL_4
+push constant 1
+neg
+pop local 3
+goto __VM_LABEL_4
+label __VM_LABEL_4
+push this 1
+push constant 2
+eq
+not
+if-goto __VM_LABEL_5
+push constant 1
+pop local 3
+goto __VM_LABEL_5
+label __VM_LABEL_5
+push this 1
+push constant 3
+eq
+not
+if-goto __VM_LABEL_6
+push constant 1
+neg
+pop local 2
+goto __VM_LABEL_6
+label __VM_LABEL_6
+push this 1
+push constant 4
+eq
+not
+if-goto __VM_LABEL_7
+push constant 1
+pop local 2
+goto __VM_LABEL_7
+label __VM_LABEL_7
+push local 6
+push constant 0
+add
+pop pointer 1
+push that 0
+push local 2
+add
+call UI.getFieldWidth 0
+call Utils.modulo 2
+push local 6
+push constant 1
+add
+pop pointer 1
+push that 0
+push local 3
+add
+call UI.getFieldHeight 0
+call Utils.modulo 2
+call UI.fromGameCoordstoIndex 2
+pop local 1
+push pointer 0
+push local 1
+call Snake.isCollided 2
+pop local 4
+push local 4
+not
+if-goto __VM_LABEL_8
+push this 3
+push constant 0
+add
+push constant 0
+not
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push this 3
+return
+goto __VM_LABEL_8
+label __VM_LABEL_8
+push argument 1
+push local 1
+eq
+pop local 5
+push this 3
+push constant 1
+add
+push local 5
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push local 5
+not
+if-goto __VM_LABEL_9
+push pointer 0
+call Snake.grow 1
+pop temp 0
+goto __VM_LABEL_9
+label __VM_LABEL_9
+push this 0
+push local 1
+call List.setData 2
+pop temp 0
+push pointer 0
+push this 2
+call Snake.clearPart 2
+pop temp 0
+push pointer 0
+call Snake.drawHeadAdvance 1
+pop temp 0
+push local 6
+call Array.dispose 1
+pop temp 0
+push this 3
+return
+function Snake.dispose 0
+push argument 0
+pop pointer 0
+push this 0
+call List.dispose 1
+pop temp 0
+push pointer 0
+call Memory.deAlloc 1
+pop temp 0
+push constant 0
+return
+function Snake.drawFull 1
+push argument 0
+pop pointer 0
+push this 0
+pop local 0
+label __VM_LABEL_10
+push local 0
+push constant 0
+eq
+not
+not
+if-goto __VM_LABEL_11
+push pointer 0
+push local 0
+call List.getData 1
+call Snake.drawPart 2
+pop temp 0
+push local 0
+call List.getNext 1
+pop local 0
+goto __VM_LABEL_10
+label __VM_LABEL_11
+push constant 0
+return
+function Snake.drawHeadAdvance 1
+push argument 0
+pop pointer 0
+push this 0
+pop local 0
+push local 0
+push constant 0
+eq
+not
+not
+if-goto __VM_LABEL_12
+push local 0
+call List.getData 1
+push this 1
+call UI.drawSnakeHead 2
+pop temp 0
+goto __VM_LABEL_12
+label __VM_LABEL_12
+push local 0
+call List.getNext 1
+pop local 0
+push pointer 0
+push local 0
+call List.getData 1
+call Snake.drawPart 2
+pop temp 0
+push constant 0
+return
+function Snake.drawPart 0
+push argument 0
+pop pointer 0
+push argument 1
+call UI.drawSnakePart 1
+pop temp 0
+push constant 0
+return
+function Snake.clearPart 0
+push argument 0
+pop pointer 0
+push constant 0
+push argument 1
+call UI.drawBlockIndex 2
+pop temp 0
+push constant 0
+return
+function Snake.isCollided 1
+push argument 0
+pop pointer 0
+push this 0
+pop local 0
+label __VM_LABEL_13
+push local 0
+push constant 0
+eq
+not
+not
+if-goto __VM_LABEL_14
+push local 0
+call List.getData 1
+push argument 1
+eq
+not
+if-goto __VM_LABEL_15
+push constant 0
+not
+return
+goto __VM_LABEL_15
+label __VM_LABEL_15
+push local 0
+call List.getNext 1
+pop local 0
+goto __VM_LABEL_13
+label __VM_LABEL_14
+push constant 0
+return
+function Snake.grow 0
+push argument 0
+pop pointer 0
+push this 0
+push this 2
+call List.extendLast 2
+pop temp 0
+push constant 0
+return
+

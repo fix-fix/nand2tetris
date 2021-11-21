@@ -1,0 +1,397 @@
+---
+source: src/compiler/tests/test_output.rs
+expression: vm_code
+input_file: examples/snake/Game.jack
+
+---
+function Game.new 0
+push constant 8
+call Memory.alloc 1
+pop pointer 0
+push constant 60
+pop static 0
+push static 0
+push constant 30
+call Math.divide 2
+pop static 1
+push constant 18
+call String.new 1
+push constant 61
+call String.appendChar 2
+push constant 61
+call String.appendChar 2
+push constant 61
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+push constant 71
+call String.appendChar 2
+push constant 97
+call String.appendChar 2
+push constant 109
+call String.appendChar 2
+push constant 101
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+push constant 79
+call String.appendChar 2
+push constant 118
+call String.appendChar 2
+push constant 101
+call String.appendChar 2
+push constant 114
+call String.appendChar 2
+push constant 33
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+push constant 61
+call String.appendChar 2
+push constant 61
+call String.appendChar 2
+push constant 61
+call String.appendChar 2
+pop static 2
+push constant 0
+pop this 3
+push constant 0
+pop this 5
+call UI.new 0
+pop this 7
+push constant 42
+pop this 4
+push constant 0
+pop this 2
+push constant 2341
+pop static 3
+push pointer 0
+return
+function Game.start 0
+push argument 0
+pop pointer 0
+push this 6
+push constant 0
+eq
+not
+not
+if-goto __VM_LABEL_1
+push this 6
+call Snake.dispose 1
+pop temp 0
+goto __VM_LABEL_1
+label __VM_LABEL_1
+push constant 1
+pop this 3
+label __VM_LABEL_2
+push this 3
+push constant 0
+eq
+not
+not
+if-goto __VM_LABEL_3
+call Screen.clearScreen 0
+pop temp 0
+push this 7
+call UI.init 1
+pop temp 0
+push constant 0
+pop this 1
+push constant 0
+pop this 5
+push constant 30
+push constant 20
+call Snake.new 2
+pop this 6
+push pointer 0
+push this 6
+call Game.placeApple 2
+pop this 4
+push this 5
+call UI.drawIngameMenu 1
+pop temp 0
+push pointer 0
+call Game.run 1
+pop temp 0
+goto __VM_LABEL_2
+label __VM_LABEL_3
+push constant 0
+return
+function Game.dispose 0
+push argument 0
+pop pointer 0
+push this 6
+call Snake.dispose 1
+pop temp 0
+push this 7
+call UI.dispose 1
+pop temp 0
+push pointer 0
+call Memory.deAlloc 1
+pop temp 0
+push constant 0
+return
+function Game.run 3
+push argument 0
+pop pointer 0
+push constant 0
+pop local 1
+push constant 0
+pop local 2
+push this 6
+call Snake.drawFull 1
+pop temp 0
+label __VM_LABEL_4
+push local 1
+not
+not
+if-goto __VM_LABEL_5
+call Keyboard.keyPressed 0
+pop local 0
+push local 0
+push constant 0
+eq
+not
+not
+if-goto __VM_LABEL_6
+push local 0
+pop this 0
+goto __VM_LABEL_6
+label __VM_LABEL_6
+push this 0
+push constant 81
+eq
+not
+if-goto __VM_LABEL_7
+push constant 0
+not
+pop local 1
+push constant 0
+pop this 3
+push this 3
+return
+goto __VM_LABEL_7
+label __VM_LABEL_7
+push pointer 0
+call Game.tickGame 1
+pop local 2
+push this 5
+call UI.updateIngameMenu 1
+pop temp 0
+push local 1
+push local 2
+or
+pop local 1
+push local 2
+not
+if-goto __VM_LABEL_8
+push pointer 0
+call Game.endGameLoop 1
+pop temp 0
+goto __VM_LABEL_8
+label __VM_LABEL_8
+goto __VM_LABEL_4
+label __VM_LABEL_5
+push this 3
+return
+function Game.tickGame 4
+push argument 0
+pop pointer 0
+push this 1
+push constant 1
+add
+pop this 1
+push this 1
+push static 1
+call Utils.modulo 2
+push constant 0
+eq
+not
+if-goto __VM_LABEL_9
+push this 2
+push constant 1
+add
+pop this 2
+push this 0
+push constant 131
+eq
+not
+if-goto __VM_LABEL_10
+push constant 1
+pop local 2
+goto __VM_LABEL_10
+label __VM_LABEL_10
+push this 0
+push constant 133
+eq
+not
+if-goto __VM_LABEL_11
+push constant 2
+pop local 2
+goto __VM_LABEL_11
+label __VM_LABEL_11
+push this 0
+push constant 130
+eq
+not
+if-goto __VM_LABEL_12
+push constant 3
+pop local 2
+goto __VM_LABEL_12
+label __VM_LABEL_12
+push this 0
+push constant 132
+eq
+not
+if-goto __VM_LABEL_13
+push constant 4
+pop local 2
+goto __VM_LABEL_13
+label __VM_LABEL_13
+push local 2
+push constant 0
+eq
+not
+not
+if-goto __VM_LABEL_14
+push this 6
+push local 2
+call Snake.setDirection 2
+pop temp 0
+goto __VM_LABEL_14
+label __VM_LABEL_14
+push this 6
+push this 4
+call Snake.advance 2
+pop local 3
+push local 3
+push constant 0
+add
+pop pointer 1
+push that 0
+pop local 0
+push local 3
+push constant 1
+add
+pop pointer 1
+push that 0
+pop local 1
+push local 1
+not
+if-goto __VM_LABEL_15
+push this 5
+push constant 1
+add
+pop this 5
+goto __VM_LABEL_15
+label __VM_LABEL_15
+push pointer 0
+push this 6
+call Game.placeApple 2
+pop this 4
+push pointer 0
+call Game.drawApple 1
+pop temp 0
+goto __VM_LABEL_9
+label __VM_LABEL_9
+push constant 1000
+push static 0
+call Math.divide 2
+call Sys.wait 1
+pop temp 0
+call Keyboard.keyPressed 0
+pop this 0
+push local 0
+return
+function Game.endGameLoop 1
+push argument 0
+pop pointer 0
+push constant 2
+pop this 3
+push constant 200
+push constant 100
+push static 2
+call UI.drawPanel 3
+pop temp 0
+push this 6
+call Snake.dispose 1
+pop temp 0
+label __VM_LABEL_16
+push this 3
+push constant 2
+eq
+not
+if-goto __VM_LABEL_17
+call Keyboard.keyPressed 0
+pop local 0
+push local 0
+push constant 82
+eq
+not
+if-goto __VM_LABEL_18
+push constant 1
+pop this 3
+goto __VM_LABEL_18
+label __VM_LABEL_18
+push constant 1000
+push static 0
+call Math.divide 2
+call Sys.wait 1
+pop temp 0
+goto __VM_LABEL_16
+label __VM_LABEL_17
+push constant 0
+return
+function Game.placeApple 1
+push argument 0
+pop pointer 0
+push argument 1
+call Snake.getHead 1
+push this 4
+eq
+not
+not
+if-goto __VM_LABEL_19
+push this 4
+return
+goto __VM_LABEL_19
+label __VM_LABEL_19
+push this 4
+pop local 0
+push local 0
+push static 3
+add
+call UI.getBoardIndexSize 0
+push constant 1
+sub
+call Utils.modulo 2
+pop local 0
+label __VM_LABEL_20
+push argument 1
+push local 0
+call Snake.isCollided 2
+not
+if-goto __VM_LABEL_21
+push local 0
+push static 3
+add
+call UI.getBoardIndexSize 0
+push constant 1
+sub
+call Utils.modulo 2
+pop local 0
+goto __VM_LABEL_20
+label __VM_LABEL_21
+push local 0
+return
+function Game.drawApple 0
+push argument 0
+pop pointer 0
+push constant 0
+not
+push this 4
+call UI.drawBlockIndex 2
+pop temp 0
+push constant 0
+return
+
