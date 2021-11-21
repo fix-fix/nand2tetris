@@ -57,9 +57,15 @@ class Snake {
     let parts = parts.cycleLastToHead();
     let prevLast = parts.getData();
     if (direction = 1) { let yDelta = -1; }   // up arrow
+    else {
     if (direction = 2) { let yDelta = 1; }   // down arrow
+    else {
     if (direction = 3) { let xDelta = -1; }   // left arrow
+    else {
     if (direction = 4) { let xDelta = 1; }   // right arrow
+    }
+    }
+    }
     let newHead = UI.fromGameCoordstoIndex(
       Utils.modulo(prevHeadCoords[0] + xDelta, UI.getFieldWidth()), // wrap around
       Utils.modulo(prevHeadCoords[1] + yDelta, UI.getFieldHeight()) // wrap around

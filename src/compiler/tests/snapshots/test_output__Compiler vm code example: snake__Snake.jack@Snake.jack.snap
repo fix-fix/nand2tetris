@@ -131,40 +131,43 @@ push this 1
 push constant 1
 eq
 not
-if-goto __VM_LABEL_4
+if-goto __VM_LABEL_5
 push constant 1
 neg
 pop local 3
 goto __VM_LABEL_4
-label __VM_LABEL_4
+label __VM_LABEL_5
 push this 1
 push constant 2
 eq
 not
-if-goto __VM_LABEL_5
+if-goto __VM_LABEL_7
 push constant 1
 pop local 3
-goto __VM_LABEL_5
-label __VM_LABEL_5
+goto __VM_LABEL_6
+label __VM_LABEL_7
 push this 1
 push constant 3
 eq
 not
-if-goto __VM_LABEL_6
+if-goto __VM_LABEL_9
 push constant 1
 neg
 pop local 2
-goto __VM_LABEL_6
-label __VM_LABEL_6
+goto __VM_LABEL_8
+label __VM_LABEL_9
 push this 1
 push constant 4
 eq
 not
-if-goto __VM_LABEL_7
+if-goto __VM_LABEL_10
 push constant 1
 pop local 2
-goto __VM_LABEL_7
-label __VM_LABEL_7
+goto __VM_LABEL_10
+label __VM_LABEL_10
+label __VM_LABEL_8
+label __VM_LABEL_6
+label __VM_LABEL_4
 push local 6
 push constant 0
 add
@@ -191,7 +194,7 @@ call Snake.isCollided 2
 pop local 4
 push local 4
 not
-if-goto __VM_LABEL_8
+if-goto __VM_LABEL_11
 push this 3
 push constant 0
 add
@@ -203,8 +206,8 @@ push temp 0
 pop that 0
 push this 3
 return
-goto __VM_LABEL_8
-label __VM_LABEL_8
+goto __VM_LABEL_11
+label __VM_LABEL_11
 push argument 1
 push local 1
 eq
@@ -219,12 +222,12 @@ push temp 0
 pop that 0
 push local 5
 not
-if-goto __VM_LABEL_9
+if-goto __VM_LABEL_12
 push pointer 0
 call Snake.grow 1
 pop temp 0
-goto __VM_LABEL_9
-label __VM_LABEL_9
+goto __VM_LABEL_12
+label __VM_LABEL_12
 push this 0
 push local 1
 call List.setData 2
@@ -257,13 +260,13 @@ push argument 0
 pop pointer 0
 push this 0
 pop local 0
-label __VM_LABEL_10
+label __VM_LABEL_13
 push local 0
 push constant 0
 eq
 not
 not
-if-goto __VM_LABEL_11
+if-goto __VM_LABEL_14
 push pointer 0
 push local 0
 call List.getData 1
@@ -272,8 +275,8 @@ pop temp 0
 push local 0
 call List.getNext 1
 pop local 0
-goto __VM_LABEL_10
-label __VM_LABEL_11
+goto __VM_LABEL_13
+label __VM_LABEL_14
 push constant 0
 return
 function Snake.drawHeadAdvance 1
@@ -286,14 +289,14 @@ push constant 0
 eq
 not
 not
-if-goto __VM_LABEL_12
+if-goto __VM_LABEL_15
 push local 0
 call List.getData 1
 push this 1
 call UI.drawSnakeHead 2
 pop temp 0
-goto __VM_LABEL_12
-label __VM_LABEL_12
+goto __VM_LABEL_15
+label __VM_LABEL_15
 push local 0
 call List.getNext 1
 pop local 0
@@ -326,29 +329,29 @@ push argument 0
 pop pointer 0
 push this 0
 pop local 0
-label __VM_LABEL_13
+label __VM_LABEL_16
 push local 0
 push constant 0
 eq
 not
 not
-if-goto __VM_LABEL_14
+if-goto __VM_LABEL_17
 push local 0
 call List.getData 1
 push argument 1
 eq
 not
-if-goto __VM_LABEL_15
+if-goto __VM_LABEL_18
 push constant 0
 not
 return
-goto __VM_LABEL_15
-label __VM_LABEL_15
+goto __VM_LABEL_18
+label __VM_LABEL_18
 push local 0
 call List.getNext 1
 pop local 0
-goto __VM_LABEL_13
-label __VM_LABEL_14
+goto __VM_LABEL_16
+label __VM_LABEL_17
 push constant 0
 return
 function Snake.grow 0
