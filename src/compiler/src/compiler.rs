@@ -4,69 +4,43 @@ use crate::{
     parser::ParseResult,
     symbol_table::{Entry, SubVarKind, SymbolTable},
     token::Keyword,
-    utils::LimitedVecDeque,
 };
 use std::{collections::HashSet, fmt::Write};
 
 type CompilerError = Box<dyn std::error::Error>;
 type Res<T = ()> = Result<T, CompilerError>;
 
-struct CompilerState<'a> {
+struct CompilerState {
     class_name: String,
     label_id: usize,
-    last_written_instructions: LimitedVecDeque<Option<WriteResult>>,
+    instructions: Vec<WriteInst>,
     methods: HashSet<String>,
     sym_table: SymbolTable,
-    out: &'a mut (dyn Write),
-}
-/*
-struct LabelRef<'a> {
-    label_id: &'a mut usize,
-    last_written_instruction_type: &'a mut Option<Instruction>,
 }
 
-impl<'a> LabelRef<'a> {
-    fn new(
-        label_id: &'a mut usize,
-        last_written_instruction_type: &'a mut Option<Instruction>,
-    ) -> Self {
-        Self {
-            label_id,
-            last_written_instruction_type,
-        }
-    }
-
-    pub fn label_value(&mut self) -> String {
-        *self.label_id += if CompilerState::is_at_label(self.last_written_instruction_type.as_ref())
-        {
-            0
-        } else {
-            1
-        };
-        return CompilerState::get_label_id(*self.label_id);
-    }
-}
- */
-
-impl<'a> CompilerState<'a> {
-    fn new(class_name: String, sym_table: SymbolTable, out: &'a mut (dyn Write)) -> Self {
+impl CompilerState {
+    fn new(class_name: String, sym_table: SymbolTable) -> Self {
         Self {
             class_name,
             label_id: 0,
-            last_written_instructions: LimitedVecDeque::new(16),
+            instructions: vec![],
             methods: Default::default(),
             sym_table,
-            out,
         }
     }
 
-    fn write_inner<S: std::fmt::Display>(&mut self, s: S) {
-        writeln!(self.out, "{}", s).expect("Error writing");
+    fn write_all(&mut self, out: &mut (dyn Write)) {
+        for inst in self.instructions.iter() {
+            self.write_inner(out, inst.code())
+        }
     }
 
-    pub fn write_result(&mut self, res: WriteResult) {
-        self.write_inner(res.code());
-        self.remember_write_meta(Some(res));
+    fn write_inner<S: std::fmt::Display>(&self, out: &mut (dyn Write), s: S) {
+        writeln!(out, "{}", s).expect("Error writing");
+    }
+
+    pub fn write_result(&mut self, res: WriteInst) {
+        self.save_result(res);
     }
 
     pub fn get_label(&mut self) -> String {
@@ -78,15 +52,6 @@ impl<'a> CompilerState<'a> {
         format!("__VM_LABEL_{}", label_id)
     }
 
-    // fn is_at_label(last_written_instruction_type: Option<&CompilerInstruction>) -> bool {
-    //     matches!(
-    //         last_written_instruction_type,
-    //         Some(CompilerInstruction {
-    //             instruction: Instruction::Label(..)
-    //         })
-    //     )
-    // }
-
     fn register_method(&mut self, sub_dec: &SubroutineDec) {
         if let SubroutineDec(GrammarSubroutineVariant::Method, _, ident, ..) = sub_dec {
             self.methods.insert(ident.into());
@@ -97,8 +62,8 @@ impl<'a> CompilerState<'a> {
         self.methods.contains(method)
     }
 
-    fn remember_write_meta(&mut self, res: Option<WriteResult>) {
-        self.last_written_instructions.push(res);
+    fn save_result(&mut self, res: WriteInst) {
+        self.instructions.push(res);
     }
 }
 
@@ -131,13 +96,13 @@ fn lookup_var(state: &mut CompilerState, context: &CompilerContext, name: String
 pub fn compile_program(parse_result: ParseResult) -> Res<String> {
     let mut out = String::new();
     let sym_table = SymbolTable::new();
-    let mut state = CompilerState::new(Default::default(), sym_table, &mut out);
+    let mut state = CompilerState::new(Default::default(), sym_table);
     let context = CompilerContext::new();
     compile_class(&mut state, &context, parse_result.root).map_err(|e| {
         // dbg!(state.class_name, state.sym_table);
         e
     })?;
-    dbg!(state.last_written_instructions);
+    state.write_all(&mut out);
     Ok(out)
 }
 
