@@ -249,8 +249,6 @@ label __VM_LABEL_11
 push this 0
 push this 10
 gt
-not
-not
 if-goto __VM_LABEL_17
 push constant 1
 pop this 14
@@ -261,8 +259,6 @@ label __VM_LABEL_17
 push this 0
 push this 11
 lt
-not
-not
 if-goto __VM_LABEL_18
 push constant 2
 pop this 14
@@ -273,8 +269,6 @@ label __VM_LABEL_18
 push this 1
 push this 12
 gt
-not
-not
 if-goto __VM_LABEL_19
 push constant 3
 pop this 14
@@ -285,8 +279,6 @@ label __VM_LABEL_19
 push this 1
 push this 13
 lt
-not
-not
 if-goto __VM_LABEL_20
 push constant 4
 pop this 14

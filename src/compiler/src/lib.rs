@@ -7,6 +7,7 @@ pub mod instruction;
 pub mod line_chars;
 pub mod node;
 pub mod node_printer;
+pub mod optimizer;
 pub mod parser;
 pub mod symbol_table;
 pub mod token;

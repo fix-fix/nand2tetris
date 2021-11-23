@@ -83,8 +83,6 @@ push constant 0
 pop local 1
 label __VM_LABEL_5
 push local 1
-not
-not
 if-goto __VM_LABEL_6
 label __VM_LABEL_7
 push local 0
@@ -169,8 +167,6 @@ label __VM_LABEL_16
 push local 0
 push constant 0
 eq
-not
-not
 if-goto __VM_LABEL_17
 call Keyboard.keyPressed 0
 pop local 0

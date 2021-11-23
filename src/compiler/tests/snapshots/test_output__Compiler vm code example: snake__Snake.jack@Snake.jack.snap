@@ -89,8 +89,6 @@ pop local 1
 push local 1
 push local 0
 eq
-not
-not
 if-goto __VM_LABEL_3
 push argument 1
 pop this 1
@@ -264,8 +262,6 @@ label __VM_LABEL_13
 push local 0
 push constant 0
 eq
-not
-not
 if-goto __VM_LABEL_14
 push pointer 0
 push local 0
@@ -287,8 +283,6 @@ pop local 0
 push local 0
 push constant 0
 eq
-not
-not
 if-goto __VM_LABEL_15
 push local 0
 call List.getData 1
@@ -333,8 +327,6 @@ label __VM_LABEL_16
 push local 0
 push constant 0
 eq
-not
-not
 if-goto __VM_LABEL_17
 push local 0
 call List.getData 1

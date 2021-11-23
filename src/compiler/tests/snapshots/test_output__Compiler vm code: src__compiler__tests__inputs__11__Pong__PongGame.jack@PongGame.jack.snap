@@ -98,8 +98,6 @@ push argument 0
 pop pointer 0
 label __VM_LABEL_1
 push this 3
-not
-not
 if-goto __VM_LABEL_2
 label __VM_LABEL_3
 push local 0
@@ -261,8 +259,6 @@ lt
 or
 pop this 3
 push this 3
-not
-not
 if-goto __VM_LABEL_15
 push local 4
 push local 1

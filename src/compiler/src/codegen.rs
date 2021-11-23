@@ -2,12 +2,12 @@ use vm::instruction::{PushPop, PushPopInstruction};
 
 use crate::instruction::Instruction;
 
-#[derive(Debug)]
+#[derive(Clone, Debug)]
 pub struct CompilerInstruction {
     instruction: Instruction,
 }
 
-#[derive(Debug)]
+#[derive(Clone, Debug)]
 pub struct WriteInst {
     instruction: CompilerInstruction,
 }

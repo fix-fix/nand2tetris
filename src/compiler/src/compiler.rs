@@ -1,6 +1,7 @@
 use crate::{
     codegen::*,
     node::*,
+    optimizer::opimize_vm_instructions,
     parser::ParseResult,
     symbol_table::{Entry, SubVarKind, SymbolTable},
     token::Keyword,
@@ -102,6 +103,7 @@ pub fn compile_program(parse_result: ParseResult) -> Res<String> {
         // dbg!(state.class_name, state.sym_table);
         e
     })?;
+    opimize_vm_instructions(&mut state.instructions);
     state.write_all(&mut out);
     Ok(out)
 }

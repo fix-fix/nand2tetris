@@ -37,16 +37,12 @@ pop local 0
 push local 1
 push constant 16
 gt
-not
-not
 if-goto __VM_LABEL_4
 push argument 0
 push local 0
 and
 push constant 0
 eq
-not
-not
 if-goto __VM_LABEL_6
 push constant 8000
 push local 1

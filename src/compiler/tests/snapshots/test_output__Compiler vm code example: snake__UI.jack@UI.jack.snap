@@ -96,8 +96,6 @@ label __VM_LABEL_1
 push local 1
 push constant 0
 lt
-not
-not
 if-goto __VM_LABEL_2
 push constant 0
 not
