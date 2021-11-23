@@ -120,7 +120,6 @@ not
 if-goto __VM_LABEL_3
 push constant 0
 pop this 0
-goto __VM_LABEL_3
 label __VM_LABEL_3
 push constant 0
 call Screen.setColor 1
@@ -172,7 +171,6 @@ push constant 511
 push this 2
 sub
 pop this 0
-goto __VM_LABEL_4
 label __VM_LABEL_4
 push constant 0
 call Screen.setColor 1

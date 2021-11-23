@@ -1,7 +1,7 @@
 use crate::{
     codegen::*,
     node::*,
-    optimizer::opimize_vm_instructions,
+    optimizer::{opimize_vm_instructions, optimize_syntax_tree_expression},
     parser::ParseResult,
     symbol_table::{Entry, SubVarKind, SymbolTable},
     token::Keyword,
@@ -11,12 +11,18 @@ use std::{collections::HashSet, fmt::Write};
 type CompilerError = Box<dyn std::error::Error>;
 type Res<T = ()> = Result<T, CompilerError>;
 
-struct CompilerState {
+pub struct CompilerState {
     class_name: String,
     label_id: usize,
     instructions: Vec<WriteInst>,
     methods: HashSet<String>,
     sym_table: SymbolTable,
+}
+
+impl CompilerState {
+    pub fn sym_table(&self) -> &SymbolTable {
+        &self.sym_table
+    }
 }
 
 impl CompilerState {
@@ -256,8 +262,8 @@ fn compile_statement_if(
     state.write_result(write_not());
     state.write_result(write_if(&else_label));
     compile_statements(state, context, stmt.if_statements)?;
-    state.write_result(write_goto(&end_label));
     if let Some(else_statements) = stmt.else_statements {
+        state.write_result(write_goto(&end_label));
         state.write_result(write_label(&else_label));
         compile_statements(state, context, else_statements)?;
     }
@@ -377,11 +383,14 @@ fn compile_expression_list(
     Ok(())
 }
 
-fn compile_expression(
-    state: &mut CompilerState,
-    context: &CompilerContext,
-    Expr(term, extra_terms): Expr,
-) -> Res {
+fn compile_expression(state: &mut CompilerState, context: &CompilerContext, expr: Expr) -> Res {
+    if let Some(results) = optimize_syntax_tree_expression(state, &expr) {
+        for result in results {
+            state.write_result(result);
+        }
+        return Ok(());
+    }
+    let Expr(term, extra_terms) = expr;
     compile_term(state, context, term)?;
     for (op, extra_term) in extra_terms {
         compile_term(state, context, extra_term)?;

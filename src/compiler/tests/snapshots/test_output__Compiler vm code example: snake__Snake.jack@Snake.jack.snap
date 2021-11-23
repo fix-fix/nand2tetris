@@ -92,7 +92,6 @@ eq
 if-goto __VM_LABEL_3
 push argument 1
 pop this 1
-goto __VM_LABEL_3
 label __VM_LABEL_3
 push constant 0
 return
@@ -161,7 +160,6 @@ not
 if-goto __VM_LABEL_10
 push constant 1
 pop local 2
-goto __VM_LABEL_10
 label __VM_LABEL_10
 label __VM_LABEL_8
 label __VM_LABEL_6
@@ -204,7 +202,6 @@ push temp 0
 pop that 0
 push this 3
 return
-goto __VM_LABEL_11
 label __VM_LABEL_11
 push argument 1
 push local 1
@@ -224,7 +221,6 @@ if-goto __VM_LABEL_12
 push pointer 0
 call Snake.grow 1
 pop temp 0
-goto __VM_LABEL_12
 label __VM_LABEL_12
 push this 0
 push local 1
@@ -289,7 +285,6 @@ call List.getData 1
 push this 1
 call UI.drawSnakeHead 2
 pop temp 0
-goto __VM_LABEL_15
 label __VM_LABEL_15
 push local 0
 call List.getNext 1
@@ -337,7 +332,6 @@ if-goto __VM_LABEL_18
 push constant 0
 not
 return
-goto __VM_LABEL_18
 label __VM_LABEL_18
 push local 0
 call List.getNext 1

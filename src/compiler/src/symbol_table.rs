@@ -128,12 +128,7 @@ impl SymbolTable {
         dict.entry_dict.insert(name.into(), entry);
     }
 
-    pub fn define_subroutine_var(
-        &mut self,
-        name: &str,
-        kind: SubVarKind,
-        typ: &GrammarItemType,
-    ) {
+    pub fn define_subroutine_var(&mut self, name: &str, kind: SubVarKind, typ: &GrammarItemType) {
         let dict = &mut self.sub;
         let index = dict.index_dict.entry(kind.clone()).or_insert(0);
         let entry = EntrySub {

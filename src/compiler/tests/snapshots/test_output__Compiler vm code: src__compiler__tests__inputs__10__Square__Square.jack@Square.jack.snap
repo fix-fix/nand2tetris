@@ -90,7 +90,6 @@ pop this 2
 push pointer 0
 call Square.draw 1
 pop temp 0
-goto __VM_LABEL_1
 label __VM_LABEL_1
 push constant 0
 return
@@ -112,7 +111,6 @@ pop this 2
 push pointer 0
 call Square.draw 1
 pop temp 0
-goto __VM_LABEL_2
 label __VM_LABEL_2
 push constant 0
 return
@@ -159,7 +157,6 @@ push constant 1
 add
 call Screen.drawRectangle 4
 pop temp 0
-goto __VM_LABEL_3
 label __VM_LABEL_3
 push constant 0
 return
@@ -208,7 +205,6 @@ push this 2
 add
 call Screen.drawRectangle 4
 pop temp 0
-goto __VM_LABEL_4
 label __VM_LABEL_4
 push constant 0
 return
@@ -255,7 +251,6 @@ push this 2
 add
 call Screen.drawRectangle 4
 pop temp 0
-goto __VM_LABEL_5
 label __VM_LABEL_5
 push constant 0
 return
@@ -304,7 +299,6 @@ push this 2
 add
 call Screen.drawRectangle 4
 pop temp 0
-goto __VM_LABEL_6
 label __VM_LABEL_6
 push constant 0
 return

@@ -39,7 +39,6 @@ if-goto __VM_LABEL_1
 push this 0
 call Square.moveUp 1
 pop temp 0
-goto __VM_LABEL_1
 label __VM_LABEL_1
 push this 1
 push constant 2
@@ -49,7 +48,6 @@ if-goto __VM_LABEL_2
 push this 0
 call Square.moveDown 1
 pop temp 0
-goto __VM_LABEL_2
 label __VM_LABEL_2
 push this 1
 push constant 3
@@ -59,7 +57,6 @@ if-goto __VM_LABEL_3
 push this 0
 call Square.moveLeft 1
 pop temp 0
-goto __VM_LABEL_3
 label __VM_LABEL_3
 push this 1
 push constant 4
@@ -69,7 +66,6 @@ if-goto __VM_LABEL_4
 push this 0
 call Square.moveRight 1
 pop temp 0
-goto __VM_LABEL_4
 label __VM_LABEL_4
 push constant 5
 call Sys.wait 1
@@ -105,7 +101,6 @@ if-goto __VM_LABEL_9
 push constant 0
 not
 pop local 1
-goto __VM_LABEL_9
 label __VM_LABEL_9
 push local 0
 push constant 90
@@ -115,7 +110,6 @@ if-goto __VM_LABEL_10
 push this 0
 call Square.decSize 1
 pop temp 0
-goto __VM_LABEL_10
 label __VM_LABEL_10
 push local 0
 push constant 88
@@ -125,7 +119,6 @@ if-goto __VM_LABEL_11
 push this 0
 call Square.incSize 1
 pop temp 0
-goto __VM_LABEL_11
 label __VM_LABEL_11
 push local 0
 push constant 131
@@ -134,7 +127,6 @@ not
 if-goto __VM_LABEL_12
 push constant 1
 pop this 1
-goto __VM_LABEL_12
 label __VM_LABEL_12
 push local 0
 push constant 133
@@ -143,7 +135,6 @@ not
 if-goto __VM_LABEL_13
 push constant 2
 pop this 1
-goto __VM_LABEL_13
 label __VM_LABEL_13
 push local 0
 push constant 130
@@ -152,7 +143,6 @@ not
 if-goto __VM_LABEL_14
 push constant 3
 pop this 1
-goto __VM_LABEL_14
 label __VM_LABEL_14
 push local 0
 push constant 132
@@ -161,7 +151,6 @@ not
 if-goto __VM_LABEL_15
 push constant 4
 pop this 1
-goto __VM_LABEL_15
 label __VM_LABEL_15
 label __VM_LABEL_16
 push local 0

@@ -254,7 +254,6 @@ push constant 1
 pop this 14
 push this 10
 pop this 0
-goto __VM_LABEL_17
 label __VM_LABEL_17
 push this 0
 push this 11
@@ -264,7 +263,6 @@ push constant 2
 pop this 14
 push this 11
 pop this 0
-goto __VM_LABEL_18
 label __VM_LABEL_18
 push this 1
 push this 12
@@ -274,7 +272,6 @@ push constant 3
 pop this 14
 push this 12
 pop this 1
-goto __VM_LABEL_19
 label __VM_LABEL_19
 push this 1
 push this 13
@@ -284,7 +281,6 @@ push constant 4
 pop this 14
 push this 13
 pop this 1
-goto __VM_LABEL_20
 label __VM_LABEL_20
 push pointer 0
 call Ball.show 1

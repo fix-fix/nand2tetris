@@ -72,7 +72,6 @@ if-goto __VM_LABEL_3
 push this 1
 call List.dispose 1
 pop temp 0
-goto __VM_LABEL_3
 label __VM_LABEL_3
 push pointer 0
 call Memory.deAlloc 1
@@ -103,7 +102,6 @@ not
 if-goto __VM_LABEL_4
 push constant 0
 return
-goto __VM_LABEL_4
 label __VM_LABEL_4
 push local 0
 pop local 1
