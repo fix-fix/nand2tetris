@@ -148,8 +148,8 @@ push constant 140
 eq
 not
 if-goto __VM_LABEL_9
-push constant 0
-not
+push constant 1
+neg
 pop this 3
 label __VM_LABEL_9
 label __VM_LABEL_7

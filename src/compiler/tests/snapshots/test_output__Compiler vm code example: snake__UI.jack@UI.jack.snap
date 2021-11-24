@@ -40,8 +40,8 @@ push static 1
 push static 0
 call Math.multiply 2
 pop local 0
-push constant 0
-not
+push constant 1
+neg
 call Screen.setColor 1
 pop temp 0
 push local 0
@@ -97,8 +97,8 @@ push local 1
 push constant 0
 lt
 if-goto __VM_LABEL_2
-push constant 0
-not
+push constant 1
+neg
 call Screen.setColor 1
 pop temp 0
 push local 2
@@ -296,8 +296,8 @@ pop temp 0
 push constant 0
 return
 function UI.drawSnakePartBase 2
-push constant 0
-not
+push constant 1
+neg
 push argument 0
 call UI.drawBlockIndex 2
 pop temp 0

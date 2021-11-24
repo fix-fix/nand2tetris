@@ -98,8 +98,8 @@ push constant 81
 eq
 not
 if-goto __VM_LABEL_9
-push constant 0
-not
+push constant 1
+neg
 pop local 1
 label __VM_LABEL_9
 push local 0

@@ -153,8 +153,8 @@ push constant 81
 eq
 not
 if-goto __VM_LABEL_7
-push constant 0
-not
+push constant 1
+neg
 pop local 1
 push constant 0
 pop this 3
@@ -368,8 +368,8 @@ return
 function Game.drawApple 0
 push argument 0
 pop pointer 0
-push constant 0
-not
+push constant 1
+neg
 push this 4
 call UI.drawBlockIndex 2
 pop temp 0

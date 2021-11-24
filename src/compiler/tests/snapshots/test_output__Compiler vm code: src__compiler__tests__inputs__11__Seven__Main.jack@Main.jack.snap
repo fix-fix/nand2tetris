@@ -5,9 +5,7 @@ input_file: src/compiler/tests/inputs/11/Seven/Main.jack
 
 ---
 function Main.main 0
-push constant 1
-push constant 6
-add
+push constant 7
 call Output.printInt 1
 pop temp 0
 push constant 0

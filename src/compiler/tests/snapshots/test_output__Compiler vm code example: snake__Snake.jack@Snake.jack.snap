@@ -194,8 +194,8 @@ if-goto __VM_LABEL_11
 push this 3
 push constant 0
 add
-push constant 0
-not
+push constant 1
+neg
 pop temp 0
 pop pointer 1
 push temp 0
@@ -329,8 +329,8 @@ push argument 1
 eq
 not
 if-goto __VM_LABEL_18
-push constant 0
-not
+push constant 1
+neg
 return
 label __VM_LABEL_18
 push local 0
