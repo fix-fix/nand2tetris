@@ -12,21 +12,9 @@ push constant 8
 pop static 0
 push constant 4
 pop static 1
-push constant 512
-push static 0
-call Math.divide 2
-push constant 2
-push static 1
-call Math.multiply 2
-sub
+push constant 56
 pop static 2
-push constant 256
-push static 0
-call Math.divide 2
-push constant 2
-push static 1
-call Math.multiply 2
-sub
+push constant 24
 pop static 3
 push constant 1
 neg
@@ -36,9 +24,7 @@ return
 function UI.init 1
 push argument 0
 pop pointer 0
-push static 1
-push static 0
-call Math.multiply 2
+push constant 32
 pop local 0
 push constant 1
 neg
@@ -169,15 +155,13 @@ pop temp 0
 push constant 0
 return
 function UI.getFieldWidth 0
-push static 2
+push constant 56
 return
 function UI.getFieldHeight 0
-push static 3
+push constant 24
 return
 function UI.getBoardIndexSize 0
-push static 2
-push static 3
-call Math.multiply 2
+push constant 1344
 return
 function UI.drawBlock 0
 push argument 0
@@ -307,7 +291,7 @@ pop temp 0
 push argument 0
 call UI.fromGameToScreen 1
 pop local 1
-push static 0
+push constant 8
 pop local 0
 push local 1
 push constant 0
@@ -454,7 +438,7 @@ push local 0
 push constant 0
 add
 push argument 0
-push static 2
+push constant 56
 call Utils.modulo 2
 pop temp 0
 pop pointer 1
@@ -482,7 +466,7 @@ pop local 1
 push local 1
 push constant 0
 add
-push static 0
+push constant 8
 push static 1
 push local 0
 push constant 0
@@ -498,7 +482,7 @@ pop that 0
 push local 1
 push constant 1
 add
-push static 0
+push constant 8
 push static 1
 push local 0
 push constant 1

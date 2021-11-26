@@ -23,6 +23,23 @@ struct EntryClass {
     typ: String,
     kind: ClassVarKind,
     index: u16,
+
+    constant_value: Option<i16>,
+}
+
+impl EntryClass {
+    fn new(typ: String, kind: ClassVarKind, index: u16) -> Self {
+        Self {
+            typ,
+            kind,
+            index,
+            constant_value: None,
+        }
+    }
+
+    fn set_constant_value(&mut self, term_value: i16) {
+        self.constant_value = Some(term_value);
+    }
 }
 
 impl From<&EntryClass> for Entry {
@@ -34,6 +51,8 @@ impl From<&EntryClass> for Entry {
                 ClassVarKind::Field => "this".to_string(),
                 ClassVarKind::Static => "static".to_string(),
             },
+
+            constant_value: other.constant_value,
         }
     }
 }
@@ -60,6 +79,8 @@ impl From<&EntrySub> for Entry {
                 SubVarKind::Argument => "argument".to_string(),
                 SubVarKind::Var => "local".to_string(),
             },
+
+            constant_value: None,
         }
     }
 }
@@ -86,6 +107,14 @@ pub struct Entry {
     // What kind of memory segment
     pub kind: String,
     pub index: u16,
+
+    constant_value: Option<i16>,
+}
+
+impl Entry {
+    pub fn constant_value(&self) -> Option<i16> {
+        self.constant_value
+    }
 }
 
 impl SymbolTable {
@@ -119,11 +148,7 @@ impl SymbolTable {
     ) {
         let dict = &mut self.class;
         let index = dict.index_dict.entry(kind.into()).or_insert(0);
-        let entry = EntryClass {
-            typ: type_as_string(typ),
-            kind: kind.into(),
-            index: *index,
-        };
+        let entry = EntryClass::new(type_as_string(typ), kind.into(), *index);
         *index += 1;
         dict.entry_dict.insert(name.into(), entry);
     }
@@ -142,6 +167,12 @@ impl SymbolTable {
 
     pub fn reset_subroutine_table(&mut self) {
         self.sub = Default::default();
+    }
+
+    pub fn add_constant_value_for_static(&mut self, static_var: &str, term_value: i16) {
+        if let Some(entry) = self.class.entry_dict.get_mut(static_var) {
+            entry.set_constant_value(term_value);
+        }
     }
 }
 

@@ -20,8 +20,8 @@ pub struct CompilerState {
 }
 
 impl CompilerState {
-    pub fn sym_table(&self) -> &SymbolTable {
-        &self.sym_table
+    pub fn sym_table(&mut self) -> &mut SymbolTable {
+        &mut self.sym_table
     }
 }
 
@@ -75,14 +75,59 @@ impl CompilerState {
 }
 
 #[derive(Debug, Default, Clone)]
-struct CompilerContext {
+pub struct CompilerContext {
     function_variant: Option<GrammarSubroutineVariant>,
+    lhs_context: LhsContext,
     return_type: Option<GrammarSubroutineReturnType>,
 }
 
 impl CompilerContext {
     fn new() -> Self {
         Default::default()
+    }
+
+    pub fn lhs_context(&self) -> LhsContext {
+        self.lhs_context.clone()
+    }
+
+    fn set_lhs_context_static(&mut self, name: String) {
+        if !self.is_in_constructor() {
+            return;
+        }
+        self.lhs_context = Some(LhsContextInner::new_for_class_static(name.as_str()))
+    }
+
+    fn reset_lhs_context_static(&mut self) {
+        self.lhs_context = None
+    }
+
+    fn is_in_constructor(&self) -> bool {
+        self.function_variant == Some(GrammarSubroutineVariant::Constructor)
+    }
+}
+
+#[derive(Debug, Clone)]
+pub struct LhsContextClassStatic {
+    name: String,
+}
+impl LhsContextClassStatic {
+    pub fn name(&self) -> &str {
+        self.name.as_str()
+    }
+
+    fn new(name: &str) -> Self {
+        Self { name: name.into() }
+    }
+}
+#[derive(Debug, Clone)]
+pub enum LhsContextInner {
+    ClassStatic(LhsContextClassStatic),
+}
+pub type LhsContext = Option<LhsContextInner>;
+
+impl LhsContextInner {
+    pub fn new_for_class_static(name: &str) -> LhsContextInner {
+        LhsContextInner::ClassStatic(LhsContextClassStatic::new(name))
     }
 }
 
@@ -176,13 +221,13 @@ fn compile_subroutine_dec(
             .define_subroutine_var(&param.ident, SubVarKind::Argument, &param.type_);
     }
 
-    compile_subroutine(state, &sub_context, sub, item_type)?;
+    compile_subroutine(state, &mut sub_context, sub, item_type)?;
     Ok(())
 }
 
 fn compile_subroutine(
     state: &mut CompilerState,
-    context: &CompilerContext,
+    context: &mut CompilerContext,
     Subroutine(var_decs, stmts): Subroutine,
     _typ: GrammarSubroutineReturnType,
 ) -> Res {
@@ -199,7 +244,7 @@ fn compile_subroutine(
 
 fn compile_statements(
     state: &mut CompilerState,
-    context: &CompilerContext,
+    context: &mut CompilerContext,
     statements: Vec<Statement>,
 ) -> Res {
     for stmt in statements {
@@ -208,7 +253,11 @@ fn compile_statements(
     Ok(())
 }
 
-fn compile_statement(state: &mut CompilerState, context: &CompilerContext, stmt: Statement) -> Res {
+fn compile_statement(
+    state: &mut CompilerState,
+    context: &mut CompilerContext,
+    stmt: Statement,
+) -> Res {
     match stmt {
         Statement::LetStatement(s) => compile_statement_let(state, context, s)?,
         Statement::IfStatement(s) => compile_statement_if(state, context, s)?,
@@ -221,13 +270,18 @@ fn compile_statement(state: &mut CompilerState, context: &CompilerContext, stmt:
 
 fn compile_statement_let(
     state: &mut CompilerState,
-    context: &CompilerContext,
+    context: &mut CompilerContext,
     stmt: LetStatement,
 ) -> Res {
     let var = state
         .sym_table
         .lookup(&stmt.name)
         .ok_or(format!("Unknown var: {}", &stmt.name))?;
+    let is_static_var = var.kind == "static";
+    if is_static_var {
+        context.set_lhs_context_static(stmt.name.clone());
+    }
+
     match stmt.index_expr {
         Some(expr) => {
             state.write_result(write_push(var.kind.as_str(), var.index));
@@ -244,12 +298,13 @@ fn compile_statement_let(
             state.write_result(write_pop(var.kind.as_str(), var.index));
         }
     };
+    context.reset_lhs_context_static();
     Ok(())
 }
 
 fn compile_statement_if(
     state: &mut CompilerState,
-    context: &CompilerContext,
+    context: &mut CompilerContext,
     stmt: IfStatement,
 ) -> Res {
     let end_label = state.get_label();
@@ -273,7 +328,7 @@ fn compile_statement_if(
 
 fn compile_statement_while(
     state: &mut CompilerState,
-    context: &CompilerContext,
+    context: &mut CompilerContext,
     stmt: WhileStatement,
 ) -> Res {
     let start_label = state.get_label();
@@ -384,7 +439,7 @@ fn compile_expression_list(
 }
 
 fn compile_expression(state: &mut CompilerState, context: &CompilerContext, expr: Expr) -> Res {
-    if let Some(results) = optimize_syntax_tree_expression(state, &expr) {
+    if let Some(results) = optimize_syntax_tree_expression(&expr, state, context) {
         for result in results {
             state.write_result(result);
         }

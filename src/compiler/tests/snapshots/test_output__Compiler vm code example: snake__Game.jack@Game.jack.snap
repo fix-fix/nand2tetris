@@ -10,9 +10,7 @@ call Memory.alloc 1
 pop pointer 0
 push constant 60
 pop static 0
-push static 0
-push constant 30
-call Math.divide 2
+push constant 2
 pop static 1
 push constant 18
 call String.new 1
@@ -190,7 +188,7 @@ push constant 1
 add
 pop this 1
 push this 1
-push static 1
+push constant 2
 call Utils.modulo 2
 push constant 0
 eq
@@ -279,9 +277,7 @@ push pointer 0
 call Game.drawApple 1
 pop temp 0
 label __VM_LABEL_9
-push constant 1000
-push static 0
-call Math.divide 2
+push constant 16
 call Sys.wait 1
 pop temp 0
 call Keyboard.keyPressed 0
@@ -317,9 +313,7 @@ if-goto __VM_LABEL_21
 push constant 1
 pop this 3
 label __VM_LABEL_21
-push constant 1000
-push static 0
-call Math.divide 2
+push constant 16
 call Sys.wait 1
 pop temp 0
 goto __VM_LABEL_19
