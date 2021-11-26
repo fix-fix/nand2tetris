@@ -501,14 +501,6 @@ pop temp 0
 push local 1
 return
 function UI.updateScore 1
-push argument 0
-push static 4
-eq
-not
-if-goto __VM_LABEL_7
-push constant 0
-return
-label __VM_LABEL_7
 push constant 7
 call String.new 1
 push constant 83
@@ -544,6 +536,14 @@ pop static 4
 push constant 0
 return
 function UI.drawIngameMenu 0
+push argument 0
+push static 4
+eq
+not
+if-goto __VM_LABEL_7
+push constant 0
+return
+label __VM_LABEL_7
 push argument 0
 call UI.updateScore 1
 pop temp 0

@@ -51,6 +51,35 @@ call String.appendChar 2
 push constant 61
 call String.appendChar 2
 pop static 2
+push constant 13
+call String.new 1
+push constant 61
+call String.appendChar 2
+push constant 61
+call String.appendChar 2
+push constant 61
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+push constant 80
+call String.appendChar 2
+push constant 97
+call String.appendChar 2
+push constant 117
+call String.appendChar 2
+push constant 115
+call String.appendChar 2
+push constant 101
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+push constant 61
+call String.appendChar 2
+push constant 61
+call String.appendChar 2
+push constant 61
+call String.appendChar 2
+pop static 3
 push constant 0
 pop this 3
 push constant 0
@@ -62,7 +91,7 @@ pop this 4
 push constant 0
 pop this 2
 push constant 2341
-pop static 3
+pop static 4
 push pointer 0
 return
 function Game.start 0
@@ -83,10 +112,8 @@ push this 3
 push constant 0
 eq
 if-goto __VM_LABEL_3
-call Screen.clearScreen 0
-pop temp 0
-push this 7
-call UI.init 1
+push pointer 0
+call Game.redraw 1
 pop temp 0
 push constant 0
 pop this 1
@@ -100,9 +127,6 @@ push pointer 0
 push this 6
 call Game.placeApple 2
 pop this 4
-push this 5
-call UI.drawIngameMenu 1
-pop temp 0
 push pointer 0
 call Game.run 1
 pop temp 0
@@ -124,6 +148,19 @@ call Memory.deAlloc 1
 pop temp 0
 push constant 0
 return
+function Game.redraw 0
+push argument 0
+pop pointer 0
+call Screen.clearScreen 0
+pop temp 0
+push this 7
+call UI.init 1
+pop temp 0
+push this 5
+call UI.drawIngameMenu 1
+pop temp 0
+push constant 0
+return
 function Game.run 3
 push argument 0
 pop pointer 0
@@ -142,6 +179,13 @@ pop local 0
 push local 0
 push constant 0
 eq
+not
+push local 0
+push this 0
+eq
+not
+and
+not
 if-goto __VM_LABEL_6
 push local 0
 pop this 0
@@ -159,6 +203,16 @@ pop this 3
 push this 3
 return
 label __VM_LABEL_7
+push this 0
+push constant 80
+eq
+not
+if-goto __VM_LABEL_8
+push pointer 0
+push this 1
+call Game.pauseLoop 2
+pop temp 0
+label __VM_LABEL_8
 push pointer 0
 call Game.tickGame 1
 pop local 2
@@ -171,11 +225,11 @@ or
 pop local 1
 push local 2
 not
-if-goto __VM_LABEL_8
+if-goto __VM_LABEL_9
 push pointer 0
 call Game.endGameLoop 1
 pop temp 0
-label __VM_LABEL_8
+label __VM_LABEL_9
 goto __VM_LABEL_4
 label __VM_LABEL_5
 push this 3
@@ -193,7 +247,7 @@ call Utils.modulo 2
 push constant 0
 eq
 not
-if-goto __VM_LABEL_9
+if-goto __VM_LABEL_10
 push this 2
 push constant 1
 add
@@ -202,49 +256,49 @@ push this 0
 push constant 131
 eq
 not
-if-goto __VM_LABEL_11
+if-goto __VM_LABEL_12
 push constant 1
 pop local 2
-goto __VM_LABEL_10
-label __VM_LABEL_11
+goto __VM_LABEL_11
+label __VM_LABEL_12
 push this 0
 push constant 133
 eq
 not
-if-goto __VM_LABEL_13
+if-goto __VM_LABEL_14
 push constant 2
 pop local 2
-goto __VM_LABEL_12
-label __VM_LABEL_13
+goto __VM_LABEL_13
+label __VM_LABEL_14
 push this 0
 push constant 130
 eq
 not
-if-goto __VM_LABEL_15
+if-goto __VM_LABEL_16
 push constant 3
 pop local 2
-goto __VM_LABEL_14
-label __VM_LABEL_15
+goto __VM_LABEL_15
+label __VM_LABEL_16
 push this 0
 push constant 132
 eq
 not
-if-goto __VM_LABEL_16
+if-goto __VM_LABEL_17
 push constant 4
 pop local 2
-label __VM_LABEL_16
-label __VM_LABEL_14
-label __VM_LABEL_12
-label __VM_LABEL_10
+label __VM_LABEL_17
+label __VM_LABEL_15
+label __VM_LABEL_13
+label __VM_LABEL_11
 push local 2
 push constant 0
 eq
-if-goto __VM_LABEL_17
+if-goto __VM_LABEL_18
 push this 6
 push local 2
 call Snake.setDirection 2
 pop temp 0
-label __VM_LABEL_17
+label __VM_LABEL_18
 push this 6
 push this 4
 call Snake.advance 2
@@ -263,12 +317,12 @@ push that 0
 pop local 1
 push local 1
 not
-if-goto __VM_LABEL_18
+if-goto __VM_LABEL_19
 push this 5
 push constant 1
 add
 pop this 5
-label __VM_LABEL_18
+label __VM_LABEL_19
 push pointer 0
 push this 6
 call Game.placeApple 2
@@ -276,7 +330,7 @@ pop this 4
 push pointer 0
 call Game.drawApple 1
 pop temp 0
-label __VM_LABEL_9
+label __VM_LABEL_10
 push constant 16
 call Sys.wait 1
 pop temp 0
@@ -297,27 +351,80 @@ pop temp 0
 push this 6
 call Snake.dispose 1
 pop temp 0
-label __VM_LABEL_19
+label __VM_LABEL_20
 push this 3
 push constant 2
 eq
 not
-if-goto __VM_LABEL_20
+if-goto __VM_LABEL_21
 call Keyboard.keyPressed 0
 pop local 0
 push local 0
 push constant 82
 eq
 not
-if-goto __VM_LABEL_21
+if-goto __VM_LABEL_22
 push constant 1
 pop this 3
-label __VM_LABEL_21
+label __VM_LABEL_22
 push constant 16
 call Sys.wait 1
 pop temp 0
-goto __VM_LABEL_19
-label __VM_LABEL_20
+goto __VM_LABEL_20
+label __VM_LABEL_21
+push constant 0
+return
+function Game.pauseLoop 1
+push argument 0
+pop pointer 0
+push constant 3
+pop this 3
+push constant 200
+push constant 100
+push static 3
+call UI.drawPanel 3
+pop temp 0
+label __VM_LABEL_23
+push this 3
+push constant 3
+eq
+not
+if-goto __VM_LABEL_24
+call Keyboard.keyPressed 0
+pop local 0
+push local 0
+push constant 80
+eq
+push this 1
+push argument 1
+sub
+push constant 10
+gt
+and
+not
+if-goto __VM_LABEL_25
+push constant 1
+pop this 3
+push constant 0
+pop local 0
+push constant 200
+call Sys.wait 1
+pop temp 0
+push pointer 0
+call Game.redraw 1
+pop temp 0
+push constant 0
+return
+label __VM_LABEL_25
+push constant 16
+call Sys.wait 1
+pop temp 0
+push this 1
+push constant 1
+add
+pop this 1
+goto __VM_LABEL_23
+label __VM_LABEL_24
 push constant 0
 return
 function Game.placeApple 1
@@ -327,36 +434,40 @@ push argument 1
 call Snake.getHead 1
 push this 4
 eq
-if-goto __VM_LABEL_22
+if-goto __VM_LABEL_26
 push this 4
 return
-label __VM_LABEL_22
+label __VM_LABEL_26
 push this 4
 pop local 0
 push local 0
-push static 3
+push static 4
 add
+push this 1
+call Math.multiply 2
 call UI.getBoardIndexSize 0
 push constant 1
 sub
 call Utils.modulo 2
 pop local 0
-label __VM_LABEL_23
+label __VM_LABEL_27
 push argument 1
 push local 0
 call Snake.isCollided 2
 not
-if-goto __VM_LABEL_24
+if-goto __VM_LABEL_28
 push local 0
-push static 3
+push static 4
 add
+push this 1
+call Math.multiply 2
 call UI.getBoardIndexSize 0
 push constant 1
 sub
 call Utils.modulo 2
 pop local 0
-goto __VM_LABEL_23
-label __VM_LABEL_24
+goto __VM_LABEL_27
+label __VM_LABEL_28
 push local 0
 return
 function Game.drawApple 0
