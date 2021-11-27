@@ -11,36 +11,37 @@ pub fn optimize_syntax_tree_expression(
     context: &CompilerContext,
 ) -> Option<Vec<WriteInst>> {
     let lhs_context = context.lhs_context();
-    optimize_expr(term1, ops, state.sym_table(), &lhs_context)
+    optimize_expr(term1, ops, &mut Some(state.sym_table()), &lhs_context)
 }
 
 fn optimize_expr_int_inner(
     term1: &Term,
     ops: &[(Op, Term)],
-    sym_table: &mut SymbolTable,
+    sym_table: &mut Option<&mut SymbolTable>,
     lhs_context: &LhsContext,
 ) -> Option<i16> {
     // dbg!(term1, ops);
-    let mut term1_value = eval_term(term1, sym_table, lhs_context);
+    let term1_value = eval_term(term1, sym_table);
+    let mut full_expr_int_value = term1_value;
     for (Op(op), term2) in ops {
         if !is_simple_arith_op(op.as_str()) {
             return None;
         }
-        let term2_value = eval_term(term2, sym_table, lhs_context);
-        if let (Some(a), Some(b)) = (term1_value, term2_value) {
-            term1_value = eval_binop(op, a, b);
+        let term2_value = eval_term(term2, sym_table);
+        if let (Some(a), Some(b)) = (full_expr_int_value, term2_value) {
+            full_expr_int_value = eval_binop(op, a, b);
         } else {
             return None;
         }
     }
 
-    if let (Some(term_value), Some(LhsContextInner::ClassStatic(class_static))) =
-        (term1_value, lhs_context)
+    if let (Some(term_value), Some(sym_table), Some(LhsContextInner::ClassStatic(class_static))) =
+        (full_expr_int_value, sym_table, lhs_context)
     {
         sym_table.add_constant_value_for_static(class_static.name(), term_value);
     }
 
-    term1_value
+    full_expr_int_value
 }
 
 fn is_simple_arith_op(op: &str) -> bool {
@@ -50,7 +51,7 @@ fn is_simple_arith_op(op: &str) -> bool {
 fn optimize_expr(
     term1: &Term,
     ops: &[(Op, Term)],
-    sym_table: &mut SymbolTable,
+    sym_table: &mut Option<&mut SymbolTable>,
     lhs_context: &LhsContext,
 ) -> Option<Vec<WriteInst>> {
     // dbg!(term1, ops);
@@ -88,27 +89,31 @@ fn eval_unop(op: &str, a: i16) -> Option<i16> {
     }
 }
 
-fn eval_term(term: &Term, sym_table: &mut SymbolTable, lhs_context: &LhsContext) -> Option<i16> {
+fn eval_term(term: &Term, sym_table: &mut Option<&mut SymbolTable>) -> Option<i16> {
     // dbg!(term);
     match term {
         Term::IntegerConstant(value) => {
             // dbg!(value);
             Some((*value).try_into().unwrap())
         }
-        Term::UnaryOp(Op(op), term) => match eval_term(term, sym_table, lhs_context) {
+        Term::UnaryOp(Op(op), term) => match eval_term(term, sym_table) {
             Some(term_value) => eval_unop(op, term_value),
             None => None,
         },
         Term::ParenExpr(expr) => {
             let Expr(termp1, ops) = &**expr;
-            optimize_expr_int_inner(termp1, ops, sym_table, lhs_context)
+            optimize_expr_int_inner(
+                termp1, ops, sym_table,
+                // add_constant_value_for_static only for top level expression
+                &None,
+            )
         }
         Term::KeywordConstant(Keyword::Null) => Some(0),
         Term::KeywordConstant(Keyword::True) => Some(-1),
         Term::KeywordConstant(Keyword::False) => Some(0),
         #[allow(clippy::let_and_return)]
         Term::VarName(ident) => {
-            let entry = sym_table.lookup(ident)?;
+            let entry = sym_table.as_ref().and_then(|e| e.lookup(ident))?;
             if entry.typ != type_as_string(&GrammarItemType::Int) {
                 return None;
             }

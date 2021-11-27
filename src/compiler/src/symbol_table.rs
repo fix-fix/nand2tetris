@@ -38,6 +38,12 @@ impl EntryClass {
     }
 
     fn set_constant_value(&mut self, term_value: i16) {
+        assert!(
+            matches!(self.constant_value, None),
+            "Must be written only once. Entry: {:?}\nValue:{}",
+            self,
+            term_value
+        );
         self.constant_value = Some(term_value);
     }
 }
