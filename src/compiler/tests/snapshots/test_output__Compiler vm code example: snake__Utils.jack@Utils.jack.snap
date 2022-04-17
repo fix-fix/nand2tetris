@@ -22,7 +22,6 @@ push local 0
 push argument 1
 add
 pop local 0
-goto __VM_LABEL_1
 label __VM_LABEL_1
 push local 0
 return

@@ -469,7 +469,6 @@ pop temp 0
 pop pointer 1
 push temp 0
 pop that 0
-goto __VM_LABEL_1
 label __VM_LABEL_1
 push constant 44
 call String.new 1

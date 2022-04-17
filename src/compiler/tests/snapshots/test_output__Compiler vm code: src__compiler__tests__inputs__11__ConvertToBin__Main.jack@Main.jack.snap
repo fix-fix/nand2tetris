@@ -20,8 +20,8 @@ pop temp 0
 push constant 0
 return
 function Main.convert 3
-push constant 0
-not
+push constant 1
+neg
 pop local 2
 label __VM_LABEL_1
 push local 2
@@ -37,16 +37,12 @@ pop local 0
 push local 1
 push constant 16
 gt
-not
-not
 if-goto __VM_LABEL_4
 push argument 0
 push local 0
 and
 push constant 0
 eq
-not
-not
 if-goto __VM_LABEL_6
 push constant 8000
 push local 1

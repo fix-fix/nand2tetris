@@ -18,7 +18,7 @@ pub struct Parser<'a> {
 }
 
 impl<'a> Parser<'a> {
-    pub fn new(tokens: &'a[Token]) -> Self {
+    pub fn new(tokens: &'a [Token]) -> Self {
         Self {
             tokens: tokens.iter().enumerate().peekable(),
             tokens_seq: tokens,

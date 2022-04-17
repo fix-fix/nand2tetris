@@ -1,6 +1,7 @@
 use crate::{
     codegen::*,
     node::*,
+    optimizer::{opimize_vm_instructions, optimize_syntax_tree_expression},
     parser::ParseResult,
     symbol_table::{Entry, SubVarKind, SymbolTable},
     token::Keyword,
@@ -10,32 +11,52 @@ use std::{collections::HashSet, fmt::Write};
 type CompilerError = Box<dyn std::error::Error>;
 type Res<T = ()> = Result<T, CompilerError>;
 
-struct CompilerState<'a> {
+pub struct CompilerState {
     class_name: String,
     label_id: usize,
+    instructions: Vec<WriteInst>,
     methods: HashSet<String>,
     sym_table: SymbolTable,
-    out: &'a mut (dyn Write),
 }
 
-impl<'a> CompilerState<'a> {
-    fn new(class_name: String, sym_table: SymbolTable, out: &'a mut (dyn Write)) -> Self {
+impl CompilerState {
+    pub fn sym_table(&mut self) -> &mut SymbolTable {
+        &mut self.sym_table
+    }
+}
+
+impl CompilerState {
+    fn new(class_name: String, sym_table: SymbolTable) -> Self {
         Self {
             class_name,
             label_id: 0,
+            instructions: vec![],
             methods: Default::default(),
             sym_table,
-            out,
         }
     }
 
-    pub fn write<S: std::fmt::Display>(&mut self, s: S) {
-        writeln!(self.out, "{}", s).expect("Error writing");
+    fn write_all(&mut self, out: &mut (dyn Write)) {
+        for inst in self.instructions.iter() {
+            self.write_inner(out, inst.code())
+        }
+    }
+
+    fn write_inner<S: std::fmt::Display>(&self, out: &mut (dyn Write), s: S) {
+        writeln!(out, "{}", s).expect("Error writing");
+    }
+
+    pub fn write_result(&mut self, res: WriteInst) {
+        self.save_result(res);
     }
 
     pub fn get_label(&mut self) -> String {
         self.label_id += 1;
-        format!("__VM_LABEL_{}", self.label_id)
+        Self::get_label_id(self.label_id)
+    }
+
+    fn get_label_id(label_id: usize) -> String {
+        format!("__VM_LABEL_{}", label_id)
     }
 
     fn register_method(&mut self, sub_dec: &SubroutineDec) {
@@ -47,17 +68,66 @@ impl<'a> CompilerState<'a> {
     fn has_method(&self, method: &str) -> bool {
         self.methods.contains(method)
     }
+
+    fn save_result(&mut self, res: WriteInst) {
+        self.instructions.push(res);
+    }
 }
 
 #[derive(Debug, Default, Clone)]
-struct CompilerContext {
+pub struct CompilerContext {
     function_variant: Option<GrammarSubroutineVariant>,
+    lhs_context: LhsContext,
     return_type: Option<GrammarSubroutineReturnType>,
 }
 
 impl CompilerContext {
     fn new() -> Self {
         Default::default()
+    }
+
+    pub fn lhs_context(&self) -> LhsContext {
+        self.lhs_context.clone()
+    }
+
+    fn set_lhs_context_static(&mut self, name: String) {
+        if !self.is_in_constructor() {
+            return;
+        }
+        self.lhs_context = Some(LhsContextInner::new_for_class_static(name.as_str()))
+    }
+
+    fn reset_lhs_context_static(&mut self) {
+        self.lhs_context = None
+    }
+
+    fn is_in_constructor(&self) -> bool {
+        self.function_variant == Some(GrammarSubroutineVariant::Constructor)
+    }
+}
+
+#[derive(Debug, Clone)]
+pub struct LhsContextClassStatic {
+    name: String,
+}
+impl LhsContextClassStatic {
+    pub fn name(&self) -> &str {
+        self.name.as_str()
+    }
+
+    fn new(name: &str) -> Self {
+        Self { name: name.into() }
+    }
+}
+#[derive(Debug, Clone)]
+pub enum LhsContextInner {
+    ClassStatic(LhsContextClassStatic),
+}
+pub type LhsContext = Option<LhsContextInner>;
+
+impl LhsContextInner {
+    pub fn new_for_class_static(name: &str) -> LhsContextInner {
+        LhsContextInner::ClassStatic(LhsContextClassStatic::new(name))
     }
 }
 
@@ -78,12 +148,14 @@ fn lookup_var(state: &mut CompilerState, context: &CompilerContext, name: String
 pub fn compile_program(parse_result: ParseResult) -> Res<String> {
     let mut out = String::new();
     let sym_table = SymbolTable::new();
-    let mut state = CompilerState::new(Default::default(), sym_table, &mut out);
+    let mut state = CompilerState::new(Default::default(), sym_table);
     let context = CompilerContext::new();
     compile_class(&mut state, &context, parse_result.root).map_err(|e| {
         // dbg!(state.class_name, state.sym_table);
         e
     })?;
+    opimize_vm_instructions(&mut state.instructions);
+    state.write_all(&mut out);
     Ok(out)
 }
 
@@ -116,7 +188,7 @@ fn compile_subroutine_dec(
 ) -> Res {
     state.sym_table.reset_subroutine_table();
     let n_locals: u16 = sub.0.iter().map(|var_dec| var_dec.1.len() as u16).sum();
-    state.write(write_function(
+    state.write_result(write_function(
         format!("{}.{}", state.class_name, ident),
         n_locals,
     ));
@@ -126,13 +198,13 @@ fn compile_subroutine_dec(
     match variant {
         GrammarSubroutineVariant::Constructor => {
             let object_size = state.sym_table.count_instance_fields();
-            state.write(write_push("constant", object_size));
-            state.write(write_call("Memory.alloc", 1));
-            state.write(write_pop("pointer", 0));
+            state.write_result(write_push("constant", object_size));
+            state.write_result(write_call("Memory.alloc", 1));
+            state.write_result(write_pop("pointer", 0));
         }
         GrammarSubroutineVariant::Method => {
-            state.write(write_push("argument", 0));
-            state.write(write_pop("pointer", 0));
+            state.write_result(write_push("argument", 0));
+            state.write_result(write_pop("pointer", 0));
 
             // Offset arguments in methods by setting fake value, since we also pass 'this'
             state.sym_table.define_subroutine_var(
@@ -149,13 +221,13 @@ fn compile_subroutine_dec(
             .define_subroutine_var(&param.ident, SubVarKind::Argument, &param.type_);
     }
 
-    compile_subroutine(state, &sub_context, sub, item_type)?;
+    compile_subroutine(state, &mut sub_context, sub, item_type)?;
     Ok(())
 }
 
 fn compile_subroutine(
     state: &mut CompilerState,
-    context: &CompilerContext,
+    context: &mut CompilerContext,
     Subroutine(var_decs, stmts): Subroutine,
     _typ: GrammarSubroutineReturnType,
 ) -> Res {
@@ -172,7 +244,7 @@ fn compile_subroutine(
 
 fn compile_statements(
     state: &mut CompilerState,
-    context: &CompilerContext,
+    context: &mut CompilerContext,
     statements: Vec<Statement>,
 ) -> Res {
     for stmt in statements {
@@ -181,7 +253,11 @@ fn compile_statements(
     Ok(())
 }
 
-fn compile_statement(state: &mut CompilerState, context: &CompilerContext, stmt: Statement) -> Res {
+fn compile_statement(
+    state: &mut CompilerState,
+    context: &mut CompilerContext,
+    stmt: Statement,
+) -> Res {
     match stmt {
         Statement::LetStatement(s) => compile_statement_let(state, context, s)?,
         Statement::IfStatement(s) => compile_statement_if(state, context, s)?,
@@ -194,35 +270,41 @@ fn compile_statement(state: &mut CompilerState, context: &CompilerContext, stmt:
 
 fn compile_statement_let(
     state: &mut CompilerState,
-    context: &CompilerContext,
+    context: &mut CompilerContext,
     stmt: LetStatement,
 ) -> Res {
     let var = state
         .sym_table
         .lookup(&stmt.name)
         .ok_or(format!("Unknown var: {}", &stmt.name))?;
+    let is_static_var = var.kind == "static";
+    if is_static_var {
+        context.set_lhs_context_static(stmt.name.clone());
+    }
+
     match stmt.index_expr {
         Some(expr) => {
-            state.write(write_push(var.kind.as_str(), var.index));
+            state.write_result(write_push(var.kind.as_str(), var.index));
             compile_expression(state, context, expr)?;
-            state.write("add");
+            state.write_result(write_arith("add"));
             compile_expression(state, context, stmt.value_expr)?;
-            state.write(write_pop("temp", 0));
-            state.write(write_pop("pointer", 1));
-            state.write(write_push("temp", 0));
-            state.write(write_pop("that", 0));
+            state.write_result(write_pop("temp", 0));
+            state.write_result(write_pop("pointer", 1));
+            state.write_result(write_push("temp", 0));
+            state.write_result(write_pop("that", 0));
         }
         _ => {
             compile_expression(state, context, stmt.value_expr)?;
-            state.write(write_pop(var.kind.as_str(), var.index));
+            state.write_result(write_pop(var.kind.as_str(), var.index));
         }
     };
+    context.reset_lhs_context_static();
     Ok(())
 }
 
 fn compile_statement_if(
     state: &mut CompilerState,
-    context: &CompilerContext,
+    context: &mut CompilerContext,
     stmt: IfStatement,
 ) -> Res {
     let end_label = state.get_label();
@@ -232,32 +314,32 @@ fn compile_statement_if(
         end_label.clone()
     };
     compile_expression(state, context, stmt.if_expr)?;
-    state.write("not");
-    state.write(write_if(&else_label));
+    state.write_result(write_not());
+    state.write_result(write_if(&else_label));
     compile_statements(state, context, stmt.if_statements)?;
-    state.write(write_goto(&end_label));
     if let Some(else_statements) = stmt.else_statements {
-        state.write(write_label(&else_label));
+        state.write_result(write_goto(&end_label));
+        state.write_result(write_label(&else_label));
         compile_statements(state, context, else_statements)?;
     }
-    state.write(write_label(&end_label));
+    state.write_result(write_label(&end_label));
     Ok(())
 }
 
 fn compile_statement_while(
     state: &mut CompilerState,
-    context: &CompilerContext,
+    context: &mut CompilerContext,
     stmt: WhileStatement,
 ) -> Res {
     let start_label = state.get_label();
     let end_label = state.get_label();
-    state.write(write_label(&start_label));
+    state.write_result(write_label(&start_label));
     compile_expression(state, context, stmt.cond_expr)?;
-    state.write("not");
-    state.write(write_if(&end_label));
+    state.write_result(write_not());
+    state.write_result(write_if(&end_label));
     compile_statements(state, context, stmt.statements)?;
-    state.write(write_goto(&start_label));
-    state.write(write_label(&end_label));
+    state.write_result(write_goto(&start_label));
+    state.write_result(write_label(&end_label));
     Ok(())
 }
 
@@ -268,7 +350,7 @@ fn compile_statement_do(
 ) -> Res {
     compile_call(state, context, stmt.call)?;
     // Pop return value, not used
-    state.write(write_pop("temp", 0));
+    state.write_result(write_pop("temp", 0));
     Ok(())
 }
 
@@ -292,10 +374,10 @@ fn compile_statement_return(
             compile_expression(state, context, expr)?;
         }
         None => {
-            state.write(write_push("constant", 0));
+            state.write_result(write_push("constant", 0));
         }
     }
-    state.write(write_return());
+    state.write_result(write_return());
     Ok(())
 }
 
@@ -322,7 +404,7 @@ fn compile_call(state: &mut CompilerState, context: &CompilerContext, call: Subr
     };
     let n_args = args.len();
     compile_expression_list(state, context, args)?;
-    state.write(write_call(func_name, n_args));
+    state.write_result(write_call(func_name, n_args));
     Ok(())
 }
 
@@ -356,11 +438,14 @@ fn compile_expression_list(
     Ok(())
 }
 
-fn compile_expression(
-    state: &mut CompilerState,
-    context: &CompilerContext,
-    Expr(term, extra_terms): Expr,
-) -> Res {
+fn compile_expression(state: &mut CompilerState, context: &CompilerContext, expr: Expr) -> Res {
+    if let Some(results) = optimize_syntax_tree_expression(&expr, state, context) {
+        for result in results {
+            state.write_result(result);
+        }
+        return Ok(());
+    }
+    let Expr(term, extra_terms) = expr;
     compile_term(state, context, term)?;
     for (op, extra_term) in extra_terms {
         compile_term(state, context, extra_term)?;
@@ -373,32 +458,32 @@ fn compile_term(state: &mut CompilerState, context: &CompilerContext, term: Term
     match term {
         Term::VarName(name) => {
             let var = lookup_var(state, context, name)?;
-            state.write(write_push(var.kind.as_str(), var.index));
+            state.write_result(write_push(var.kind.as_str(), var.index));
         }
         Term::KeywordConstant(kw) => {
             match kw {
                 Keyword::True => {
-                    state.write(write_push("constant", 0));
-                    state.write("not");
+                    state.write_result(write_push("constant", 0));
+                    state.write_result(write_not());
                 }
                 Keyword::False | Keyword::Null => {
-                    state.write(write_push("constant", 0));
+                    state.write_result(write_push("constant", 0));
                 }
                 Keyword::This => {
-                    state.write(write_push("pointer", 0));
+                    state.write_result(write_push("pointer", 0));
                 }
                 _ => return Err(format!("Unexpected constant used as term: {:?}", kw).into()),
             };
         }
         Term::IntegerConstant(i) => {
-            state.write(write_push("constant", i));
+            state.write_result(write_push("constant", i));
         }
         Term::StringConst(s) => {
-            state.write(write_push("constant", s.len() as u16));
-            state.write(write_call("String.new", 1));
+            state.write_result(write_push("constant", s.len() as u16));
+            state.write_result(write_call("String.new", 1));
             for c in s.chars() {
-                state.write(write_push("constant", (c as u8).into()));
-                state.write(write_call("String.appendChar", 2));
+                state.write_result(write_push("constant", (c as u8).into()));
+                state.write_result(write_call("String.appendChar", 2));
             }
         }
         Term::UnaryOp(op, term) => {
@@ -410,11 +495,11 @@ fn compile_term(state: &mut CompilerState, context: &CompilerContext, term: Term
         }
         Term::IndexExpr(name, expr) => {
             let var = lookup_var(state, context, name)?;
-            state.write(write_push(var.kind.as_str(), var.index));
+            state.write_result(write_push(var.kind.as_str(), var.index));
             compile_expression(state, context, *expr)?;
-            state.write("add");
-            state.write(write_pop("pointer", 1));
-            state.write(write_push("that", 0));
+            state.write_result(write_arith("add"));
+            state.write_result(write_pop("pointer", 1));
+            state.write_result(write_push("that", 0));
         }
         Term::SubroutineCall(call) => {
             compile_call(state, context, call)?;
@@ -424,14 +509,14 @@ fn compile_term(state: &mut CompilerState, context: &CompilerContext, term: Term
 }
 
 fn compile_op(state: &mut CompilerState, _context: &CompilerContext, Op(op): Op) -> Res {
-    state.write(match op.as_str() {
-        "+" => "add".to_string(),
-        "-" => "sub".to_string(),
-        "=" => "eq".to_string(),
-        ">" => "gt".to_string(),
-        "<" => "lt".to_string(),
-        "&" => "and".to_string(),
-        "|" => "or".to_string(),
+    state.write_result(match op.as_str() {
+        "+" => write_arith("add"),
+        "-" => write_arith("sub"),
+        "=" => write_arith("eq"),
+        ">" => write_arith("gt"),
+        "<" => write_arith("lt"),
+        "&" => write_arith("and"),
+        "|" => write_arith("or"),
         "*" => write_call("Math.multiply", 2),
         "/" => write_call("Math.divide", 2),
         other => unreachable!("Unsupported op: {:?}", other),
@@ -440,9 +525,9 @@ fn compile_op(state: &mut CompilerState, _context: &CompilerContext, Op(op): Op)
 }
 
 fn compile_unary_op(state: &mut CompilerState, _context: &CompilerContext, Op(op): Op) -> Res {
-    state.write(match op.as_str() {
-        "-" => "neg".to_string(),
-        "~" => "not".to_string(),
+    state.write_result(match op.as_str() {
+        "-" => write_arith("neg"),
+        "~" => write_not(),
         other => unreachable!("Unsupported unary op: {:?}", other),
     });
     Ok(())

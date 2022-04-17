@@ -1,6 +1,6 @@
 class Game {
   static int FPS, FRAMES_PER_TICK;
-  static String msg_game_over;
+  static String msg_game_over, msg_game_paused;
   static int some_prime_num;
 
   field int key, tick, game_counter, GAME_STATE, apple_coords, score;
@@ -11,6 +11,7 @@ class Game {
     let FPS = 60;
     let FRAMES_PER_TICK = FPS / 30;
     let msg_game_over = "=== Game Over! ===";
+    let msg_game_paused = "=== Pause ===";
     let GAME_STATE = 0;
     let score = 0;
     let ui = UI.new();
@@ -27,13 +28,11 @@ class Game {
     let GAME_STATE = 1;
 
     while (~(GAME_STATE = 0)) {
-      do Screen.clearScreen();
-      do ui.init();
+      do redraw();
       let tick = 0;
       let score = 0;
       let snake = Snake.new(30, 20);
       let apple_coords = placeApple(snake);
-      do UI.drawIngameMenu(score);
       do run();
     }
     return;
@@ -44,6 +43,13 @@ class Game {
     do snake.dispose();
     do ui.dispose();
     do Memory.deAlloc(this);
+    return;
+  }
+
+  method void redraw() {
+    do Screen.clearScreen();
+    do ui.init();
+    do UI.drawIngameMenu(score);
     return;
   }
 
@@ -58,10 +64,11 @@ class Game {
 
     while (~exit) {
       let tempKey = Keyboard.keyPressed();
-      if (~(tempKey = 0)) {
+      if (~(tempKey = 0) & ~(tempKey = key)) {
         let key = tempKey;
       }
       if (key = 81)  { let exit = true; let GAME_STATE = 0; return GAME_STATE; }     // q key
+      if (key = 80)  { do pauseLoop(tick); } // p key
 
       let is_over = tickGame();
       do UI.updateIngameMenu(score);
@@ -124,15 +131,38 @@ class Game {
     return;
   }
 
+  method void pauseLoop(int tick_initial) {
+    var char key;
+    let GAME_STATE = 3;
+    do UI.drawPanel(200, 100, msg_game_paused);
+    while (GAME_STATE = 3) {
+      let key = Keyboard.keyPressed();
+      if (
+        // p key
+        (key = 80) &
+        ((tick - tick_initial) > 10)
+      ) {
+        let GAME_STATE = 1;
+        let key = 0;
+        do Sys.wait(200);
+        do redraw();
+        return;
+      }
+      do Sys.wait(1000 / FPS);
+      let tick = tick + 1;
+    }
+    return;
+  }
+
   method int placeApple(Snake snake) {
     var int oldPlace;
     if (~(snake.getHead() = apple_coords)) {
       return apple_coords;
     }
     let oldPlace = apple_coords;
-    let oldPlace = Utils.modulo(oldPlace + some_prime_num, UI.getBoardIndexSize() - 1);
+    let oldPlace = Utils.modulo((oldPlace + some_prime_num) * tick, UI.getBoardIndexSize() - 1);
     while (snake.isCollided(oldPlace)) {
-      let oldPlace = Utils.modulo(oldPlace + some_prime_num, UI.getBoardIndexSize() - 1);
+      let oldPlace = Utils.modulo((oldPlace + some_prime_num) * tick, UI.getBoardIndexSize() - 1);
     }
     return oldPlace;
   }

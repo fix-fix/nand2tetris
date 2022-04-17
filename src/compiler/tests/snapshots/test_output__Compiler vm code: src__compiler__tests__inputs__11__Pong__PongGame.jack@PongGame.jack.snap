@@ -98,8 +98,6 @@ push argument 0
 pop pointer 0
 label __VM_LABEL_1
 push this 3
-not
-not
 if-goto __VM_LABEL_2
 label __VM_LABEL_3
 push local 0
@@ -150,10 +148,9 @@ push constant 140
 eq
 not
 if-goto __VM_LABEL_9
-push constant 0
-not
+push constant 1
+neg
 pop this 3
-goto __VM_LABEL_9
 label __VM_LABEL_9
 label __VM_LABEL_7
 label __VM_LABEL_5
@@ -211,7 +208,6 @@ push constant 114
 call String.appendChar 2
 call Output.printString 1
 pop temp 0
-goto __VM_LABEL_12
 label __VM_LABEL_12
 push constant 0
 return
@@ -261,8 +257,6 @@ lt
 or
 pop this 3
 push this 3
-not
-not
 if-goto __VM_LABEL_15
 push local 4
 push local 1
@@ -285,7 +279,6 @@ not
 if-goto __VM_LABEL_18
 push constant 1
 pop local 0
-goto __VM_LABEL_18
 label __VM_LABEL_18
 label __VM_LABEL_16
 push this 6
@@ -307,15 +300,12 @@ pop temp 0
 push this 4
 call Output.printInt 1
 pop temp 0
-goto __VM_LABEL_15
 label __VM_LABEL_15
-goto __VM_LABEL_14
 label __VM_LABEL_14
 push this 1
 push local 0
 call Ball.bounce 2
 pop temp 0
-goto __VM_LABEL_13
 label __VM_LABEL_13
 push constant 0
 return
